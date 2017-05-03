@@ -9,32 +9,68 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	  crossorigin=""/>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-
     </script>
-
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
 	    crossorigin="">
     </script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	  crossorigin="anonymous"/>
-
     <link rel="stylesheet" href="style.css"/>
 
   </head>
 
   <body>
 
-    <div class="container">
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
 
-      <div class="row">
+          <a class="navbar-brand"
+	     href="#">Project name</a>
+        </div>
+        <div id="navbar"
+	     class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+	      <a href="#">Home</a>
+	    </li>
+            <li>
+	      <a href="#about">About</a>
+	    </li>
+            <li>
+	      <a href="#contact">Contact</a>
+	    </li>
+	    <li>
+	      <a href="#"
+		 id="sidebar-toggle-btn">PP
+	      </a>
+	    </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
 
-	<div id="mapid" class="col-lg-12"></div>
-
+    <!-- Carte -->
+    <div id="container">
+      <div id="sidebar">
+	<div class="sidebar-wrapper">
+	  <div class="panel panel-default" id="features">
+            <div class="panel-heading">
+              <h3 class="panel-title">Titre panneau
+		<button type="button"
+			class="btn btn-xs btn-default pull-right"
+			id="sidebar-hide-btn">
+		  <i class="fa fa-chevron-left"></i>
+		</button>
+	      </h3>
+	    </div>
+	  </div>
+	</div>
       </div>
 
+      <div id="mapid"></div>
     </div>
 
     <script>
@@ -60,11 +96,14 @@
 	 // marker déplacable
 	 draggable: true
        })
+
+       // Suppression marker clic droit
 			    .on('contextmenu',
 				function () {
 				  markersGroup.removeLayer(this);
 				}
 			    )
+       // Changement type au clic
 			    .on('click',
 				function (e) {
 				  console.log(e);
@@ -88,8 +127,7 @@
 	 }
        })
 
-       console.log(allMarkersObjArray);
-       alert("total Markers : " + allMarkersGeoJsonArray.length + "\n\n" + allMarkersGeoJsonArray + "\n\n Also see your console for object view of this array" );
+       console.log(allMarkersGeoJsonArray);
      }
 
 
@@ -102,6 +140,27 @@
      }
 
      map.on('click', onMapClick);
+
+
+
+
+     $("#sidebar-toggle-btn").click(function() {
+       animateSidebar();
+       return false;
+     });
+
+     $("#sidebar-hide-btn").click(function() {
+       animateSidebar();
+       return false;
+     });
+
+     function animateSidebar() {
+       $("#sidebar").animate({
+	 width: "toggle"
+       }, 350, function() {
+	 map.invalidateSize();
+       });
+     }
     </script>
 
   </body>
