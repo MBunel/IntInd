@@ -25,3 +25,15 @@ body {
 #sidebar-hide-btn {
   margin-top: -2px;
 }
+
+.sidebar-table {
+  position: absolute;
+  width: 100%;
+  top: 103px;
+  bottom: 0px;
+  overflow: auto;
+}
+
+.table {
+    margin-bottom: 0px;
+}
