@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Exemple</title>
+
+
+    <noscript>Your browser does not support JavaScript!</noscript>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+	  crossorigin=""/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+	    crossorigin="">
+    </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	  crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="style.css"/>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+
+	<div id="mapid" class="col-lg-12"></div>
+
+      </div>
+
+    </div>
+
+    <script>
+
+
+     var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+     L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+       attribution: 'Map tiles',
+       subdomains: 'abcd',
+       minZoom: 1,
+       maxZoom: 16,
+       ext: 'png'
+     }).addTo(map);
+
+
+     var markersGroup = new L.featureGroup()
+			     .addTo(map);
+
+     function onMapClick(e) {
+       "use strict";
+       var newMarlef = new L.marker(e.latlng, {
+	 // marker déplacable
+	 draggable: true
+       })
+			    .on('contextmenu',
+				function () {
+				  markersGroup.removeLayer(this);
+				}
+			    )
+			    .on('click',
+				function (e) {
+				  console.log(e);
+				}
+			    )
+			    .addTo(markersGroup);
+     }
+
+     function markerList() {
+       var allMarkersObjArray = [];//new Array();
+       var allMarkersGeoJsonArray = [];//new Array();
+
+       $.each(map._layers, function (ml) {
+         //console.log(map._layers)
+         if (map._layers[ml]._layers) {
+
+	   $.each(this._layers, function () {
+             allMarkersObjArray.push(this)
+             allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+	   })
+	 }
+       })
+
+       console.log(allMarkersObjArray);
+       alert("total Markers : " + allMarkersGeoJsonArray.length + "\n\n" + allMarkersGeoJsonArray + "\n\n Also see your console for object view of this array" );
+     }
+
+
+     function onMarkerLeftClick(e) {
+       /* var newPopup = new L.popup()
+	  .setLatLng(e.latlng)
+	  .setContent("Popup")
+	  .openOn(map);
+	*/
+     }
+
+     map.on('click', onMapClick);
+    </script>
+
+  </body>
+</html>
