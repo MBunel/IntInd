@@ -2,11 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Exemple</title>
-
-
-    <noscript>Your browser does not support JavaScript!</noscript>
-
+    <title>IntInd</title>
+    <noscript>Ce site ne peut être utilisé sans Javascript</noscript>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	  crossorigin=""/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
@@ -17,17 +14,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	  crossorigin="anonymous"/>
     <link rel="stylesheet" href="style.css"/>
-
-
   </head>
-
   <body>
-
     <!-- Barre de navigation -->
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-
           <a class="navbar-brand"
 	     href="#">Project name</a>
         </div>
@@ -49,16 +41,15 @@
 	      </a>
 	    </li>
           </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
-
+        </div>
+      </div>
+    </nav>
     <!-- Carte -->
     <div id="container">
       <div id="sidebar">
 	<div class="sidebar-wrapper">
-	  <div class="panel panel-default" id="features">
-
+	  <div class="panel panel-default"
+	       id="features">
 	    <div class="panel-heading">
               <h3 class="panel-title">Titre panneau
 		<button type="button"
@@ -71,22 +62,17 @@
 		</button>
 	      </h3>
 	    </div>
-
             <div class="sidebar-table">
-              <table class="table table-hover" id="feature-list">
+              <table class="table table-hover"
+		     id="feature-list">
                 <tbody class="list"></tbody>
               </table>
 	    </div>
-
-
 	  </div>
 	</div>
       </div>
-
       <div id="mapid"></div>
     </div>
-
     <script src ="script.js"></script>
-
   </body>
 </html>
