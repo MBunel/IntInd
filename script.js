@@ -1,6 +1,8 @@
 "use strict";
 
-var map = L.map('mapid').setView([51.505, -0.09], 13);
+var map = L.map('mapid')
+    .setView([51.505, -0.09], 13)
+    .on('click', onMapClick);
 
 L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
     attribution: 'Map tiles',
@@ -74,7 +76,7 @@ function onMarkerLeftClick(e) {
     */
 }
 
-map.on('click', onMapClick);
+
 
 
 // Add marker
