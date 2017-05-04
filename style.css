@@ -32,6 +32,15 @@ body {
   margin-top: -2px;
 }
 
+#sidebar-deleteMarkers-btn {
+  margin-top: -2px;
+}
+
+
+#sidebar-import-btn {
+    margin-top: -2px;
+}
+
 .sidebar-table {
   position: absolute;
   width: 100%;
