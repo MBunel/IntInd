@@ -14,8 +14,7 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ex
 
 const icon = {
     iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76]
+    iconAnchor: [15, 60]
 };
 
 const iconBlue = L.icon(
@@ -34,7 +33,7 @@ var markersGroup = new L.featureGroup()
     .addTo(map);
 
 function onMapClick(e) {
-    var newMarlef = new L.marker(e.latlng, {
+    var newMarker = new L.marker(e.latlng, {
 	// marker déplacable
 	draggable: true,
 	icon: iconBlue
@@ -65,7 +64,9 @@ function onMapClick(e) {
 	    }
 	   )
 	.addTo(markersGroup);
+    console.log(newMarker);
 }
+
 
 function markerList() {
     var allMarkersObjArray = [];
