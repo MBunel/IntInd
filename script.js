@@ -86,6 +86,22 @@ function markerRemoveSidebar(id) {
     $("#feature-list tr[id*=" + id + "]").remove();
 }
 
+// Zoom on map on tr click
+$(document)
+    .on('click', '#feature-list tbody tr', function () {
+	var id = $(this).attr('id');
+	markerClickSidebar(id);
+    });
+
+// Sidebar on click
+function markerClickSidebar (id) {
+    var layer = map._layers[id];
+    map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
+}
+
+// Sidebar on overflow
+//function () {}
+
 $("#sidebar-toggle-btn").click(function() {
     animateSidebar();
     return false;
