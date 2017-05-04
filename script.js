@@ -12,15 +12,32 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ex
     ext: 'png'
 }).addTo(map);
 
+const icon = {
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76]
+};
+
+const iconBlue = L.icon(
+    Object.assign(
+	{iconUrl: 'placeholder.svg'}, icon
+    )
+);
+
+const iconRed = L.icon(
+    Object.assign(
+	{iconUrl: 'placeholderred.svg'}, icon
+    )
+);
 
 var markersGroup = new L.featureGroup()
     .addTo(map);
 
 function onMapClick(e) {
-    "use strict";
     var newMarlef = new L.marker(e.latlng, {
 	// marker déplacable
-	draggable: true
+	draggable: true,
+	icon: iconBlue
     })
     // Ajout au tableau
 	.on('add',
@@ -86,11 +103,20 @@ function markerRemoveSidebar(id) {
     $(".feature-row[id*=" + id + "]").remove();
 }
 
-// Zoom on map on tr click
+// Event on .feature-row
 $(document)
+// Zoom on map on tr click
     .on('click', '.feature-row', function () {
 	var id = $(this).attr('id');
 	markerClickSidebar(id);
+    })
+    .on('mouseover', '.feature-row', function() {
+	var id = $(this).attr('id');
+	markerMouseoverSidebar(id);
+    })
+    .on('mouseout', '.feature-row', function() {
+	var id = $(this).attr('id');
+	markerMouseoutSidebar(id);
     });
 
 // Sidebar on click
@@ -99,9 +125,16 @@ function markerClickSidebar (id) {
     map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
 }
 
-// Sidebar on overflow
-function markerOverflowSidebar (id) {
+// Sidebar on mouseover
+function markerMouseoverSidebar (id) {
+    var layer = map._layers[id];
+    layer.setIcon(iconRed);
+}
 
+// Sidebar on mouseout
+function markerMouseoutSidebar (id) {
+    var layer = map._layers[id];
+    layer.setIcon(iconBlue);
 }
 
 $("#sidebar-toggle-btn").click(function() {
