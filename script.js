@@ -28,9 +28,7 @@ function onMapClick(e) {
 		var latLng = e.target.getLatLng(),
 		    lat = latLng.lat.toFixed(2),
 		    lon = latLng.lng.toFixed(2);
-		console.log([lat, lon]);
-		// TODO
-		markerSidebar([lat, lon]);
+		markerAddSidebar([lat, lon]);
 	    }
 	   )
     // Suppression marker clic droit
@@ -77,10 +75,8 @@ function onMarkerLeftClick(e) {
 }
 
 
-
-
 // Add marker
-function markerSidebar(a) {
+function markerAddSidebar(a) {
     $("#feature-list tbody")
 	.append($('<tr>')
 		.addClass("feature-row")
