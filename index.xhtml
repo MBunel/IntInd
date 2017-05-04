@@ -6,13 +6,13 @@
     <noscript>Ce site ne peut être utilisé sans Javascript</noscript>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	  crossorigin=""/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
-	    crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" >
     </script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	  crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
@@ -51,15 +51,24 @@
 	  <div class="panel panel-default"
 	       id="features">
 	    <div class="panel-heading">
-              <h3 class="panel-title">Titre panneau
-		<button type="button"
-			class="btn btn-xs btn-default"
-			id="sidebar-deleteMarkers-btn">
-		</button>
-		<button type="button"
-			class="btn btn-xs btn-default"
-			id="sidebar-hide-btn">
-		</button>
+              <h3 class="panel-title">Marqueurs
+		<div class="pull-right">
+		  <button type="button"
+			  class="btn btn-xs btn-default"
+			  id="sidebar-import-btn">
+		    <i class="fa fa-upload"></i>
+		  </button>
+		  <button type="button"
+			  class="btn btn-xs btn-default"
+			  id="sidebar-deleteMarkers-btn">
+		    <i class="fa fa-trash"></i>
+		  </button>
+		  <button type="button"
+			  class="btn btn-xs btn-default"
+			  id="sidebar-hide-btn">
+		    <i class="fa fa-chevron-left"></i>
+		  </button>
+		</div>
 	      </h3>
 	    </div>
             <div class="sidebar-table">
@@ -72,6 +81,36 @@
 	</div>
       </div>
       <div id="mapid"></div>
+      <div class="modal fade"
+	   id="featureModal"
+	   tabindex="-1"
+	   role="dialog">
+	<div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title text-primary" id="feature-title">Titre</h4>
+            </div>
+
+            <div class="modal-body" id="feature-import">
+	      <div>
+		<label class="control-label">Select File</label>
+		<input id ="ttt" type="file" class="file"></input>
+	      </div>
+	    </div>
+
+            <div class="modal-footer">
+	      <button type="button"
+		      id="featurefade-ann-btn"
+		      class="btn btn-sm btn-default"
+		      data-dismiss="modal">Annuler</button>
+	      <button type="button"
+		      id="featurefade-imp-btn"
+		      class="btn btn-sm btn-primary"
+		      data-dismiss="modal">Importer</button>
+            </div>
+          </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </div>
     <script src ="script.js"></script>
   </body>

@@ -147,20 +147,26 @@ function deleteAllMarkers() {
 }
 
 
-$("#sidebar-toggle-btn").click(function() {
-    animateSidebar();
-    return false;
-});
+$("#sidebar-toggle-btn").click(
+    function() {
+	animateSidebar();
+	return false;
+    }
+);
 
-$("#sidebar-hide-btn").click(function() {
-    animateSidebar();
-    return false;
-});
+$("#sidebar-hide-btn").click(
+    function() {
+	animateSidebar();
+	return false;
+    }
+);
 
-$("#sidebar-deleteMarkers-btn").click(function() {
-    deleteAllMarkers();
-    return false;
-});
+$("#sidebar-deleteMarkers-btn").click(
+    function() {
+	deleteAllMarkers();
+	return false;
+    }
+);
 
 function animateSidebar() {
     $("#sidebar").animate({
@@ -169,3 +175,10 @@ function animateSidebar() {
 	map.invalidateSize();
     });
 }
+
+
+$("#sidebar-import-btn").click(
+    function() {
+	$("#featureModal").modal("show");
+    }
+);
