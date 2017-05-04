@@ -157,6 +157,11 @@ $("#sidebar-hide-btn").click(function() {
     return false;
 });
 
+$("#sidebar-deleteMarkers-btn").click(function() {
+    deleteAllMarkers();
+    return false;
+});
+
 function animateSidebar() {
     $("#sidebar").animate({
 	width: "toggle"
