@@ -67,7 +67,6 @@ function onMapClick(e) {
     console.log(newMarker);
 }
 
-
 function markerList() {
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
@@ -85,7 +84,6 @@ function markerList() {
 
     console.log(allMarkersGeoJsonArray);
 }
-
 
 // Add marker
 function markerAddSidebar(id, a) {
@@ -137,6 +135,17 @@ function markerMouseoutSidebar (id) {
     var layer = map._layers[id];
     layer.setIcon(iconBlue);
 }
+
+function deleteAllMarkers() {
+    markersGroup.eachLayer(
+	function (layer) {
+	    var id = layer._leaflet_id;
+	    markersGroup.removeLayer(layer);
+	    markerRemoveSidebar(id);
+	}
+    );
+}
+
 
 $("#sidebar-toggle-btn").click(function() {
     animateSidebar();
