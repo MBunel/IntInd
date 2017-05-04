@@ -83,12 +83,12 @@ function markerAddSidebar(id, a) {
 
 // Remove marker
 function markerRemoveSidebar(id) {
-    $("#feature-list tr[id*=" + id + "]").remove();
+    $(".feature-row[id*=" + id + "]").remove();
 }
 
 // Zoom on map on tr click
 $(document)
-    .on('click', '#feature-list tbody tr', function () {
+    .on('click', '.feature-row', function () {
 	var id = $(this).attr('id');
 	markerClickSidebar(id);
     });
@@ -100,7 +100,9 @@ function markerClickSidebar (id) {
 }
 
 // Sidebar on overflow
-//function () {}
+function markerOverflowSidebar (id) {
+
+}
 
 $("#sidebar-toggle-btn").click(function() {
     animateSidebar();
