@@ -27,14 +27,17 @@ function onMapClick(e) {
 	    function (e) {
 		var latLng = e.target.getLatLng(),
 		    lat = latLng.lat.toFixed(2),
-		    lon = latLng.lng.toFixed(2);
-		markerAddSidebar([lat, lon]);
+		    lon = latLng.lng.toFixed(2),
+		    id = e.target._leaflet_id;
+		markerAddSidebar(id, [lat, lon]);
 	    }
 	   )
     // Suppression marker clic droit
 	.on('contextmenu',
 	    function () {
+		var id = this._leaflet_id;
 		markersGroup.removeLayer(this);
+		markerRemoveSidebar(id);
 	    }
 	   )
     // Changement type au clic
@@ -66,23 +69,21 @@ function markerList() {
 }
 
 
-function onMarkerLeftClick(e) {
-    /* var newPopup = new L.popup()
-       .setLatLng(e.latlng)
-       .setContent("Popup")
-       .openOn(map);
-    */
-}
-
-
 // Add marker
-function markerAddSidebar(a) {
+function markerAddSidebar(id, a) {
+    console.log(id);
     $("#feature-list tbody")
 	.append($('<tr>')
+		.attr('id', id)
 		.addClass("feature-row")
 		.append($('<td>').text(a[0]))
 		.append($('<td>').text(a[1]))
 	       );
+}
+
+// Remove marker
+function markerRemoveSidebar(id) {
+    $("#feature-list tr[id*=" + id + "]").remove();
 }
 
 $("#sidebar-toggle-btn").click(function() {
