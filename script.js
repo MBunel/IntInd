@@ -1,5 +1,6 @@
 "use strict";
 
+
 // Event on .feature-row
 $(document)
 // Zoom on map on tr click
@@ -16,6 +17,7 @@ $(document)
 	markerMouseoutSidebar(id);
     });
 
+// Btn fermeture panneau
 $("#sidebar-toggle-btn").click(
     function() {
 	animateSidebar();
@@ -23,6 +25,7 @@ $("#sidebar-toggle-btn").click(
     }
 );
 
+// Btn fermeture panneau
 $("#sidebar-hide-btn").click(
     function() {
 	animateSidebar();
@@ -30,6 +33,7 @@ $("#sidebar-hide-btn").click(
     }
 );
 
+// Btn suppresion markers
 $("#sidebar-deleteMarkers-btn").click(
     function() {
 	deleteAllMarkers();
@@ -37,6 +41,7 @@ $("#sidebar-deleteMarkers-btn").click(
     }
 );
 
+// Ouverture/fermeture panneau
 function animateSidebar() {
     $("#sidebar").animate({
 	width: "toggle"
@@ -45,25 +50,26 @@ function animateSidebar() {
     });
 }
 
+// Ouverture fenêtre importation
 $("#sidebar-import-btn").click(
     function() {
 	$("#featureModal").modal("show");
     }
 );
 
-// Sidebar on click
+// Marker in sidebar on click
 function markerClickSidebar (id) {
     var layer = map._layers[id];
     map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
 }
 
-// Sidebar on mouseover
+// Marker in sidebar on mouseover
 function markerMouseoverSidebar (id) {
     var layer = map._layers[id];
     layer.setIcon(iconRed);
 }
 
-// Sidebar on mouseout
+// Marker in sidebar on mouseout
 function markerMouseoutSidebar (id) {
     var layer = map._layers[id];
     layer.setIcon(iconBlue);
@@ -86,6 +92,7 @@ function markerRemoveSidebar(id) {
     $(".feature-row[id*=" + id + "]").remove();
 }
 
+// Delete all markers
 function deleteAllMarkers() {
     markersGroup.eachLayer(
 	function (layer) {

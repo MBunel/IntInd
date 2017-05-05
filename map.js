@@ -1,9 +1,11 @@
 "use strict";
 
+// Map creation
 var map = L.map('mapid')
-    .setView([51.505, -0.09], 13)
+    .setView([43.7, 7.25], 11)
     .on('click', onMapClick);
 
+// TileLayer definition
 L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
     attribution: 'Map tiles',
     subdomains: 'abcd',
@@ -25,6 +27,7 @@ const iconBlue = L.icon(
 	{iconUrl: 'img/placeholder.svg'}, icon
     )
 );
+
 // Définition icône rouge
 const iconRed = L.icon(
     Object.assign(
@@ -32,9 +35,11 @@ const iconRed = L.icon(
     )
 );
 
+// Définiton Groupe de marqueurs
 var markersGroup = new L.featureGroup()
     .addTo(map);
 
+// Action au clic sur la carte
 function onMapClick(e) {
     var newMarker = new L.marker(e.latlng, {
 	// marker déplacable
@@ -70,6 +75,7 @@ function onMapClick(e) {
     console.log(newMarker);
 }
 
+// Lister markers
 function markerList() {
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
