@@ -95,6 +95,5 @@ function markerList() {
 	    });
 	}
     });
-
     console.log(allMarkersGeoJsonArray);
 }
