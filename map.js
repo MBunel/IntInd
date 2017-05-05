@@ -7,7 +7,7 @@ const defaultVue = {
 
 // Map creation
 var map = L.map('mapid')
-    .setView([43.7, 7.25], 11)
+    .setView(defaultVue.coords, defaultVue.zoom)
     .on('click', onMapClick);
 
 // TileLayer definition
