@@ -44,8 +44,7 @@ body {
 .sidebar-table {
   position: absolute;
   width: 100%;
-  #top: 103px;
-  #bottom: 0px;
+  height: 100%;
   overflow: auto;
 }
 
