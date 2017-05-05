@@ -57,6 +57,13 @@ $("#sidebar-import-btn").click(
     }
 );
 
+// Recentrer la vue
+$("#sidebar-center-btn").click(
+    function() {
+	map.setView(defaultVue.coords, defaultVue.zoom);
+    }
+);
+
 // Marker in sidebar on click
 function markerClickSidebar (id) {
     var layer = map._layers[id];

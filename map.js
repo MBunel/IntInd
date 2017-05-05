@@ -1,5 +1,10 @@
 "use strict";
 
+const defaultVue = {
+    coords: [43.7, 7.25],
+    zoom: 11
+};
+
 // Map creation
 var map = L.map('mapid')
     .setView([43.7, 7.25], 11)
