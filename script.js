@@ -60,7 +60,11 @@ $("#sidebar-import-btn").click(
 // Marker in sidebar on click
 function markerClickSidebar (id) {
     var layer = map._layers[id];
-    map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
+    map.setView(
+	[
+	    layer.getLatLng().lat,
+	    layer.getLatLng().lng
+	], map.getZoom());
 }
 
 // Marker in sidebar on mouseover
