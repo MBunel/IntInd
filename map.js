@@ -6,11 +6,11 @@ var map = L.map('mapid')
     .on('click', onMapClick);
 
 // TileLayer definition
-L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-    attribution: 'Map tiles',
+var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+    attribution: 'Map',
     subdomains: 'abcd',
-    minZoom: 1,
-    maxZoom: 16,
+    minZoom: 0,
+    maxZoom: 20,
     ext: 'png'
 }).addTo(map);
 
