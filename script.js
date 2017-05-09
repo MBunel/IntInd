@@ -53,7 +53,15 @@ function animateSidebar() {
 // Ouverture fenêtre importation
 $("#sidebar-import-btn").click(
     function() {
-	$("#featureModal").modal("show");
+	genImportModal("#GenericModal");
+	$("#GenericModal").modal("show");
+    }
+);
+
+$(document).on('click', 'button[id^=btn_mark_]',
+    function() {
+	genFeatureModal("#GenericModal", $(this).attr("id"));
+	$("#GenericModal").modal("show");
     }
 );
 
