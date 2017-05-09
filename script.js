@@ -1,6 +1,5 @@
 "use strict";
 
-
 // Event on .feature-row
 $(document)
 // Zoom on map on tr click
@@ -95,6 +94,17 @@ function markerAddSidebar(id, a) {
 		.addClass("feature-row")
 		.append($('<td>').text(a[0]))
 		.append($('<td>').text(a[1]))
+		.append($('<td>')
+			.append($('<div>')
+				//.addClass("modal-footer")
+				.append($('<button>')
+					.attr(
+					    {
+						id: 'btn_mark_' + id,
+						type:"button",
+						class:"btn btn-xs btn-outline-primary"
+					    }).append($('<i>').addClass("fa fa-wrench"))
+				       )))
 	       );
 }
 
