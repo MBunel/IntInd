@@ -55,3 +55,10 @@ body {
     cursor: pointer;
     width: 250px;
 }
+
+/* Surcharge padding tabble-condensed*/
+#feature-list > tbody > tr > td {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top: none;
+}
