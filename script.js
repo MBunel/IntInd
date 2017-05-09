@@ -92,19 +92,31 @@ function markerAddSidebar(id, a) {
 	.append($('<tr>')
 		.attr('id', id)
 		.addClass("feature-row")
-		.append($('<td>').text(a[0]))
-		.append($('<td>').text(a[1]))
 		.append($('<td>')
+			.text(a[0])
+			.addClass("text-center")
+		       )
+		.append($('<td>')
+			.text(a[1])
+			.addClass("text-center")
+		       )
+		.append($('<td>')
+			.addClass("btn-marker-col")
 			.append($('<div>')
-				//.addClass("modal-footer")
 				.append($('<button>')
 					.attr(
 					    {
 						id: 'btn_mark_' + id,
 						type:"button",
-						class:"btn btn-xs btn-outline-primary"
-					    }).append($('<i>').addClass("fa fa-wrench"))
-				       )))
+						class:"btn btn-xs btn-primary btn-outline"
+					    }
+					)
+					.append($('<i>')
+						.addClass("fa fa-wrench")
+					       )
+				       )
+			       )
+		       )
 	       );
 }
 
