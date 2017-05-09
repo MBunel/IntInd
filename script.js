@@ -3,8 +3,9 @@
 // Event on .feature-row
 $(document)
 // Zoom on map on tr click
-    .on('click', '.feature-row', function () {
-	var id = $(this).attr('id');
+// Ne zoome pas au click sur btn options
+    .on('click', '.feature-row > td:not(.btn-marker-col)', function () {
+	var id = $(this).parent().attr('id');
 	markerClickSidebar(id);
     })
     .on('mouseover', '.feature-row', function() {
