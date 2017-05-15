@@ -80,7 +80,7 @@ function onMapClick(e) {
     console.log(newMarker);
 }
 
-// Lister markers
+// Lister marqueurs
 function markerList() {
     var allMarkersObjArray = [];
     var allMarkersGeoJsonArray = [];
