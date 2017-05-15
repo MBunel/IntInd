@@ -59,9 +59,10 @@ $("#sidebar-import-btn").click(
 );
 
 $(document).on('click', 'button[id^=btn_mark_]',
-    function() {
-	genFeatureModal("#GenericModal", $(this).attr("id"));
-	$("#GenericModal").modal("show");
+	       function() {
+		   var markerid = $(this).closest("tr").attr("id");
+		   genFeatureModal("#GenericModal", markerid);
+		   $("#GenericModal").modal("show");
     }
 );
 
