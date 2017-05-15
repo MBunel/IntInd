@@ -1,8 +1,103 @@
+const bodycont = [
+    {
+	'type':'<div>',
+	'childs':[
+	    {
+		'type':'<label>',
+		'childs':[],
+		'attr': {}
+	    },
+	    {
+		'type':'<input>',
+		'childs':[],
+		'attr': {
+		    'type':'email',
+		    class: 'form-control'}
+	    }
+	],
+	attr:{'class': 'form-group'}},
+    {
+	'type':'<div>',
+	'childs':[
+	    {
+		'type':'<label>',
+		'childs':[],
+		'attr': {}
+	    },
+	    {
+		'type':'<input>',
+		'childs':[],
+		'attr': {
+		    'type':'email',
+		    class: 'form-control'
+		}
+	    }
+	],
+	attr:{'class': 'form-group'}},
+    {
+	'type':'<div>',
+	'childs':[
+	    {
+		'type':'<label>',
+		'childs':[],
+		'attr': {}
+	    },
+	    {		'type':'<input>',
+		'childs':[],
+		'attr': {
+		    'type':'email',
+		    class: 'form-control'
+		}
+	    }
+	],
+	attr:{'class': 'form-group'}
+    }
+];
+
 function genFeatureModal (idw, idf) {
     cleanModal (idw);
     var modal = $(idw);
-    modal.find('.modal-title').text('Paramètres');
-    modal.find('.modal-body').html('coucou' + idf);
+    modal.find('.modal-title').text('Noeud ' + idf);
+
+    modal.find('.modal-body')
+	.append($('<from>')
+
+		.append($('<div>')
+	    		.addClass('form-group')
+	    		.append($('<label>')
+	    			.text("Champ1"))
+	    		.append($('<input>')
+	    			.addClass('form-control')
+	    			.attr('type', 'email')
+	    		       )
+	    	       )
+	       );
+
+
+    modal.find('.modal-footer')
+	.append($('<div>')
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id:"featurefade-ann-btn",
+				class:"btn btn-sm btn-default"
+			    }
+			)
+			.text("Annuler")
+		       )
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id: "featurefade-imp-btn",
+				class: "btn btn-sm btn-primary"
+			    }
+			)
+			.text("Valider")
+		       )
+	       );
+
 
 }
 
@@ -31,7 +126,6 @@ function genImportModal (id) {
     // Set footer content
     modal.find('.modal-footer')
 	.append($('<div>')
-		.addClass('modal-footer')
 		.append($('<button>')
 			.attr(
 			    {
