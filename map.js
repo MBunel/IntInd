@@ -55,8 +55,9 @@ function onMapClick(e) {
 	.on('add',
 	    function (e) {
 		var latLng = e.target.getLatLng(),
-		    lat = latLng.lat.toFixed(2),
-		    lon = latLng.lng.toFixed(2),
+		    fixed = coordDecCalc(map.getZoom()),
+		    lat = latLng.lat.toFixed(fixed),
+		    lon = latLng.lng.toFixed(fixed),
 		    id = e.target._leaflet_id;
 		markerAddSidebar(id, [lat, lon]);
 	    }
@@ -79,8 +80,9 @@ function onMapClick(e) {
 	.on('move',
 	    function(e) {
 		var latLng = e.target.getLatLng(),
-		    lat = latLng.lat.toFixed(2),
-		    lon = latLng.lng.toFixed(2),
+		    fixed = coordDecCalc(map.getZoom()),
+		    lat = latLng.lat.toFixed(fixed),
+		    lon = latLng.lng.toFixed(fixed),
 		    id = e.target._leaflet_id;
 		markerUpdateTableValues(id, [lat, lon]);})
 	.addTo(markersGroup);
