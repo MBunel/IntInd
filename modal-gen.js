@@ -87,6 +87,11 @@ function genFeatureModal (idw, idf) {
 				class:"btn btn-sm btn-default"
 			    }
 			)
+			.on('click',
+			    function(){
+				$("#GenericModal").modal("hide");
+			    }
+			   )
 			.text("Annuler")
 		       )
 		.append($('<button>')
@@ -97,12 +102,13 @@ function genFeatureModal (idw, idf) {
 				class: "btn btn-sm btn-primary"
 			    }
 			)
-			.on('click', function() {
-			    // mise à jour des données du marqueur
-			    updateMarkerData(idf, {'hop': 'hep', 'non':'si'});
-			    // supp fen
-			    $("#GenericModal").modal("hide");
-			}
+			.on('click',
+			    function() {
+				// mise à jour des données du marqueur
+				updateMarkerData(idf, {'hop': 'hep', 'non':'si'});
+				// supp fen
+				$("#GenericModal").modal("hide");
+			    }
 			   )
 			.text("Valider")
 		       )
