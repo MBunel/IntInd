@@ -8,7 +8,22 @@ const defaultVue = {
 // Map creation
 var map = L.map('mapid')
     .setView(defaultVue.coords, defaultVue.zoom)
-    .on('click', onMapClick);
+    .on('click', onMapClick)
+    .on('zoom',
+	function() {
+	    var markers = markersGroup.getLayers();
+
+	    for (var markerid in markers) {
+		var marker = markers[markerid];
+
+		var latLng = marker.getLatLng(),
+		    fixed = coordDecCalc(map.getZoom()),
+		    lat = latLng.lat.toFixed(fixed),
+		    lon = latLng.lng.toFixed(fixed),
+		    id = marker._leaflet_id;
+		markerUpdateTableValues(id, [lat, lon]);}
+	}
+       );
 
 // TileLayer definition
 var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
