@@ -28,15 +28,7 @@ body {
     position: relative;
 }
 
-#sidebar-hide-btn {
-    margin-top: -2px;
-}
-
-#sidebar-deleteMarkers-btn {
-    margin-top: -2px;
-}
-
-#sidebar-import-btn {
+.sidebar-button {
     margin-top: -2px;
 }
 
