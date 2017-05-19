@@ -104,3 +104,19 @@ function markerList() {
     });
     console.log(allMarkersGeoJsonArray);
 }
+
+function coordDecCalc(zoom) {
+
+    var zoomMin = map.options.minZoom || 11,
+	zoomMax = map.options.maxZoom || 20,
+	factorMin = 2,
+	factorMax = 5;
+
+    var	a = ((factorMax - factorMin) / (zoomMax - zoomMin)),
+	b = factorMin - a*zoomMin;
+
+    var factor = a*zoom + b;
+
+    return factor < 1 ? 1  : Math.round(factor);
+
+}
