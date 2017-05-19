@@ -1,3 +1,5 @@
+"use strict";
+
 const bodycont = [
     {
 	'type':'<div>',
