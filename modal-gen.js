@@ -74,6 +74,9 @@ function genFeatureModal (idw, idf) {
 	       );
 
 
+
+
+
     modal.find('.modal-footer')
 	.append($('<div>')
 		.append($('<button>')
@@ -94,6 +97,13 @@ function genFeatureModal (idw, idf) {
 				class: "btn btn-sm btn-primary"
 			    }
 			)
+			.on('click', function() {
+			    // mise à jour des données du marqueur
+			    updateMarkerData(idf, {'hop': 'hep', 'non':'si'});
+			    // supp fen
+			    $("#GenericModal").modal("hide");
+			}
+			   )
 			.text("Valider")
 		       )
 	       );

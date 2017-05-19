@@ -145,3 +145,12 @@ function deleteAllMarkers() {
 	}
     );
 }
+
+
+function updateMarkerData(id, data) {
+    var marker = markersGroup.getLayer(id).options;
+
+    for(var prop in data) {
+	marker[prop] = data[prop];
+    }
+}
