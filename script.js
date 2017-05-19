@@ -97,7 +97,7 @@ function markerMouseoutSidebar (id) {
 
 // Add marker
 function markerAddSidebar(id, a) {
-    console.log(id);
+    //console.log(id);
     $("#feature-list tbody")
 	.append($('<tr>')
 		.attr('id', id)
