@@ -146,11 +146,19 @@ function deleteAllMarkers() {
     );
 }
 
-
 function updateMarkerData(id, data) {
     var marker = markersGroup.getLayer(id).options;
 
     for(var prop in data) {
 	marker[prop] = data[prop];
     }
+}
+
+function markerUpdateTableValues(id, a) {
+    $("#feature-list tbody tr[id*=" + id + "] td")
+	.each(
+	    function(i, v) {
+		$(this).text(a[i]);
+	    }
+	);
 }

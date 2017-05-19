@@ -72,12 +72,19 @@ function onMapClick(e) {
     // Changement type au clic
 	.on('click',
 	    function (e) {
-		console.log(e);
+		//console.log(e);
 		// TODO
 	    }
 	   )
+	.on('move',
+	    function(e) {
+		var latLng = e.target.getLatLng(),
+		    lat = latLng.lat.toFixed(2),
+		    lon = latLng.lng.toFixed(2),
+		    id = e.target._leaflet_id;
+		markerUpdateTableValues(id, [lat, lon]);})
 	.addTo(markersGroup);
-    console.log(newMarker);
+    //console.log(newMarker);
 }
 
 // Lister marqueurs
