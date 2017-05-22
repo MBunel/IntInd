@@ -75,21 +75,31 @@ const iconRed = L.icon(
 var markersGroup = new L.featureGroup()
     .on('layerremove',
 	function(e) {
+	    /*
+	     * Identifiant du point supprimé
+	     * identifiant des couches liés au point
+	     */
 	    var pointid = e.layer._leaflet_id,
 		linkid = e.layer.options.idLines;
 	    for (var i in linkid) {
-		var layer = linesGroup.getLayer(i);
-		var linepoint = layer.options.idPoints;
+		/*
+		 * Identifiant de la couche ligne
+		 * Identifiant des points liés à la couche ligne
+		 */
+		var layer = linesGroup.getLayer(i),
+		    linepoint = layer.options.idPoints;
 
 		$.each(linepoint,
 		       function(index, v) {
+			   // Couche de points liés
 			   var pointLayer = markersGroup.getLayer(v);
 			   if (pointLayer !== undefined) {
+			       // Supression info lien
 			       delete pointLayer.options.idLines[i];
 			   }
 		       }
 		      );
-
+		// Suppresion de la couche ligne associée
 		linesGroup.removeLayer(layer);
 	    }
 	}
