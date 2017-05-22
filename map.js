@@ -5,6 +5,7 @@ const defaultVue = {
     zoom: 11
 };
 
+
 // Map creation
 var map = L.map('mapid')
     .setView(defaultVue.coords, defaultVue.zoom)
@@ -24,6 +25,23 @@ var map = L.map('mapid')
 		markerUpdateTableValues(id, [lat, lon]);}
 	}
        );
+
+
+var zoomDecParameters = {};
+
+zoomDecParameters['zoomMin'] = map.options.minZoom || 11;
+zoomDecParameters['zoomMax'] = map.options.maxZoom || 20;
+zoomDecParameters['factorMin'] = 2;
+zoomDecParameters['factorMax'] = 5;
+zoomDecParameters['a'] = (
+    (zoomDecParameters['factorMax'] - zoomDecParameters['factorMin']) /
+	(zoomDecParameters['zoomMax'] - zoomDecParameters['zoomMin'])
+);
+zoomDecParameters['b'] = (
+    zoomDecParameters['factorMin'] -
+	zoomDecParameters['a']*zoomDecParameters['zoomMin']
+);
+
 
 // TileLayer definition
 var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
@@ -123,14 +141,9 @@ function markerList() {
 }
 
 function coordDecCalc(zoom) {
-
-    var zoomMin = map.options.minZoom || 11,
-	zoomMax = map.options.maxZoom || 20,
-	factorMin = 2,
-	factorMax = 5;
-
-    var	a = ((factorMax - factorMin) / (zoomMax - zoomMin)),
-	b = factorMin - a*zoomMin;
+    var params = zoomDecParameters,
+	a = params['a'],
+	b = params['b'];
 
     var factor = a*zoom + b;
 
