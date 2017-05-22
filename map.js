@@ -73,6 +73,14 @@ const iconRed = L.icon(
 
 // Définiton Groupe de marqueurs
 var markersGroup = new L.featureGroup()
+    .on('layerremove',
+	function(e) {
+	    var linkid = e.layer.options.idLines;
+	    for (var i in linkid) {
+		linesGroup.removeLayer(linesGroup.getLayer(i));
+	    }
+	}
+       )
     .addTo(map);
 
 // Définition Groupe de lignes
@@ -132,8 +140,7 @@ function onMapClick(e) {
 		}
 	    }
 	   )
-	.addTo(markersGroup);
-    //console.log(newMarker);
+		.addTo(markersGroup);
 }
 
 
@@ -151,12 +158,22 @@ function addLine(m1, m2) {
 
     var newLine = new L.polyline(coords);
 
-    newLine['options']['idPoints'] = {};
+    newLine.addTo(linesGroup);
 
+    newLine['options']['idPoints'] = {};
     newLine['options']['idPoints'][0] = idM1;
     newLine['options']['idPoints'][1] = idM2;
 
-    newLine.addTo(linesGroup);
+    if (m1['options']['idLines'] === undefined) {
+	m1['options']['idLines'] = {};
+    }
+    if (m2['options']['idLines'] === undefined) {
+	m2['options']['idLines'] = {};
+    }
+
+    m1['options']['idLines'][newLine._leaflet_id] = 0;
+    m2['options']['idLines'][newLine._leaflet_id] = 1;
+
 }
 
 function movePointLine(id) {
@@ -174,6 +191,10 @@ function movePointLine(id) {
 	  );
 
     layer.setLatLngs(newCoords);
+}
+
+function removeLine(id) {
+    linesGroup.removeLayer(id);
 }
 
 // Lister marqueurs
