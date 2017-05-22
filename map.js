@@ -120,7 +120,18 @@ function onMapClick(e) {
 		    lat = latLng.lat.toFixed(fixed),
 		    lon = latLng.lng.toFixed(fixed),
 		    id = e.target._leaflet_id;
-		markerUpdateTableValues(id, [lat, lon]);})
+
+		markerUpdateTableValues(id, [lat, lon]);
+
+		var linesLayers = linesGroup.getLayers();
+
+		if (linesLayers.length !== 0) {
+		    for (var layer in linesLayers) {
+			movePointLine(layer);
+		    }
+		}
+	    }
+	   )
 	.addTo(markersGroup);
     //console.log(newMarker);
 }
@@ -140,10 +151,10 @@ function addLine(m1, m2) {
 
     var newLine = new L.polyline(coords);
 
-    newLine['idPoints'] = [];
+    newLine['options']['idPoints'] = {};
 
-    newLine['idPoints'][idM1] = 0;
-    newLine['idPoints'][idM2] = 1;
+    newLine['options']['idPoints'][0] = idM1;
+    newLine['options']['idPoints'][1] = idM2;
 
     newLine.addTo(linesGroup);
 }
@@ -155,15 +166,15 @@ function movePointLine(id) {
 
     var newCoords = [];
 
-    $.each(layer['idPoints'],
+    $.each(layer['options']['idPoints'],
 	   function (i,v) {
-	       newCoords.push(v);
+	       var latlng = markersGroup.getLayer(v).getLatLng();
+	       newCoords.push(new L.LatLng(latlng.lat, latlng.lng));
 	   }
 	  );
 
-    console.log(newCoords);
+    layer.setLatLngs(newCoords);
 }
-
 
 // Lister marqueurs
 function markerList() {
