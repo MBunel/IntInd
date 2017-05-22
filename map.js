@@ -87,25 +87,9 @@ var markersGroup = new L.featureGroup()
 	    var pointid = e.layer._leaflet_id,
 		linkid = e.layer.options.idLines;
 	    for (var i in linkid) {
-		/*
-		 * Identifiant de la couche ligne
-		 * Identifiant des points liés à la couche ligne
-		 */
-		var layer = linesGroup.getLayer(i),
-		    linepoint = layer.options.idPoints;
-
-		$.each(linepoint,
-		       function(index, v) {
-			   // Couche de points liés
-			   var pointLayer = markersGroup.getLayer(v);
-			   if (pointLayer !== undefined) {
-			       // Supression info lien
-			       delete pointLayer.options.idLines[i];
-			   }
-		       }
-		      );
+		linePointsClear(i);
 		// Suppresion de la couche ligne associée
-		linesGroup.removeLayer(layer);
+		linesGroup.removeLayer(i);
 	    }
 	}
        )
@@ -220,7 +204,28 @@ function movePointLine(id) {
     layer.setLatLngs(newCoords);
 }
 
+function linePointsClear(id) {
+    /*
+     * Identifiant de la couche ligne
+     * Identifiant des points liés à la couche ligne
+     */
+    var layer = linesGroup.getLayer(id),
+	linepoint = layer.options.idPoints;
+
+    $.each(linepoint,
+	   function(index, v) {
+	       // Couche de points liés
+	       var pointLayer = markersGroup.getLayer(v);
+	       if (pointLayer !== undefined) {
+		   // Supression info lien
+		   delete pointLayer.options.idLines[id];
+	       }
+	   }
+	  );
+}
+
 function removeLine(id) {
+    linePointsClear(id);
     linesGroup.removeLayer(id);
 }
 
