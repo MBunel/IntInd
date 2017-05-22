@@ -8,7 +8,12 @@ const defaultVue = {
 // Map creation
 var map = L.map('mapid')
     .setView(defaultVue.coords, defaultVue.zoom)
-    .on('click', onMapClick)
+    .on('click',
+	function(e) {
+	    pointPicker.SuppPoints();
+	    onMapClick(e);
+	}
+       )
     .on('zoom',
 	function() {
 	    var markers = markersGroup.getLayers();
@@ -140,8 +145,7 @@ function onMapClick(e) {
     // Changement type au clic
 	.on('click',
 	    function (e) {
-		//console.log(e);
-		// TODO
+		pointPicker.AjoutPoint(this);
 	    }
 	   )
 	.on('move',
@@ -248,3 +252,29 @@ function coordDecCalc(zoom) {
     return factor < 1 ? 1  : Math.round(factor);
 
 }
+
+
+var PointPicker = function () {
+    this.points = [];
+
+};
+
+PointPicker.prototype.AjoutPoint = function(point) {
+    if (this.points.length === 0 || this.points[0] !== point) {
+	this.points.push(point);
+	if (this.points.length === 2) {
+	    this.ConstruireLigne();
+	    this.SuppPoints();
+	}
+    }
+};
+
+PointPicker.prototype.ConstruireLigne = function() {
+    addLine(this.points[0], this.points[1]);
+};
+
+PointPicker.prototype.SuppPoints = function() {
+    this.points = [];
+};
+
+var pointPicker = new PointPicker();
