@@ -52,8 +52,8 @@ var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite
 
 // Définition paramètres icône partagés
 const icon = {
-    iconSize: [38, 95],
-    iconAnchor: [15, 60]
+    iconSize: [20, 30],
+    iconAnchor: [10, 30]
 };
 
 // Définition icône de base
