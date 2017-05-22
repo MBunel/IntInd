@@ -75,9 +75,22 @@ const iconRed = L.icon(
 var markersGroup = new L.featureGroup()
     .on('layerremove',
 	function(e) {
-	    var linkid = e.layer.options.idLines;
+	    var pointid = e.layer._leaflet_id,
+		linkid = e.layer.options.idLines;
 	    for (var i in linkid) {
-		linesGroup.removeLayer(linesGroup.getLayer(i));
+		var layer = linesGroup.getLayer(i);
+		var linepoint = layer.options.idPoints;
+
+		$.each(linepoint,
+		       function(index, v) {
+			   var pointLayer = markersGroup.getLayer(v);
+			   if (pointLayer !== undefined) {
+			       delete pointLayer.options.idLines[i];
+			   }
+		       }
+		      );
+
+		linesGroup.removeLayer(layer);
 	    }
 	}
        )
