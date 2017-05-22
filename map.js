@@ -167,7 +167,13 @@ function addLine(m1, m2) {
 	lngM2 = latLngM2.lng,
 	coords = [[latM1, lngM1], [latM2, lngM2]];
 
-    var newLine = new L.polyline(coords);
+    var newLine = new L.polyline(coords)
+	.on('contextmenu',
+	    function() {
+		var id = this._leaflet_id;
+		removeLine(id);
+	    }
+	   );
 
     newLine.addTo(linesGroup);
 
@@ -188,19 +194,15 @@ function addLine(m1, m2) {
 }
 
 function movePointLine(id) {
-
     // Récupération de la polyligne
     var layer = linesGroup.getLayers()[id];
-
     var newCoords = [];
-
     $.each(layer['options']['idPoints'],
 	   function (i,v) {
 	       var latlng = markersGroup.getLayer(v).getLatLng();
 	       newCoords.push(new L.LatLng(latlng.lat, latlng.lng));
 	   }
 	  );
-
     layer.setLatLngs(newCoords);
 }
 
