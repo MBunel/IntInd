@@ -5,7 +5,6 @@ const defaultVue = {
     zoom: 11
 };
 
-
 // Map creation
 var map = L.map('mapid')
     .setView(defaultVue.coords, defaultVue.zoom)
@@ -22,10 +21,10 @@ var map = L.map('mapid')
 		    lat = latLng.lat.toFixed(fixed),
 		    lon = latLng.lng.toFixed(fixed),
 		    id = marker._leaflet_id;
-		markerUpdateTableValues(id, [lat, lon]);}
+		markerUpdateTableValues(id, [lat, lon]);
+	    }
 	}
        );
-
 
 var zoomDecParameters = {};
 
@@ -41,7 +40,6 @@ zoomDecParameters['b'] = (
     zoomDecParameters['factorMin'] -
 	zoomDecParameters['a']*zoomDecParameters['zoomMin']
 );
-
 
 // TileLayer definition
 var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {

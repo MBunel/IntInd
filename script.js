@@ -18,17 +18,15 @@ $(document)
     });
 
 // Btn fermeture panneau
-$("#sidebar-toggle-btn").click(
+$("#sidebar-hide-btn, #sidebar-toggle-btn").click(
     function() {
-	animateSidebar();
-	return false;
-    }
-);
-
-// Btn fermeture panneau
-$("#sidebar-hide-btn").click(
-    function() {
-	animateSidebar();
+	if($('#features').is(':visible')) {
+	    $('#features').hide();
+	    animateSidebar();
+	} else {
+	    animateSidebar();
+	    $('#features').show();
+	}
 	return false;
     }
 );
