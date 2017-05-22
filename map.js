@@ -75,6 +75,11 @@ const iconRed = L.icon(
 var markersGroup = new L.featureGroup()
     .addTo(map);
 
+// Définition Groupe de lignes
+var linesGroup = new L.featureGroup()
+    .addTo(map);
+
+
 // Action au clic sur la carte
 function onMapClick(e) {
     var newMarker = new L.marker(e.latlng, {
@@ -119,6 +124,46 @@ function onMapClick(e) {
 	.addTo(markersGroup);
     //console.log(newMarker);
 }
+
+
+function addLine(m1, m2) {
+
+    var idM1 = m1._leaflet_id,
+	idM2 = m2._leaflet_id,
+	latLngM1 = m1.getLatLng(),
+	latLngM2 = m2.getLatLng(),
+	latM1 = latLngM1.lat,
+	lngM1 = latLngM1.lng,
+	latM2 = latLngM2.lat,
+	lngM2 = latLngM2.lng,
+	coords = [[latM1, lngM1], [latM2, lngM2]];
+
+    var newLine = new L.polyline(coords);
+
+    newLine['idPoints'] = [];
+
+    newLine['idPoints'][idM1] = 0;
+    newLine['idPoints'][idM2] = 1;
+
+    newLine.addTo(linesGroup);
+}
+
+function movePointLine(id) {
+
+    // Récupération de la polyligne
+    var layer = linesGroup.getLayers()[id];
+
+    var newCoords = [];
+
+    $.each(layer['idPoints'],
+	   function (i,v) {
+	       newCoords.push(v);
+	   }
+	  );
+
+    console.log(newCoords);
+}
+
 
 // Lister marqueurs
 function markerList() {
