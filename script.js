@@ -180,3 +180,18 @@ function lineAddSidebar(id, a) {
 function lineRemoveSidebar(id) {
     $("#lines-list tbody .feature-row[id*=" + id + "]").remove();
 }
+
+// Alerter la visibilité des tables
+function changePanelSidebar() {
+    // On sélectionne la table suivant la (première) table visible
+    var a = $('.sidebar-table table:visible:first').next();
+    // Si il n'y à pas de table sélectionnée
+    if (!a.length) {
+	// On sélectionne la première
+	a = $(".sidebar-table table:first");
+    }
+    // Puis on la rend visible
+    a.css("display", "");
+    // Et on masque le reste
+    a.siblings().css("display", "none");
+}
