@@ -56,7 +56,7 @@ body {
 }
 
 /* Surcharge padding tabble-condensed*/
-#feature-list > tbody > tr > td {
+#markers-list > tbody > tr > td {
     padding-left: 15px;
     padding-right: 15px;
     border-top: none;

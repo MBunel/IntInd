@@ -115,8 +115,6 @@ function genFeatureModal (idw, idf) {
 			.text("Valider")
 		       )
 	       );
-
-
 }
 
 function genImportModal (id) {

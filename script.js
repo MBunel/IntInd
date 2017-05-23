@@ -96,7 +96,7 @@ function markerMouseoutSidebar (id) {
 // Add marker
 function markerAddSidebar(id, a) {
     //console.log(id);
-    $("#feature-list tbody")
+    $("#markers-list tbody")
 	.append($('<tr>')
 		.attr('id', id)
 		.addClass("feature-row")
@@ -153,7 +153,7 @@ function updateMarkerData(id, data) {
 }
 
 function markerUpdateTableValues(id, a) {
-    $("#feature-list tbody tr[id*=" + id + "] td")
+    $("#markers-list tbody tr[id*=" + id + "] td")
 	.each(
 	    function(i, v) {
 		$(this).text(a[i]);
