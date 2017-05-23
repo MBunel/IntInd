@@ -87,9 +87,7 @@ var markersGroup = new L.featureGroup()
 	    var pointid = e.layer._leaflet_id,
 		linkid = e.layer.options.idLines;
 	    for (var i in linkid) {
-		linePointsClear(i);
-		// Suppresion de la couche ligne associée
-		linesGroup.removeLayer(i);
+		removeLine(i);
 	    }
 	}
        )
@@ -231,6 +229,7 @@ function linePointsClear(id) {
 function removeLine(id) {
     linePointsClear(id);
     linesGroup.removeLayer(id);
+    lineRemoveSidebar(id);
 }
 
 // Lister marqueurs

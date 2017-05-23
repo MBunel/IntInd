@@ -130,7 +130,7 @@ function markerAddSidebar(id, a) {
 
 // Remove marker
 function markerRemoveSidebar(id) {
-    $(".feature-row[id*=" + id + "]").remove();
+    $("#markers-list tbody .feature-row[id*=" + id + "]").remove();
 }
 
 // Delete all markers
@@ -161,7 +161,6 @@ function markerUpdateTableValues(id, a) {
 	);
 }
 
-
 function lineAddSidebar(id, a) {
     $("#lines-list tbody")
 	.append($('<tr>')
@@ -176,4 +175,8 @@ function lineAddSidebar(id, a) {
 			.addClass("text-center")
 		       )
 	       );
+}
+
+function lineRemoveSidebar(id) {
+    $("#lines-list tbody .feature-row[id*=" + id + "]").remove();
 }
