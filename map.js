@@ -191,6 +191,8 @@ function addLine(m1, m2) {
     m1['options']['idLines'][newLine._leaflet_id] = 0;
     m2['options']['idLines'][newLine._leaflet_id] = 1;
 
+    return newLine._leaflet_id;
+
 }
 
 function movePointLine(id) {
@@ -277,7 +279,13 @@ PointPicker.prototype.AjoutPoint = function(point) {
 };
 
 PointPicker.prototype.ConstruireLigne = function() {
-    addLine(this.points[0], this.points[1]);
+    var lineId = addLine(this.points[0], this.points[1]);
+    lineAddSidebar(lineId,
+		   [
+		       this.points[0]._leaflet_id,
+		       this.points[1]._leaflet_id
+		   ]
+		  );
 };
 
 PointPicker.prototype.SuppPoints = function() {

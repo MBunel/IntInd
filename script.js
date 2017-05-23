@@ -160,3 +160,20 @@ function markerUpdateTableValues(id, a) {
 	    }
 	);
 }
+
+
+function lineAddSidebar(id, a) {
+    $("#lines-list tbody")
+	.append($('<tr>')
+		.attr('id', id)
+		.addClass("feature-row")
+		.append($('<td>')
+			.text(a[0])
+			.addClass("text-center")
+		       )
+		.append($('<td>')
+			.text(a[1])
+			.addClass("text-center")
+		       )
+	       );
+}
