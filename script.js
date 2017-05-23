@@ -18,6 +18,12 @@ $(document)
     })
     .on('click', 'h3[class=panel-title] span', function() {
 	changePanelSidebar();
+    })
+    .on('mouseover','h3[class=panel-title] span', function() {
+	$(this).addClass('titleOver');
+    })
+    .on('mouseout','h3[class=panel-title] span', function() {
+	$(this).removeClass('titleOver');
     });
 
 // Btn fermeture panneau

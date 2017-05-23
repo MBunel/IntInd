@@ -80,6 +80,9 @@ body {
     cursor: pointer;
 }
 
+.titleOver {
+    color: #AAAAAA;
+}
 
 /*Bootstrap button outline override*/
 .btn-outline {
