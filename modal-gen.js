@@ -62,6 +62,24 @@ function genFeatureModal (idw, idf) {
     modal.find('.modal-title').text('Noeud ' + idf);
 
     modal.find('.modal-body')
+
+	.append($('<div>')
+		.addClass('btn-group')
+		.attr('data-toogle', 'buttons')
+		.append($('<button>')
+			. addClass('btn btn-primary')
+		       )
+		.append($('<button>')
+			. addClass('btn btn-primary')
+		       )
+		.append($('<button>')
+			. addClass('btn btn-primary')
+		       )
+		.append($('<button>')
+			. addClass('btn btn-primary')
+		       )
+	       )
+
 	.append($('<from>')
 
 		.append($('<div>')
