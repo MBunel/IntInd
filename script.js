@@ -183,6 +183,8 @@ function lineRemoveSidebar(id) {
 
 // Alerter la visibilité des tables
 function changePanelSidebar() {
+    const Title = ["Marqueurs", "Liens", "Paramètres"];
+
     // On sélectionne la table suivant la (première) table visible
     var a = $('.sidebar-table table:visible:first').next();
     // Si il n'y à pas de table sélectionnée
@@ -194,4 +196,8 @@ function changePanelSidebar() {
     a.css("display", "");
     // Et on masque le reste
     a.siblings().css("display", "none");
+
+    var aInd = a.index();
+    $('h3[class=panel-title] span').text(Title[aInd]);
+
 }
