@@ -67,6 +67,19 @@ body {
     white-space: nowrap;
 }
 
+
+.panel-title > span {
+    cursor: pointer;
+
+    /* Texte  non sélectionable */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+}
+
+
 /*Bootstrap button outline override*/
 .btn-outline {
     background-color: transparent;

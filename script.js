@@ -15,6 +15,9 @@ $(document)
     .on('mouseout', '.feature-row', function() {
 	var id = $(this).attr('id');
 	markerMouseoutSidebar(id);
+    })
+    .on('click', 'h3[class=panel-title] span', function() {
+	changePanelSidebar();
     });
 
 // Btn fermeture panneau
