@@ -29,12 +29,28 @@ $(document)
 // Btn fermeture panneau
 $("#sidebar-hide-btn, #sidebar-toggle-btn").click(
     function() {
-	if($('#features').is(':visible')) {
-	    $('#features').hide();
-	    animateSidebar();
+	var features = $('#left-sidebar > div > .features');
+	if(features.is(':visible')) {
+	    features.hide();
+	    animateSidebar("#left-sidebar");
 	} else {
-	    animateSidebar();
-	    $('#features').show();
+	    animateSidebar("#left-sidebar");
+	    features.show();
+	}
+	return false;
+    }
+);
+
+// Btn fermeture panneau
+$("#right-sidebar-hide-btn").click(
+    function() {
+	var features = $('#right-sidebar > div > .features');
+	if(features.is(':visible')) {
+	    features.hide();
+	    animateSidebar("#right-sidebar");
+	} else {
+	    animateSidebar("#right-sidebar");
+	    features.show();
 	}
 	return false;
     }
@@ -49,8 +65,8 @@ $("#sidebar-deleteMarkers-btn").click(
 );
 
 // Ouverture/fermeture panneau
-function animateSidebar() {
-    $("#sidebar").animate({
+function animateSidebar(id) {
+    $(id).animate({
 	width: "toggle"
     }, 350, function() {
 	map.invalidateSize();
