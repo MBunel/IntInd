@@ -47,10 +47,10 @@
     </nav>
     <!-- Carte -->
     <div id="container">
-      <div id="sidebar">
+
+      <div id="left-sidebar">
 	<div class="sidebar-wrapper">
-	  <div class="panel panel-default"
-	       id="features">
+	  <div class="panel panel-default features">
 	    <div class="panel-heading">
               <h3 class="panel-title">
 		<span>Marqueurs</span>
@@ -99,11 +99,49 @@
                 <tbody class="list"></tbody>
               </table>
 
-
 	    </div>
 	  </div>
 	</div>
-      </div>
+      </div><!-- left-sidebar -->
+
+
+      <div id="right-sidebar">
+	<div class="sidebar-wrapper">
+	  <div class="panel panel-default features">
+	    <div class="panel-heading">
+              <h3 class="panel-title">
+		<span>Résultats</span>
+		<div class="pull-right">
+
+		  <button type="button"
+			  class="btn btn-xs btn-default sidebar-button"
+			  id="right-sidebar-export-btn">
+		    <i class="fa fa-download"></i>
+		  </button>
+		  <button type="button"
+			  class="btn btn-xs btn-default sidebar-button"
+			  id="right-sidebar-deleteResults-btn">
+		    <i class="fa fa-trash"></i>
+		  </button>
+		  <button type="button"
+			  class="btn btn-xs btn-default sidebar-button"
+			  id="right-sidebar-hide-btn">
+		    <i class="fa fa-chevron-right"></i>
+		  </button>
+		</div>
+	      </h3>
+	    </div>
+
+            <div class="sidebar-table">
+
+	    </div>
+
+	  </div>
+	</div>
+      </div><!-- right-sidebar -->
+
+
+
       <div id="mapid"></div>
 
       <div class="modal fade"

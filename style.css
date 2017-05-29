@@ -14,12 +14,21 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-#sidebar {
-    display: block;
-    width: 250px;
+#left-sidebar, #right-sidebar {
     height: 100%;
     max-width: 100%;
+}
+
+#left-sidebar {
+    display: block;
+    width: 250px;
     float: left;
+}
+
+#right-sidebar {
+    display: none;
+    width: 400px;
+    float: right;
 }
 
 .sidebar-wrapper {
