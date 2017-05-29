@@ -42,7 +42,7 @@ $("#sidebar-hide-btn, #sidebar-toggle-btn").click(
 );
 
 // Btn fermeture panneau
-$("#right-sidebar-hide-btn").click(
+$("#right-sidebar-hide-btn, #sidebar-right-toggle-btn").click(
     function() {
 	var features = $('#right-sidebar > div > .features');
 	if(features.is(':visible')) {
