@@ -2,7 +2,7 @@
 
 const defaultVue = {
     coords: [43.7, 7.25],
-    zoom: 11
+    zoom: 13
 };
 
 // Map creation
