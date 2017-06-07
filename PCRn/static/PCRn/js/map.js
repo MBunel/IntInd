@@ -1,5 +1,7 @@
 "use strict";
 
+const appName = "PCRn/";
+
 const defaultVue = {
     coords: [43.7, 7.25],
     zoom: 13
@@ -47,7 +49,7 @@ zoomDecParameters['b'] = (
 );
 
 // TileLayer definition
-var TileLayer = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+var TileLayer = L.tileLayer('http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.{ext}', {
     attribution: 'Map',
     subdomains: 'abcd',
     minZoom: 0,
@@ -65,14 +67,14 @@ const icon = {
 const iconBlue = L.icon(
     // Fusion des objets
     Object.assign(
-	{iconUrl: 'img/placeholder.svg'}, icon
+	{iconUrl: static_url +  appName + 'img/placeholder.svg'}, icon
     )
 );
 
 // Définition icône rouge
 const iconRed = L.icon(
     Object.assign(
-	{iconUrl: 'img/placeholderred.svg'}, icon
+	{iconUrl: static_url + appName + 'img/placeholderred.svg'}, icon
     )
 );
 

@@ -4,6 +4,9 @@
   <head>
     <title>IntInd</title>
     <noscript>Ce site ne peut être utilisé sans Javascript</noscript>
+
+    {% load static %}
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	  crossorigin=""/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
@@ -12,9 +15,15 @@
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" >
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="jquery.csv.min.js"></script>
+    
+    <script src="{% static "PCRn/js/jquery.csv.min.js" %}"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    
+    <link rel="stylesheet" href="{% static "PCRn/css/style.css" %}"/>
+
+    <!--script src="{% static "PCRn/js/OSMBuildings.js" %}"></script-->
+
   </head>
   <body>
     <!-- Barre de navigation -->
@@ -22,16 +31,16 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand"
-	     href="#">Project name</a>
+	     href="#">Nom du projet</a>
         </div>
         <div id="navbar"
 	     class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active">
-	      <a href="#">Home</a>
-	    </li>
+            <!-- <li class="active">
+		 <a href="#">Home</a>
+		 </li> -->
             <li>
-	      <a href="#about">About</a>
+	      <a href="#about">À propos</a>
 	    </li>
             <li>
 	      <a href="#contact">Contact</a>
@@ -53,7 +62,7 @@
     <!-- Carte -->
     <div id="container">
 
-      <div id="left-sidebar">
+      <div id="left-sidebar" style="display:none">
 	<div class="sidebar-wrapper">
 	  <div class="panel panel-default features">
 	    <div class="panel-heading">
@@ -168,8 +177,12 @@
 
 
     </div>
-    <script src ="modal-gen.js"></script>
-    <script src ="script.js"></script>
-    <script src ="map.js"></script>
+    <script> 
+        "use strict";
+        const static_url = "{% get_static_prefix %}";
+    </script>
+    <script src ="{% static "PCRn/js/modal-gen.js" %}"></script>
+    <script src ="{% static "PCRn/js/script.js" %}"></script>
+    <script src ="{% static "PCRn/js/map.js" %}"></script>
   </body>
 </html>
