@@ -15,11 +15,11 @@
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" >
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+
     <script src="{% static "PCRn/js/jquery.csv.min.js" %}"></script>
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    
+
     <link rel="stylesheet" href="{% static "PCRn/css/style.css" %}"/>
 
     <!--script src="{% static "PCRn/js/OSMBuildings.js" %}"></script-->
@@ -31,14 +31,12 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand"
-	     href="#">Nom du projet</a>
+	     href="/">Nom du projet</a>
         </div>
         <div id="navbar"
 	     class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <!-- <li class="active">
-		 <a href="#">Home</a>
-		 </li> -->
+
             <li>
 	      <a href="#about">À propos</a>
 	    </li>
@@ -177,7 +175,7 @@
 
 
     </div>
-    <script> 
+    <script>
         "use strict";
         const static_url = "{% get_static_prefix %}";
     </script>
