@@ -195,14 +195,23 @@ function addLine(m1, m2) {
 
 function movePointLine(id) {
     // Récupération de la polyligne
-    var layer = linesGroup.getLayers()[id];
-    var newCoords = [];
+    var layer = linesGroup.getLayers()[id],
+	oldCoords = layer.getLatLngs(),
+	newCoords = [];
     $.each(layer['options']['idPoints'],
 	   function (i,v) {
 	       var latlng = markersGroup.getLayer(v).getLatLng();
 	       newCoords.push(new L.LatLng(latlng.lat, latlng.lng));
 	   }
 	  );
+    if (oldCoords.length > 2) {
+	$.each(oldCoords.slice(1, oldCoords.length - 1),
+	       function(i,v) {
+		   var point = new L.LatLng(v.lat, v.lng);
+		   	newCoords.splice(i+1, 0, point);
+	       });
+
+    }
     layer.setLatLngs(newCoords);
 }
 
