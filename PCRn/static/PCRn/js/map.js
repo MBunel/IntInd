@@ -49,10 +49,8 @@ zoomDecParameters['b'] = (
 );
 
 // TileLayer definition
-var TileLayer = L.tileLayer('http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.{ext}', {
+var TileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.{ext}', {
     attribution: 'Map',
-    subdomains: 'abcd',
-    minZoom: 0,
     maxZoom: 20,
     ext: 'png'
 }).addTo(map);
@@ -280,13 +278,12 @@ PointPicker.prototype.AjoutPoint = function(point) {
 };
 
 PointPicker.prototype.ConstruireLigne = function() {
-    var lineId = addLine(this.points[0], this.points[1]);
+    var lineId = addLine(this.points[0], this.points[this.points.length - 1]);
     lineAddSidebar(lineId,
 		   [
 		       this.points[0]._leaflet_id,
 		       this.points[1]._leaflet_id
-		   ]
-		  );
+		   ]);
 };
 
 PointPicker.prototype.SuppPoints = function() {
