@@ -226,3 +226,28 @@ function changePanelSidebar() {
     $('h3[class=panel-title] span').text(Title[aInd]);
 
 }
+
+
+function newPoint(ligne, point, rank) {
+    var coords = ligne.getLatLngs();
+    coords.splice(rank, 0, point);
+    ligne.setLatLngs(coords);
+}
+
+
+function runSimulation() {
+    $.ajax({
+	type: "GET",
+	url: 'runSim',
+	dataType: "json",
+	data: {
+	    'x':'première val',
+	    'y':'seconde val',
+	    'z':'troisième val'
+	},
+	success: function(data){
+	    console.log(data);
+	    console.log("sucess callback");
+	}
+    });
+}
