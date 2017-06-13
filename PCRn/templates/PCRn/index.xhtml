@@ -6,6 +6,7 @@
     <noscript>Ce site ne peut être utilisé sans Javascript</noscript>
 
     {% load static %}
+    {% csrf_token %}
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
 	  crossorigin=""/>
@@ -176,8 +177,8 @@
 
     </div>
     <script>
-        "use strict";
-        const static_url = "{% get_static_prefix %}";
+     "use strict";
+     const static_url = "{% get_static_prefix %}";
     </script>
     <script src ="{% static "PCRn/js/modal-gen.js" %}"></script>
     <script src ="{% static "PCRn/js/script.js" %}"></script>
