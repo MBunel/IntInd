@@ -232,6 +232,24 @@ function newPoint(ligne, point, rank) {
     var coords = ligne.getLatLngs();
     coords.splice(rank, 0, point);
     ligne.setLatLngs(coords);
+
+    var np = new L.marker(point, {
+	draggable:true
+    }).on('move',
+	  function(e) {
+	      var linesLayers = linesGroup.getLayers();
+
+	      if (linesLayers.length !== 0) {
+		  for (var layer in linesLayers) {
+		      movePointLine(layer);
+		  }
+	      }
+	  }
+	 ).addTo(markersGroup);
+
+    np['options']['idLines'] = [];
+    np['options']['idLines'].push(ligne._leaflet_id);
+    ligne['options']['idPoints'].splice(rank, 0, np._leaflet_id);
 }
 
 

@@ -87,7 +87,7 @@ var markersGroup = new L.featureGroup()
 	    var pointid = e.layer._leaflet_id,
 		linkid = e.layer.options.idLines;
 	    for (var i in linkid) {
-		removeLine(i);
+		removeLine(linkid[i]);
 	    }
 	}
        )
@@ -175,19 +175,18 @@ function addLine(m1, m2) {
 
     newLine.addTo(linesGroup);
 
-    newLine['options']['idPoints'] = {};
-    newLine['options']['idPoints'][0] = idM1;
-    newLine['options']['idPoints'][1] = idM2;
+    newLine['options']['idPoints'] = [];
+    newLine['options']['idPoints'].push(idM1, idM2);
 
     if (m1['options']['idLines'] === undefined) {
-	m1['options']['idLines'] = {};
+	m1['options']['idLines'] = [];
     }
     if (m2['options']['idLines'] === undefined) {
-	m2['options']['idLines'] = {};
+	m2['options']['idLines'] = [];
     }
 
-    m1['options']['idLines'][newLine._leaflet_id] = 0;
-    m2['options']['idLines'][newLine._leaflet_id] = 1;
+    m1['options']['idLines'].push(newLine._leaflet_id);
+    m2['options']['idLines'].push(newLine._leaflet_id);
 
     return newLine._leaflet_id;
 
