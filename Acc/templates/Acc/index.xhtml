@@ -15,12 +15,218 @@
 
     <script src="https://d3js.org/d3.v4.js"></script>
 
+
+    <link rel="stylesheet" href="{% static "Acc/style.css" %}"/>
+
+
   </head>
 
   <body>
-    Page modèle <a href="./network">PCR network</a>
-    <br>
-    Page modèle <a href="./pcr">PCR</a>
+
+
+
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand"
+	     href="/">Nom du projet</a>
+        </div>
+        <div id="navbar"
+	     class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+
+            <li>
+	      <a href="./network">PCR network</a>
+	    </li>
+            <li>
+	      <a href="./pcr">PCR</a>
+	    </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="container">
+
+    <div id="Chapeau" class="col-md-12">
+      <p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing
+	elit. Fusce porttitor vel leo eget aliquet. Vivamus mollis ante
+	at est pellentesque, tincidunt rhoncus eros dapibus. Cras vel
+	nisi sed odio scelerisque hendrerit ac vel nunc. Vivamus quis
+	aliquam odio. Nullam vestibulum lectus mi, vel convallis massa
+	ultricies sit amet. Vivamus a congue velit. Curabitur laoreet
+	aliquam nulla ut varius. Mauris turpis sem, aliquet nec eros ac,
+	ultricies sollicitudin enim. Integer nec felis ut dolor dictum
+	imperdiet eget vitae odio. Integer mattis, ex sed egestas
+	hendrerit, elit nulla ultrices velit, ut tincidunt neque eros
+	sed tortor.
+
+	Fusce aliquam elit sit amet tincidunt rutrum. Sed bibendum
+	magna mauris, et mollis ligula dapibus a. Cras dapibus velit
+	nec facilisis pulvinar. Donec nulla felis, tempus a auctor
+	nec, suscipit at lorem. Donec eu nibh non tortor ultrices
+	commodo eget et enim. Vivamus euismod accumsan urna et
+	varius. In sed consectetur ligula.
+
+	Praesent faucibus dui euismod nisi vestibulum dictum. Nunc
+	metus nulla, accumsan at justo sit amet, lobortis venenatis
+	ex. Cras pharetra iaculis sem sit amet rhoncus. Nulla
+	facilisi. Suspendisse egestas sem eu nisl congue, et
+	pellentesque orci ullamcorper. Nunc vitae blandit odio. Sed id
+	urna in leo malesuada rhoncus. Mauris nec pulvinar diam, eu
+	faucibus mauris. In volutpat, risus pulvinar ultrices sodales,
+	purus magna rutrum sem, vel porttitor est lectus nec
+	lacus. Quisque quis posuere libero.
+      </p>
+    </div>
+
+    <div id="ModGraph" class="col-md-4">
+
+      <svg>
+
+      </svg>
+
+    </div>
+    <div id="EqDiff" class="col-md-4">
+      <p>
+	Praesent faucibus dui euismod nisi vestibulum dictum. Nunc
+	metus nulla, accumsan at justo sit amet, lobortis venenatis
+	ex. Cras pharetra iaculis sem sit amet rhoncus. Nulla
+	facilisi. Suspendisse egestas sem eu nisl congue, et
+	pellentesque orci ullamcorper. Nunc vitae blandit odio. Sed id
+	urna in leo malesuada rhoncus. Mauris nec pulvinar diam, eu
+	faucibus mauris. In volutpat, risus pulvinar ultrices sodales,
+	purus magna rutrum sem, vel porttitor est lectus nec
+	lacus. Quisque quis posuere libero.
+      </p>
+    </div>
+
+
+    <div id="Tableau" class="container col-md-4">
+
+      <div class="table-responsive">
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+              <th>Variable</th>
+              <th>Qualification des variables et fonctions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>Q1(t)</td>
+	      <td>Les individus dans leur comportement quotidien au
+		démarrage de la simulation</td>
+	    </tr>
+	    <tr>
+	      <td>Q2(t)</td>
+	      <td>Les individus qui retrouvent un comportement
+		« pseudo-normal » après avoir réagi à l’évènement</td>
+	    </tr>
+	    <tr>
+	      <td>r(t)</td>
+	      <td>L’effectif des comportements « Réflexes » à un instant t</td>
+	    </tr>
+	    <tr>
+	      <td>c(t)</td>
+	      <td>L’effectif des comportements « Contrôlés » à un
+		instant t</td>
+	    </tr>
+	    <tr>
+	      <td>p(t)</td>
+	      <td>L’effectif des comportements « de Panique » à un instant t</td>
+	    </tr>
+	  </tbody>
+	  <caption>Les variables d'état</caption>
+	</table>
+      </div>
+
+      <div class="table-responsive">
+	<table class="table table-striped">
+	  <!-- <thead>
+	       <tr>
+               <th>Variable</th>
+               <th>Qualification des variables et fonctions</th>
+	       </tr>
+	       </thead> -->
+	  <tbody>
+	    <tr>
+	      <td>B1</td>
+	      <td>Comportements endogènes : des réflexes vers les
+		comportements contrôlés</td>
+	    </tr>
+	    <tr>
+	      <td>B2</td>
+	      <td>Comportements endogènes : des réflexes vers les
+		comportements de panique</td>
+	    </tr>
+	    <tr>
+	      <td>C1</td>
+	      <td>Comportements endogènes : de la panique vers les
+		comportements contrôlés</td>
+	    </tr>
+	    <tr>
+	      <td>C2</td>
+	      <td>Comportements endogènes : des contrôlés vers les
+		comportements de panique</td>
+	    </tr>
+	    <tr>
+	      <td>s1</td>
+	      <td>Des comportements contrôlés vers les comportements
+		réflexes lorsqu'un nouvel événement perturbateur se
+		produit</td>
+	    </tr>
+	    <tr>
+	      <td>s2</td>
+	      <td>Des comportements de panique vers les comportements
+		lorsqu'un nouvel événement perturbateur se produit</td>
+	    </tr>
+	    <tr>
+	      <td>&gamma;(t)</td>
+	      <td>La fonction de forçage permettant de représenter le type
+		d’aléa</td>
+	    </tr>
+	    <tr>
+	      <td>&phi;(t)</td>
+	      <td>La fonction de passage de c(t) à Q2(t)</td>
+	    </tr>
+	  </tbody>
+	  <caption>Les relations de causalité et les effets dominos</caption>
+	</table>
+      </div>
+
+      <div class="table-responsive">
+	<table class="table table-striped">
+	  <!-- <thead>
+	       <tr>
+	       <th>Variable</th>
+	       <th>Qualification des variables et fonctions</th>
+	       </tr>
+	       </thead> -->
+	  <tbody>
+	    <tr>
+	      <td>α1 et α2</td>
+	      <td>Les processus d’imitation et de contagion entre r(t) et
+		c(t)</td>
+	    </tr>
+	    <tr>
+	      <td>δ1 et δ2</td>
+	      <td>Les processus d’imitation et de contagion entre r(t) et
+		p(t)</td>
+	    </tr>
+	    <tr>
+	      <td>µ1 et µ2</td>
+	      <td>Les processus d'imitation et de contagion entre c(t) et z(t)</td>
+	    </tr>
+	  </tbody>
+	  <caption>Les processus d'imitation et de contagion</caption>
+	</table>
+      </div>
+
+    </div>
+
+    </div>
   </body>
 
 </html>

@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+#container {
+    height: 100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    padding-top: 75px;
+}
