@@ -14,10 +14,10 @@ body {
     padding-top: 75px;
 }
 
-tr[class~=hover] {
+tr[class~=hover], tbody > tr:hover {
     background-color: red !important;
 };
 
-span[class~=hover] {
+span[class~=hover], span:hover {
     background-color: red !important;
 };

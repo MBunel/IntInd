@@ -51,7 +51,7 @@ $(function() {
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(7)",
-	    'dest': ["#path-gammat"]
+	    'dest': ["#path-gammat", "#g7458", "#g7351", "#use5166"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(8)",

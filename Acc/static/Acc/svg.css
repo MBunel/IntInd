@@ -129,9 +129,16 @@
     stroke-opacity:1;
 }
 
-.hover[id^=path], [id^=path]:hover {
+.hover[id^=path], [id^=path]:hover, .hover > path {
     stroke:#ff2a2a !important;
 }
+
+.hover > use {
+    fill:#ff2a2a !important;
+    stroke:#ff2a2a !important;
+    stroke-width:1.554;
+}
+
 
 #path-gammat {
     fill:none;
