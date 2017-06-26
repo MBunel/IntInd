@@ -13,3 +13,11 @@ html, body {
 body {
     padding-top: 75px;
 }
+
+tr[class~=hover] {
+    background-color: red !important;
+};
+
+span[class~=hover] {
+    background-color: red !important;
+};
