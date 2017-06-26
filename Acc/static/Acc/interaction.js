@@ -78,8 +78,6 @@ $(function() {
 	    'dest': ["#g-alpha > *", "#g-gamma > *", "#g-mu > *"]
 	},
 
-
-
 	{
 	    'orig': "#rect-qt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1)"]
@@ -100,8 +98,6 @@ $(function() {
 	    'orig': "#rect-pt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5)"]
 	},
-
-
 
 	{
 	    'orig': "#path-b1",
@@ -148,7 +144,6 @@ $(function() {
 	    'orig': "#g-mu > *",
 	    'dest': ["div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3)"]
 	}
-
     ];
 
     a.map(function(x) {
