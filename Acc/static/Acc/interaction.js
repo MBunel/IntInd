@@ -27,55 +27,55 @@ $(function() {
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)",
-	    'dest': ["#path-b1"]
+	    'dest': ["#gr-b1"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)",
-	    'dest': ["#path-b2"]
+	    'dest': ["#gr-b2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3)",
-	    'dest': ["#path-c1"]
+	    'dest': ["#gr-c1"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(4)",
-	    'dest': ["#path-c2"]
+	    'dest': ["#gr-c2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(5)",
-	    'dest': ["#path-s1"]
+	    'dest': ["#gr-s1"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(6)",
-	    'dest': ["#path-s2"]
+	    'dest': ["#gr-s2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(7)",
-	    'dest': ["#path-gammat", "#g7458", "#g7351", "#use5166"]
+	    'dest': ["#Forcage", "#g7458", "#g7351", "#use5166"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(8)",
-	    'dest': ["#path-phit"]
+	    'dest': ["#gr-phi"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > caption:nth-child(2)",
-	    'dest': ["#path-b1", "#path-b2", "#path-c1", "#path-c2", "#path-s1", "#path-s2"]
+	    'dest': ["#gr-b1", "#gr-b2", "#gr-c1", "#gr-c2", "#gr-s1", "#gr-s2", "#Forcage", "#gr-phi"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)",
-	    'dest': ["#g-alpha > *"]
+	    'dest': ["#gr-a1", "#gr-a2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)",
-	    'dest': ["#g-gamma > *"]
+	    'dest': ["#gr-d1", "#gr-d2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3)",
-	    'dest': ["#g-mu > *"]
+	    'dest': ["#gr-mu1", "#gr-mu2"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(3) > table:nth-child(1) > caption:nth-child(2)",
-	    'dest': ["#g-alpha > *", "#g-gamma > *", "#g-mu > *"]
+	    'dest': ["#gr-a1", "#gr-d1", "#gr-mu1", "#gr-a2", "#gr-d2", "#gr-mu2"]
 	},
 
 

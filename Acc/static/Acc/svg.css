@@ -220,16 +220,16 @@ svg g .rectMod.hover > text {
 }
 
 
-svg g .arrow:hover > g path {
+svg g .arrow.hover > g path {
     fill:red !important;
 }
-svg g .arrow:hover > text {
+svg g .arrow.hover > text {
     fill:red !important;
 }
 
-svg g .arrow.arrowImit:hover > g path {
+svg g .arrow.arrowImit.hover > g path {
     fill:black !important;
 }
-svg g .arrow.arrowImit:hover > text {
+svg g .arrow.arrowImit.hover > text {
     fill:black !important;
 }
