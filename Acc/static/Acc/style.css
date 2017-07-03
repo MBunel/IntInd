@@ -15,9 +15,9 @@ body {
 }
 
 tr[class~=hover], tbody > tr:hover {
-    background-color: red !important;
+    background-color: #8080804d !important;
 };
 
 span[class~=hover], span:hover {
-    background-color: red !important;
+    background-color: #8080804d !important;
 };
