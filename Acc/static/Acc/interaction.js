@@ -3,27 +3,27 @@ $(function() {
     const a = [
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1)",
-	    'dest': ["#rect-qt"]
+	    'dest': ["#gr-qt"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(2)",
-	    'dest': ["#rect-bt"]
+	    'dest': ["#gr-bt"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3)",
-	    'dest': ["#rect-rt"]
+	    'dest': ["#gr-rt"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(4)",
-	    'dest': ["#rect-ct"]
+	    'dest': ["#gr-ct"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5)",
-	    'dest': ["#rect-pt"]
+	    'dest': ["#gr-pt"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(1) > table:nth-child(1) > caption:nth-child(3)",
-	    'dest': ["#rect-qt", "#rect-bt", "#rect-rt", "#rect-ct", "#rect-pt"]
+	    'dest': ["#gr-qt", "#gr-bt", "#gr-rt", "#gr-ct", "#gr-pt"]
 	},
 	{
 	    'orig': "div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)",
@@ -78,24 +78,27 @@ $(function() {
 	    'dest': ["#g-alpha > *", "#g-gamma > *", "#g-mu > *"]
 	},
 
+
+
+
 	{
-	    'orig': "#rect-qt",
+	    'orig': "#gr-qt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1)"]
 	},
 	{
-	    'orig': "#rect-bt",
+	    'orig': "#gr-bt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(2)"]
 	},
 	{
-	    'orig': "#rect-rt",
+	    'orig': "#gr-rt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3)"]
 	},
 	{
-	    'orig': "#rect-ct",
+	    'orig': "#gr-ct",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(4)"]
 	},
 	{
-	    'orig': "#rect-pt",
+	    'orig': "#gr-pt",
 	    'dest': ["div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5)"]
 	},
 
