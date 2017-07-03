@@ -89,6 +89,7 @@ svg g .rectMod > rect {
     shape-rendering:auto;
     text-rendering:auto;
     enable-background:accumulate;
+    pointer-events: all;
 }
 
 svg g .rectMod > text {
@@ -188,8 +189,6 @@ svg g .arrow.arrowImit > text {
     fill:red;
 }
 
-
-
 svg g #Forcage > text {
     font-style:normal;
     font-weight:normal;
@@ -208,28 +207,35 @@ svg g #Forcage > text {
     stroke-linecap:butt;
     stroke-linejoin:miter;
     stroke-opacity:1;
-
 }
 
 
-svg g .rectMod.hover > rect {
+svg g .rectMod.hover > rect,
+svg g .rectMod:hover > rect {
     stroke:red !important;
 }
-svg g .rectMod.hover > text {
+
+svg g .rectMod.hover > text,
+svg g .rectMod:hover > text {
     fill:red !important;
 }
 
 
-svg g .arrow.hover > g path {
-    fill:red !important;
-}
-svg g .arrow.hover > text {
+svg g .arrow.hover > g path,
+svg g .arrow:hover > g path {
     fill:red !important;
 }
 
-svg g .arrow.arrowImit.hover > g path {
+svg g .arrow.hover > text,
+svg g .arrow:hover > text {
+    fill:red !important;
+}
+
+svg g .arrow.arrowImit.hover > g path,
+svg g .arrow.arrowImit:hover > g path {
     fill:black !important;
 }
-svg g .arrow.arrowImit.hover > text {
+svg g .arrow.arrowImit.hover > text,
+svg g .arrow.arrowImit:hover > text {
     fill:black !important;
 }
