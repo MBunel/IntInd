@@ -103,49 +103,72 @@ $(function() {
 	},
 
 	{
-	    'orig': "#path-b1",
+	    'orig': "#gr-b1",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)"]
 	},
 	{
-	    'orig': "#path-b2",
+	    'orig': "#gr-b2",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)"]
 	},
 	{
-	    'orig': "#path-c1",
+	    'orig': "#gr-c1",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3)"]
 	},
 	{
-	    'orig': "#path-c2",
+	    'orig': "#gr-c2",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(4)"]
 	},
 	{
-	    'orig': "#path-s1",
+	    'orig': "#gr-s1",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(5)"]
 	},
 	{
-	    'orig': "#path-s2",
+	    'orig': "#gr-s2",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(6)"]
 	},
 	{
-	    'orig': "#path-gammat",
+	    'orig': "#Forcage",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(7)"]
 	},
 	{
-	    'orig': "#path-phit",
+	    'orig': "#gr-phi",
 	    'dest': ["div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(8)"]
 	},
 
 	{
-	    'orig': "#g-alpha > *",
+	    'orig': "#gr-a1, #gr-a2",
 	    'dest': ["div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1)"]
 	},
 	{
-	    'orig': "#g-gamma > *",
+	    'orig': "#gr-d1, #gr-d2",
 	    'dest': ["div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)"]
 	},
 	{
-	    'orig': "#g-mu > *",
+	    'orig': "#gr-mu1, #gr-mu2",
 	    'dest': ["div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3)"]
+	},
+
+
+
+
+
+
+
+	{
+	    'orig': '#ell1',
+	    'dest': [
+		"div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(4)"
+	    ]
+	},
+	{
+	    'orig': '#ell2',
+	    'dest': [
+		"div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(3)",
+		"div.table-responsive:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5)",
+		"div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)",
+		"div.table-responsive:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(6)",
+		"div.table-responsive:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2)"
+	    ]
 	}
     ];
 
