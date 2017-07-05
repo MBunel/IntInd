@@ -5,7 +5,9 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request, 'PCRn/index.xhtml')
+    return render(request,
+                  'PCRn/index.xhtml',
+                  {'projectName': 'Nom projet'})
 
 
 def runSimulation(request):
