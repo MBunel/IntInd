@@ -192,6 +192,32 @@ function addLine(m1, m2) {
 
 }
 
+
+function newPoint(ligne, point, rank) {
+    var coords = ligne.getLatLngs();
+    coords.splice(rank, 0, point);
+    ligne.setLatLngs(coords);
+
+    var np = new L.marker(point, {
+	draggable:true
+    }).on('move',
+	  function(e) {
+	      var linesLayers = linesGroup.getLayers();
+
+	      if (linesLayers.length !== 0) {
+		  for (var layer in linesLayers) {
+		      movePointLine(layer);
+		  }
+	      }
+	  }
+	 ).addTo(markersGroup);
+
+    np['options']['idLines'] = [];
+    np['options']['idLines'].push(ligne._leaflet_id);
+    ligne['options']['idPoints'].splice(rank, 0, np._leaflet_id);
+}
+
+
 function movePointLine(id) {
     // Récupération de la polyligne
     var layer = linesGroup.getLayers()[id],
@@ -204,10 +230,11 @@ function movePointLine(id) {
 	   }
 	  );
     if (oldCoords.length > 2) {
-	$.each(oldCoords.slice(1, oldCoords.length - 1),
+	$.each(layer['options']['idPoints'].slice(1, oldCoords.length - 1),
 	       function(i,v) {
-		   var point = new L.LatLng(v.lat, v.lng);
-		   	newCoords.splice(i+1, 0, point);
+		   var latlng = markersGroup.getLayer(v).getLatLng();
+		   var point = new L.LatLng(latlng.lat, latlng.lng);
+		   	newCoords.splice(i+1, 1, point);
 	       });
 
     }
