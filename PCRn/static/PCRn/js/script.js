@@ -229,6 +229,10 @@ function changePanelSidebar() {
 
 
 
+/*
+    Écriture des fonctions pour les requêtes POST
+    Lancement de la simulation
+ */
 
 
 function getCookie(name) {
