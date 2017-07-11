@@ -70,40 +70,40 @@ class Model(object):
         rvalue = self._f(self.mu1, -self.mu2, r, p)
         return rvalue
 
-    def PCR(self, X, t, C1):
+    def PCR(self, X: list, t: int) -> list:
         r, c, p, q = X
         dr = self.gamma(t) * q * (1-r) - \
             (self.B1+self.B2)*r + self.F(r, c)*r*c + \
             self.G(r, p)*r*p
-
         dc = self.B1*r + self.C1*p - \
             self.C2*c - self.F(r, c)*r*c + \
             self.H(c, p)*c*p - self.phi(t)*c*(r+c+p+q)
-
         dp = self.B2*r - self.C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
-
         dq = -self.gamma(t)*q*(1-r)
-
         return [dr, dc, dp, dq]
 
-    def network(self, y, t, N, Nbad, eps, A):
+    def network(self, y: list, t: float) -> list:
+        # import params
+        N, Nbad, eps, A = [0]*4
         dX = []
-
         for i in range(N):
             i4 = i * 4
             if i < Nbad:
-                C1value = 0
+                self.C1 = 0
             else:
-                C1value = 0.3
-
-            t = self.PCR([y[i4], y[1+i4], y[2+i4], y[3+i4]], t, C1value) \
-                + np.array([eps*sum(A[i][j]*y[4*j] for j in range(N)), \
-                        eps*sum(A[i][j]*y[1+4*j] for j in range(N)), \
-                        eps*sum(A[i][j]*y[2+4*j] for j in range(N)), \
-                        0])
-
-            dX = dX + t
+                self.C1 = 0.3
+            Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
+            a, b, c = 0, 0, 0
+            for j in range(N):
+                a += A[i][j]*y[4*j]
+                b += A[i][j]*y[1+4*j]
+                c += A[i][j]*y[2+4*j]
+            a *= eps
+            b *= eps
+            c *= eps
+            temp = [x + y for x, y in zip(self.PCR(Xpcr, t), [a, b, c, 0])]
+            dX = dX + temp
 
         return dX
 
