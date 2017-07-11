@@ -129,29 +129,60 @@ class Model(object):
             Ngood = n2
             goodnodes = range(Nbad, Nbad+Ngood)
 
+            # Extraction liens
             edges = []
 
-            # Extraction noeuds
-            # TODO
+            for k in range(nedges):
+                a, b = 0, 0
+                while a==b:
+                    a, b = randint(0, N-1), randint(0, N-1)
+                c = randint(1, 2)
+                if c==1:
+                    edges = edges + [(a,b)]
+                else:
+                    edges = edges + [(b,a)]
 
             # connectivity matrix
-            A = np.array([[0]*N]*N)
+
+            # ⚠ np.empty ne définit pas de valeur d'initialisation
+            # pour le contenu de l'array. Les valeurs initiales dépendent
+            # du contenut de la mémoire, toutes les valeurs doivent êtres
+            # réécrites. J'utilise donc np.zero
+            A = np.zero(shape=(N, N), dtype=int)
+
+            # Remplit la matrice de contiguité en fonction de l'existance ou
+            # non d'un lien. Si un lien existe un 1 est ajouté, sinon la valeur
+            # reste à zéro
             for edge in edges:
-                j = edge[1]
-                i = edge[0]
+                j, i = edge
                 A[j][i] = 1
+
+            # Comptabilise le nombre de connections pour chaque
+            # colone (et donc noeud)
             for i in range(N):
                 A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
 
             # Création du graph
-
             Graph = nx.DiGraph()
             # Ajout liste de liens et noeuds
             Graph.add_nodes_from()
-            Graph.add_edges_from()
+            Graph.add_edges_from(edges)
 
             # Pathfinding
-            # Write
+            isolated_nodes = []
+            isolated_nodes_number = 0
+            evacuated_nodes = []
+            evacuated_nodes_number = 0
+            for k in range(Nbad):
+                connection = 0
+                for j in range(Nbad, N):
+                    if nx.has_path(Graph, k, j):
+                        connection = connection + 1
+                        evacuated_nodes_number = evacuated_nodes_number + 1
+                        evacuated_nodes = evacuated_nodes + [[k, nx.shortest_path(Graph, k, j)]]
+                if connection == 0:
+                    isolated_nodes_number = isolated_nodes_number + 1
+                    isolated_nodes = isolated_nodes + [k]
 
             # PCRn simulation
             # see network()
@@ -170,8 +201,7 @@ class Model(object):
             R = sum(solution[4*i] for i in range(N))
             C = sum(solution[1+4*i] for i in range(N))
 
-
-
+            print(P, R, C)
 
         else:
             print('conditions non valides')
