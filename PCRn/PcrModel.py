@@ -2,12 +2,14 @@ import numpy as np
 from scipy.integrate import odeint
 import networkx as nx
 
+from functools import partialmethod
+
 class Model(object):
     """
     Documentation for ClassName
 
     """
-    def __init__(self, args):
+    def __init__(self, *args):
         super(Model, self).__init__()
         self.args = args
 
@@ -37,13 +39,9 @@ class Model(object):
                 (hmin + hmax) / 2
         return rvalue
 
-    def phi(self, t):
-        rvalue = self.h(t, 1, 50, 0, 1)
-        return rvalue
+    phi = partialmethod(h, smin=1, smax=50, hmin=0, hmax=1)
 
-    def gamma(self, t):
-        rvalue = self.h(t, 1, 3, 0, 1)
-        return rvalue
+    gamma = partialmethod(h, smin=1, smax=3, hmin=0, hmax=1)
 
     def f(self, s):
         if s < 0:
