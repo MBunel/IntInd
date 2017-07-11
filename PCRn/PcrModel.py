@@ -4,6 +4,7 @@ import networkx as nx
 
 from functools import partialmethod
 
+
 class Model(object):
     """
     Documentation for ClassName
@@ -14,7 +15,7 @@ class Model(object):
         self.args = args
 
         # TODO: Factoriser
-        self.alpha1 = 0
+        self.alpha1 = 0.1
         self.alpha2 = 0.1
         self.delta1 = 0.1
         self.delta2 = 0.1
@@ -52,19 +53,21 @@ class Model(object):
             rvalue = 0.5 * np.cos(s * np.pi) + 0.5
         return rvalue
 
-    def F(self, r, c):
-        rvalue = -self.alpha1 * self.f(r / (c + 0.01)) + \
-            self.alpha2 * self.f(c / (r + 0.01))
+    def _f(self, cons1, cons2, var1, var2):
+        rvalue = cons1 * self.f(var1/(var2+0.01)) \
+            + cons2 * self.f(var2/(var1+0.01))
+        return rvalue
+
+    def F(self, r, p):
+        rvalue = self._f(-self.alpha1, self.alpha2, r, p)
         return rvalue
 
     def G(self, r, p):
-        rvalue = -self.delta1 * self.f(r / (p + 0.01)) + \
-            self.delta2 * self.f(p / (r + 0.01))
+        rvalue = self._f(-self.delta1, self.delta2, r, p)
         return rvalue
 
-    def H(self, c, p):
-        rvalue = self.mu1 * self.f(c / (p + 0.01)) - \
-            self.mu2 * self.f(p / (c + 0.01))
+    def H(self, r, p):
+        rvalue = self._f(self.mu1, -self.mu2, r, p)
         return rvalue
 
     def PCR(self, X, t, C1):
