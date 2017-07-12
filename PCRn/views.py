@@ -18,6 +18,10 @@ def runSimulation(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode("utf-8"))
 
-        model = Model()
+        nodes = [n['_l_id'] for n in data['nodes']]
+        edges = [tuple(e['idP']) for e in data['edges']]
 
-        return JsonResponse({'nodes': data['nodes'], 'links': data['links']})
+        model = Model()
+        model.graphCreation(nodes, edges)
+
+        return JsonResponse({'nodes': data['nodes'], 'links': data['edges']})

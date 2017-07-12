@@ -272,10 +272,10 @@ function runSimulation() {
 
 		return json;
 	    }),
-	    'links': linesGroup.getLayers().map(function(x){
+	    'edges': linesGroup.getLayers().map(function(x){
 		var json = {};
 		json['_l_id'] = x._leaflet_id;
-		json['idP'] = x.idPoints;
+		json['idP'] = x.options.idPoints;
 
 		return json;
 	    })

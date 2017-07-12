@@ -106,13 +106,22 @@ class Model(object):
             dX = dX + temp
         return dX
 
-    def runSimulation(self):
+    def graphCreation(self, nodes, edges):
+        # Création du graph
+        Graph = nx.DiGraph()
+        # Ajout liste de liens et noeuds
+        Graph.add_nodes_from(nodes)
+        Graph.add_edges_from(edges)
+
+        print(nx.info(Graph))
+
+        return Graph
+
+    def runSimulation(self, n1, n2, nedges):
 
         n1 = 3
         n2 = 6
         nedges = 30
-
-        eps = 0.2
 
         test = [
             2 <= n1, n1 <= 10,
@@ -161,11 +170,10 @@ class Model(object):
             for i in range(N):
                 A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
 
-            # Création du graph
-            Graph = nx.DiGraph()
-            # Ajout liste de liens et noeuds
-            Graph.add_nodes_from()
-            Graph.add_edges_from(edges)
+            # Variable vide, à remplacer
+            nodes = []
+
+            Graph = self.graphCreation(nodes, edges)
 
             # Pathfinding
             isolated_nodes = []
