@@ -28,6 +28,8 @@ class Model(object):
         self.C1 = 0
         self.C2 = 0.2
 
+        self.eps = 0.2
+
     # TODO: Factoriser ?
     def h(self, s, smin, smax, hmin, hmax):
         if s < smin:
@@ -85,7 +87,7 @@ class Model(object):
 
     def network(self, y: list, t: float) -> list:
         # import params
-        N, Nbad, eps, A = [0]*4
+        N, Nbad, A = [0]*3
         dX = []
         for i in range(N):
             i4 = i * 4
@@ -188,13 +190,15 @@ class Model(object):
             # see network()
 
             # Model solving
+            # Conditions initiales
+            # Voir si factorisable
             X0 = [0 for k in range(4*N)]
             for k in range(N):
                 X0[3+4*k] = 1
 
             time = np.arange(0, 60, 0.1)
 
-            orbit = odeint(self.network, X0, time, args=(N, Nbad, eps, A))
+            orbit = odeint(self.network, X0, time, args=(N, Nbad, self.eps, A))
 
             solution = orbit.T
             P = sum(solution[2+4*i] for i in range(N))
