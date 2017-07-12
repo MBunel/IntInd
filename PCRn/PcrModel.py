@@ -101,12 +101,9 @@ class Model(object):
                 a += A[i][j]*y[4*j]
                 b += A[i][j]*y[1+4*j]
                 c += A[i][j]*y[2+4*j]
-            a *= eps
-            b *= eps
-            c *= eps
-            temp = [x + y for x, y in zip(self.PCR(Xpcr, t), [a, b, c, 0])]
+            l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
+            temp = [x + y for x, y in zip(self.PCR(Xpcr, t), l)]
             dX = dX + temp
-
         return dX
 
     def runSimulation(self):
