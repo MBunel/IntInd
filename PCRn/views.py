@@ -23,5 +23,6 @@ def runSimulation(request):
 
         model = Model()
         model.graphCreation(nodes, edges)
+        # model.runSimulation()
 
         return JsonResponse({'nodes': data['nodes'], 'links': data['edges']})
