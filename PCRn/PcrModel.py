@@ -89,6 +89,7 @@ class Model(object):
         dp = self.B2*r - self.C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
         dq = -self.gamma(t)*q*(1-r)
+        # Et db ?
         return [dr, dc, dp, dq]
 
     def network(self, y: list, t: float, N, Nbad) -> list:
@@ -110,7 +111,6 @@ class Model(object):
             l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
             temp = [x + y for x, y in zip(self.PCR(Xpcr, t), l)]
             dX = dX + temp
-        # print(dX, y)
         return dX
 
     def graphCreation(self, nodes, edges):
@@ -187,11 +187,18 @@ class Model(object):
             orbit = odeint(self.network, X0, time, args=(N, Nbad))
 
             solution = orbit.T
-            P = sum(solution[2+4*i] for i in range(N))
-            R = sum(solution[4*i] for i in range(N))
-            C = sum(solution[1+4*i] for i in range(N))
+            # 4 = nb eq diff
+            # valeur de p, r et c pour tous les noeuds à toutes les dates
+            # len = N + t
+            P = [solution[2+4*i] for i in range(N)]
+            R = (solution[4*i] for i in range(N))
+            C = (solution[1+4*i] for i in range(N))
 
-            print(P, R, C)
+            import pdb; pdb.set_trace()
+
+            sP = sum(P)
+            sR = sum(R)
+            sC = sum(C)
 
         else:
             print('conditions non valides')
