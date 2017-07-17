@@ -4,6 +4,7 @@ import networkx as nx
 
 from functools import partialmethod
 
+from PCRn.models import Simulation
 
 class Model(object):
     """
@@ -202,3 +203,13 @@ class Model(object):
 
         else:
             print('conditions non valides')
+
+    def resWrite(self):
+        sim = Simulation(timestamp=1)
+        sim.save()
+
+    def parmsWrite(self):
+        print('a')
+
+    def resWirte(self):
+        print('a')
