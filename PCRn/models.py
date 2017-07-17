@@ -9,7 +9,7 @@ class Simulation(models.Model):
 
 class Parameters(models.Model):
     simulation = models.ForeignKey(Simulation)
-    parameter = models.CharField(blank=False)
+    parameter = models.CharField(blank=False, max_length=20)
     value = models.FloatField(blank=False)
 
 
@@ -26,5 +26,5 @@ class Link(models.Model):
 class Results(models.Model):
     simulation = models.ForeignKey(Simulation)
     time = models.FloatField(blank=False)
-    variable = models.CharField(blank=False)
+    variable = models.CharField(blank=False, max_length=20)
     value = models.FloatField(blank=False)
