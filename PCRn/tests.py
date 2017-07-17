@@ -1,12 +1,11 @@
 from django.test import TestCase
 
 import numpy as np
-
 from random import randint, random
-
 from scipy.integrate import odeint
 from functools import partialmethod
 
+import matplotlib.pyplot as plt
 
 # Create your tests here.
 
@@ -20,16 +19,16 @@ class NetworkTest(TestCase):
         self.eps = 0.2
         self.cMat = []
         self.N = 5
-        self.Nbad = 2
-        self.B1 = 0.5
+        self.Nbad = 3
+        self.B1 = 0.1
         self.B2 = 0.5
         self.C2 = 0.2
         self.alpha1 = 0.1
-        self.alpha2 = 0.1
+        self.alpha2 = 0.5
         self.delta1 = 0.1
-        self.delta2 = 0.1
-        self.mu1 = 0.1
-        self.mu2 = 0.1
+        self.delta2 = 0.
+        self.mu1 = 0.5
+        self.mu2 = 0.2
 
         self.edges = [(1, 2), (2, 3)]
 
@@ -138,6 +137,7 @@ class NetworkTest(TestCase):
         dp = self.B2*r - C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
         dq = -self.gamma(t)*q*(1-r)
+        # il manque db ?
         return [dr, dc, dp, dq]
 
     # Remake
@@ -262,4 +262,43 @@ class NetworkTest(TestCase):
         r1 = odeint(self.network, self.X0, self.time)
         r2 = odeint(self.networkR, self.X0, self.time)
 
+        self.graphgen(r1.T, r2.T)
+
         self.assertEqual(np.array_equal(r1, r2), True)
+
+    def graphgen(self, r1, r2):
+
+        P1 = sum(r1[2+4*i] for i in range(self.N)) / self.N
+        R1 = sum(r1[4*i] for i in range(self.N)) / self.N
+        C1 = sum(r1[1+4*i] for i in range(self.N)) / self.N
+        X1 = sum(r1[3+4*i] for i in range(self.N)) / self.N
+
+        P2 = sum(r2[2+4*i] for i in range(self.N)) / self.N
+        R2 = sum(r2[4*i] for i in range(self.N)) / self.N
+        C2 = sum(r2[1+4*i] for i in range(self.N)) / self.N
+        X2 = sum(r2[3+4*i] for i in range(self.N)) / self.N
+
+        fig, (ax, ay, z) = plt.subplots(3, sharey=True)
+        ax.grid()
+        ax.plot(self.time, R1)
+        ax.plot(self.time, C1)
+        ax.plot(self.time, P1)
+        ax.plot(self.time, X1)
+        ax.set_title("Base")
+
+        ay.grid()
+        ay.plot(self.time, R2)
+        ay.plot(self.time, C2)
+        ay.plot(self.time, P2)
+        ay.plot(self.time, X2)
+        ay.set_title("Modifié")
+
+        z.text(.02, .02, """eps = {}, N = {},  Nbad = {},
+        B1 = {}, B2 = {}, C2 = {},
+        alpha1 = {}, alpha2 = {},
+        delta1 = {}, delta2 = {},
+        mu1 = {},mu2 = {}""".format(self.eps, self.N, self.Nbad, self.B1,
+                                  self.B2, self.C2, self.alpha1,
+                                  self.alpha2, self.delta1,
+                                  self.delta2, self.mu1, self.mu2))
+        plt.show()
