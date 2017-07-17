@@ -192,8 +192,11 @@ class Model(object):
             # valeur de p, r et c pour tous les noeuds à toutes les dates
             # len = N + t
             P = [solution[2+4*i] for i in range(N)]
+            # P = solution[2::4]
             R = (solution[4*i] for i in range(N))
+            # R = solution[::4]
             C = (solution[1+4*i] for i in range(N))
+            # C = solution[1::]
 
             import pdb; pdb.set_trace()
 

@@ -273,10 +273,10 @@ class NetworkTest(TestCase):
         C1 = sum(r1[1+4*i] for i in range(self.N)) / self.N
         X1 = sum(r1[3+4*i] for i in range(self.N)) / self.N
 
-        P2 = sum(r2[2+4*i] for i in range(self.N)) / self.N
-        R2 = sum(r2[4*i] for i in range(self.N)) / self.N
-        C2 = sum(r2[1+4*i] for i in range(self.N)) / self.N
-        X2 = sum(r2[3+4*i] for i in range(self.N)) / self.N
+        P2 = sum(r2[2::4]) / self.N
+        R2 = sum(r2[::4]) / self.N
+        C2 = sum(r2[1::4]) / self.N
+        X2 = sum(r2[3::4]) / self.N
 
         fig, (ax, ay, z) = plt.subplots(3, sharey=True)
         ax.grid()
