@@ -1,10 +1,13 @@
+
 import numpy as np
+from django.db import transaction
 from scipy.integrate import odeint
 import networkx as nx
 
 from functools import partialmethod
 
-from PCRn.models import Simulation
+from PCRn.models import Simulation, Node, Edge, Results
+
 
 class Model(object):
     """
@@ -81,6 +84,7 @@ class Model(object):
         Formulation du modèle PCR
         """
         r, c, p, q = X
+        # r, c, p, q, b = X
         dr = self.gamma(t) * q * (1-r) - \
             (self.B1+self.B2)*r + self.F(r, c)*r*c + \
             self.G(r, p)*r*p
@@ -90,6 +94,7 @@ class Model(object):
         dp = self.B2*r - self.C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
         dq = -self.gamma(t)*q*(1-r)
+        # db = self.phi(t)*c(1-b)
         # Et db ?
         return [dr, dc, dp, dq]
 
@@ -181,38 +186,82 @@ class Model(object):
             X0 = [0 for k in range(4*N)]
             for k in range(N):
                 X0[3+4*k] = 1
+                # X0[3+4*k] = 1
 
             # Paramètres temporels
-            time = np.arange(0, endT, stepT)
+            self.time = np.arange(0, endT, stepT)
 
-            orbit = odeint(self.network, X0, time, args=(N, Nbad))
+            orbit = odeint(self.network, X0, self.time, args=(N, Nbad))
 
             solution = orbit.T
             # 4 = nb eq diff
             # valeur de p, r et c pour tous les noeuds à toutes les dates
             # len = N + t
-            P = [solution[2+4*i] for i in range(N)]
-            # P = solution[2::4]
-            R = (solution[4*i] for i in range(N))
-            # R = solution[::4]
-            C = (solution[1+4*i] for i in range(N))
-            # C = solution[1::]
+            P = solution[2::4]
+            R = solution[::4]
+            C = solution[1::]
 
-            import pdb; pdb.set_trace()
 
             sP = sum(P)
             sR = sum(R)
             sC = sum(C)
 
+            # Test Db
+            self.dbWrite([i for i in range(9)], solution)
+
         else:
             print('conditions non valides')
 
-    def resWrite(self):
+    @transaction.atomic
+    def dbWrite(self, nodeList, res):
+        sim = self.simWrite()
+
+        # self.parmsWrite(simId)
+
+        nodes = self.nodesWrite(sim, nodeList)
+
+        self.resWirte(sim, nodes, self.time, res)
+
+    def simWrite(self):
         sim = Simulation(timestamp=1)
         sim.save()
 
-    def parmsWrite(self):
+        return sim
+
+    def parmsWrite(self, sim):
         print('a')
 
-    def resWirte(self):
-        print('a')
+    def nodesWrite(self, sim, nodeList):
+        nodes = []
+
+        for i in nodeList:
+            node = Node(simulation=sim, m_id=i)
+            node.save()
+            nodes.append(node)
+
+        return nodes
+
+    def edgesWrite(self, sim, nodeList, edgeList):
+
+        edges = [Edge(idA=0, idB=1) for i in edgeList]
+
+        Edge.objects.bulk_create(edges)
+
+    def resWirte(self, sim, nodes, time, res):
+
+        a = []
+        for i in range(0, len(res), 4):
+            nodeI = i // 4
+            timeI = i // (4*9)
+            import pdb; pdb.set_trace()
+            b = Results(Simulation=sim,
+                        node=nodes[nodeI],
+                        time=time[timeI],
+                        dr=res[i],
+                        dc=res[i+1],
+                        dp=res[i+2],
+                        dq=res[i+3])
+
+            a.append(b)
+
+        Results.objects.bulk_create(a)
