@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'PCRn',
-    'Acc'
+    'Acc',
+
+    # Todo, non nécessaire pour la prod
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
