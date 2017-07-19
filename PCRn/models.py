@@ -17,6 +17,7 @@ class Node(models.Model):
     simulation = models.ForeignKey(Simulation)
     m_id = models.IntegerField()
 
+
 class Edge(models.Model):
     simulation = models.ForeignKey(Simulation)
     idA = models.ForeignKey(Node, related_name="idA")

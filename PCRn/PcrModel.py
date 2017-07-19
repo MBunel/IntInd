@@ -6,6 +6,8 @@ import networkx as nx
 
 from functools import partialmethod
 
+from itertools import chain
+
 from PCRn.models import Simulation, Node, Edge, Results
 
 
@@ -248,20 +250,27 @@ class Model(object):
         Edge.objects.bulk_create(edges)
 
     def resWirte(self, sim, nodes, time, res):
-
-        a = []
-        for i in range(0, len(res), 4):
-            nodeI = i // 4
-            timeI = i // (4*9)
-            import pdb; pdb.set_trace()
-            b = Results(Simulation=sim,
-                        node=nodes[nodeI],
-                        time=time[timeI],
-                        dr=res[i],
-                        dc=res[i+1],
-                        dp=res[i+2],
-                        dq=res[i+3])
-
-            a.append(b)
-
-        Results.objects.bulk_create(a)
+        # On transpose la matrice dans un format
+        # où les lignes sont les durées et les colones
+        # les couples noeuds/valeurs
+        resT = np.transpose(res)
+        temp = []
+        # Pour chaque ligne
+        for r in range(len(resT)):
+            # On récupère le temps associé
+            tvalue = time[r]
+            # TODO: Remplacer 4 par N valeurs
+            # On groupe les colones par noeuds
+            # toutes les 4 valeurs on a un nouveau noeud
+            resG = zip(*(iter(resT[r]),)*4)
+            # On crée une liste de Results pour chaque noeuds
+            resOb = (Results(simulation=sim,
+                             node=nodes[i],
+                             time=tvalue,
+                             dr=v[0], dc=v[1], dp=v[2],
+                             dq=v[3]) for i, v in enumerate(resG))
+            # On chaine les itérables pour créer une longue chaine de
+            # générateurs. Le calcul n'est pas effectué
+            temp = chain(temp, resOb)
+        # On entre les données massivement dans la base.
+        Results.objects.bulk_create(temp)
