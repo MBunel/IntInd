@@ -280,16 +280,16 @@ class NetworkTest(TestCase):
 
         fig, (ax, ay, z) = plt.subplots(3, sharey=True)
         ax.grid()
-        ax.plot(self.time, R1)
-        ax.plot(self.time, C1)
-        ax.plot(self.time, P1)
+        ax.plot(self.time, R1, 'o')
+        ax.plot(self.time, C1, 'b')
+        ax.plot(self.time, P1, 'r')
         ax.plot(self.time, X1)
         ax.set_title("Base")
 
         ay.grid()
-        ay.plot(self.time, R2)
-        ay.plot(self.time, C2)
-        ay.plot(self.time, P2)
+        ay.plot(self.time, R2, 'o')
+        ay.plot(self.time, C2, 'b')
+        ay.plot(self.time, P2, 'r')
         ay.plot(self.time, X2)
         ay.set_title("Modifié")
 
