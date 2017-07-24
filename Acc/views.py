@@ -1,11 +1,16 @@
 from django.shortcuts import render, HttpResponseRedirect
+from datetime import date
 
 
 # Create your views here.
 def index(request):
+    year = date.today().year
+    if year != 2017:
+        year = '2017–{}'.format(year)
+
     return render(request,
                   'Acc/index.xhtml',
-                  {'projectName': 'projet'})
+                  {'projectName': 'projet', 'year': year})
 
 
 def aprp(request):
