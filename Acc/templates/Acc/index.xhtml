@@ -16,58 +16,51 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand"
-	     href="/">{{ projectName }}</a>
-        </div>
-        <div id="navbar"
-	     class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li>
-	      <a href="./network">PCR network</a>
-	    </li>
-            <li>
-	      <a href="./pcr">PCR</a>
-	    </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    {% include "./navbar.xhtml" %}
     <div id="container">
 
       <div id="Chapeau" class="col-12">
 	<p>
-	  Lorem ipsum dolor sit amet, consectetur adipiscing
-	  elit. Fusce porttitor vel leo eget aliquet. Vivamus mollis ante
-	  at est pellentesque, tincidunt rhoncus eros dapibus. Cras vel
-	  nisi sed odio scelerisque hendrerit ac vel nunc. Vivamus quis
-	  aliquam odio. Nullam vestibulum lectus mi, vel convallis massa
-	  ultricies sit amet. Vivamus a congue velit. Curabitur laoreet
-	  aliquam nulla ut varius. Mauris turpis sem, aliquet nec eros ac,
-	  ultricies sollicitudin enim. Integer nec felis ut dolor dictum
-	  imperdiet eget vitae odio. Integer mattis, ex sed egestas
-	  hendrerit, elit nulla ultrices velit, ut tincidunt neque eros
-	  sed tortor.
-
-	  Fusce aliquam elit sit amet tincidunt rutrum. Sed bibendum
-	  magna mauris, et mollis ligula dapibus a. Cras dapibus velit
-	  nec facilisis pulvinar. Donec nulla felis, tempus a auctor
-	  nec, suscipit at lorem. Donec eu nibh non tortor ultrices
-	  commodo eget et enim. Vivamus euismod accumsan urna et
-	  varius. In sed consectetur ligula.
-
-	  Praesent faucibus dui euismod nisi vestibulum dictum. Nunc
-	  metus nulla, accumsan at justo sit amet, lobortis venenatis
-	  ex. Cras pharetra iaculis sem sit amet rhoncus. Nulla
-	  facilisi. Suspendisse egestas sem eu nisl congue, et
-	  pellentesque orci ullamcorper. Nunc vitae blandit odio. Sed id
-	  urna in leo malesuada rhoncus. Mauris nec pulvinar diam, eu
-	  faucibus mauris. In volutpat, risus pulvinar ultrices sodales,
-	  purus magna rutrum sem, vel porttitor est lectus nec
-	  lacus. Quisque quis posuere libero.
+	  PCR, acronyme de Paniqués-Contrôlés-Réflexes, est un modèle
+	  de simulation des comportements humains pouvant se produire
+	  lors de catastrophes de toute origine. Ce modèle est
+	  formalisé par un système d'équations différentielles
+	  permettant de décrire les dynamiques comportementales dans
+	  le temps et dans l'espace (onglet PCR network pour les
+	  dynamiques spatio-temporelles).
+	</p>
+	<p>
+	  On distingue les
+	  comportements du quotidien q(t) et b(t), les comportements
+	  émotionnels non contrôlés r(t) et p(t) qui sont gérés par la
+	  zone reptilienne du cerveau (patatoide jaune sur la figure)
+	  et les comportements contrôlés c(t) qui sont gérés par le
+	  cortex préfrontal (patatoide bleu sur la figure). Lorsque la
+	  catastrophe se déclenche, la population, initialement en
+	  q(t) évolue, selon différentes modalités, au sein de ces
+	  trois sous-populations r, p et c. Nous posons comme
+	  hypothèse que, du fait de la nature soudaine et imprévue de
+	  l'aléa (un tsunami d'origine sismique), l’ensemble de la
+	  population impactée va adopter une réaction comportementale
+	  Réflexe r(t) prise sous le coup de la surprise et de
+	  l'irruption du danger (p. ex. sidération, lutte instinctive)
+	  avant de transiter vers des comportements réflexes de
+	  Panique p(t) ou des comportements Contrôlés c(t)
+	  (p. ex. fuite raisonnée, confinement).
+	</p>
+	<p>
+	  Durant l’évènement,
+	  la dynamique des réactions comportementales est matérialisée
+	  par des transitions entre ces sous-populations. On distingue
+	  les transitions récurrentes à toutes les catastrophes et
+	  réactions comportementales comme les processus de causalité
+	  (B1, B2, C1, C2), d’imitation et de contagion (α1 et α2, δ,
+	  µ), des transitions utilisées spécifiquement pour traiter
+	  des effets dominos (s1 et s2) et qui ralentissent le retour
+	  à une situation pseudo-normale en b(t). Le déclenchement de
+	  la catastrophe est représenté par une fonction de forçage
+	  (t) dont la forme pourra varier selon les spécificités de
+	  l’aléa (aléa à cinétique rapide ou lente).
 	</p>
       </div>
 
@@ -104,7 +97,8 @@
 		  <tr>
 		    <td>b(t)</td>
 		    <td>Les individus qui retrouvent un comportement
-		      « pseudo-normal » après avoir réagi à l’évènement</td>
+		      « pseudo-normal » après avoir réagi à l’évènement.
+		      Ces derniers ne « rebouclent » plus dans le système.</td>
 		  </tr>
 		  <tr>
 		    <td>r(t)</td>
@@ -165,7 +159,9 @@
 		  </tr>
 		  <tr>
 		    <td>φ(t)</td>
-		    <td>La fonction de passage de c(t) à Q2(t)</td>
+		    <td>Cette fonction formalise le passage des
+		      comportements contrôlés c(t) aux comportements
+		      « pseudo-normal » b(t)</td>
 		  </tr>
 		</tbody>
 		<caption>Les relations de causalité et les effets dominos</caption>
@@ -201,6 +197,18 @@
 
       </div>
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Le développement de cette interface web
+          a bénéficié d'une aide du gouvernement français, gérée par
+          l'Agence Nationale de la Recherche au titre du projet
+          Investissements d'Avenir UCA<sup><span style="font-variant:
+          small-caps;">jedi</span></sup> portant la référence
+          n<sup>o</sup> ANR-15-IDEX-01</p>
+      </div>
+    </footer>
+
   </body>
 
 </html>

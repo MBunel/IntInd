@@ -217,17 +217,13 @@ class Model(object):
     @transaction.atomic
     def dbWrite(self, nodeList, res):
         sim = self.simWrite()
-
         # self.parmsWrite(simId)
-
         nodes = self.nodesWrite(sim, nodeList)
-
         self.resWirte(sim, nodes, self.time, res)
 
     def simWrite(self):
         sim = Simulation(timestamp=1)
         sim.save()
-
         return sim
 
     def parmsWrite(self, sim):
@@ -235,18 +231,14 @@ class Model(object):
 
     def nodesWrite(self, sim, nodeList):
         nodes = []
-
         for i in nodeList:
             node = Node(simulation=sim, m_id=i)
             node.save()
             nodes.append(node)
-
         return nodes
 
     def edgesWrite(self, sim, nodeList, edgeList):
-
         edges = [Edge(idA=0, idB=1) for i in edgeList]
-
         Edge.objects.bulk_create(edges)
 
     def resWirte(self, sim, nodes, time, res):
