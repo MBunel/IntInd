@@ -78,124 +78,14 @@
 	    </div>
 	  </div>
 
-	  <div id="Tableau" class="container col-lg-4 col-md-6 col-sm-12">
-
-	    <div class="table-responsive">
-	      <table class="table table-striped">
-		<thead>
-		  <tr>
-		    <th>Variable</th>
-		    <th>Qualification des variables et fonctions</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-		    <td>q(t)</td>
-		    <td>Les individus dans leur comportement quotidien au
-		      démarrage de la simulation</td>
-		  </tr>
-		  <tr>
-		    <td>b(t)</td>
-		    <td>Les individus qui retrouvent un comportement
-		      « pseudo-normal » après avoir réagi à l’évènement.
-		      Ces derniers ne « rebouclent » plus dans le système.</td>
-		  </tr>
-		  <tr>
-		    <td>r(t)</td>
-		    <td>L’effectif des comportements « Réflexes » à un instant t</td>
-		  </tr>
-		  <tr>
-		    <td>c(t)</td>
-		    <td>L’effectif des comportements « Contrôlés » à un
-		      instant t</td>
-		  </tr>
-		  <tr>
-		    <td>p(t)</td>
-		    <td>L’effectif des comportements « de Panique » à un instant t</td>
-		  </tr>
-		</tbody>
-		<caption>Les variables d'état</caption>
-	      </table>
-	    </div>
-
-	    <div class="table-responsive">
-	      <table class="table table-striped">
-		<tbody>
-		  <tr>
-		    <td>B<sub>1</sub></td>
-		    <td>Comportements endogènes : des réflexes vers les
-		      comportements contrôlés</td>
-		  </tr>
-		  <tr>
-		    <td>B<sub>2</sub></td>
-		    <td>Comportements endogènes : des réflexes vers les
-		      comportements de panique</td>
-		  </tr>
-		  <tr>
-		    <td>C<sub>1</sub></td>
-		    <td>Comportements endogènes : de la panique vers les
-		      comportements contrôlés</td>
-		  </tr>
-		  <tr>
-		    <td>C<sub>2</sub></td>
-		    <td>Comportements endogènes : des contrôlés vers les
-		      comportements de panique</td>
-		  </tr>
-		  <tr>
-		    <td>s<sub>1</sub></td>
-		    <td>Des comportements contrôlés vers les comportements
-		      réflexes lorsqu'un nouvel événement perturbateur se
-		      produit</td>
-		  </tr>
-		  <tr>
-		    <td>s<sub>2</sub></td>
-		    <td>Des comportements de panique vers les comportements
-		      lorsqu'un nouvel événement perturbateur se produit</td>
-		  </tr>
-		  <tr>
-		    <td>γ(t)</td>
-		    <td>La fonction de forçage permettant de représenter le type
-		      d’aléa</td>
-		  </tr>
-		  <tr>
-		    <td>φ(t)</td>
-		    <td>Cette fonction formalise le passage des
-		      comportements contrôlés c(t) aux comportements
-		      « pseudo-normal » b(t)</td>
-		  </tr>
-		</tbody>
-		<caption>Les relations de causalité et les effets dominos</caption>
-	      </table>
-	    </div>
-
-	    <div class="table-responsive">
-	      <table class="table table-striped">
-		<tbody>
-		  <tr>
-		    <td>α<sub>1</sub> et α<sub>2</sub></td>
-		    <td>Les processus d’imitation et de contagion entre r(t) et
-		      c(t)</td>
-		  </tr>
-		  <tr>
-		    <td>δ<sub>1</sub> et δ<sub>2</sub></td>
-		    <td>Les processus d’imitation et de contagion entre r(t) et
-		      p(t)</td>
-		  </tr>
-		  <tr>
-		    <td>µ<sub>1</sub> et µ<sub>2</sub></td>
-		    <td>Les processus d'imitation et de contagion entre c(t) et z(t)</td>
-		  </tr>
-		</tbody>
-		<caption>Les processus d'imitation et de contagion</caption>
-	      </table>
-	    </div>
-
+	  <div class="container col-lg-4 col-md-6 col-sm-12">
+	    {% include "Acc/table.xhtml" %}
 	  </div>
+
 	</div>
-
-
-
       </div>
+
+
     </div>
 
     <footer class="footer">
