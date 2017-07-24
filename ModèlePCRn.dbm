@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.1" last-position="0,0" last-zoom="1.1"
+	 default-schema="public" default-owner="postgres">
+<database name="nouvelle_base">
+</database>
+
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="Simulation">
+	<schema name="&quot;PCRn&quot;"/>
+	<role name="postgres"/>
+	<position x="500" y="360"/>
+	<column name="id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="timestamp" not-null="true">
+		<type name="date"/>
+	</column>
+	<constraint name="SimId" type="pk-constr" table="&quot;PCRn&quot;.&quot;Simulation&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<schema name="PCRn" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="Parameter">
+	<schema name="&quot;PCRn&quot;"/>
+	<role name="postgres"/>
+	<position x="500" y="180"/>
+	<column name="id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="simulation_id">
+		<type name="int8"/>
+	</column>
+	<column name="parameter" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="float8"/>
+	</column>
+	<constraint name="Param_id" type="pk-constr" table="&quot;PCRn&quot;.&quot;Parameter&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Node">
+	<schema name="&quot;PCRn&quot;"/>
+	<role name="postgres"/>
+	<position x="500" y="560"/>
+	<column name="id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="simulation_id">
+		<type name="int8"/>
+	</column>
+	<constraint name="Node_id" type="pk-constr" table="&quot;PCRn&quot;.&quot;Node&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Result">
+	<schema name="&quot;PCRn&quot;"/>
+	<role name="postgres"/>
+	<position x="872.143" y="345"/>
+	<column name="id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="simulation_id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="node_id">
+		<type name="int8"/>
+	</column>
+	<column name="time" not-null="true">
+		<type name="float8"/>
+	</column>
+	<column name="dr" not-null="true">
+		<type name="float8"/>
+	</column>
+	<column name="dc" not-null="true">
+		<type name="float8"/>
+	</column>
+	<column name="dp" not-null="true">
+		<type name="float8"/>
+	</column>
+	<column name="dq" not-null="true">
+		<type name="float8"/>
+	</column>
+	<constraint name="Res_id" type="pk-constr" table="&quot;PCRn&quot;.&quot;Result&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Edge">
+	<schema name="&quot;PCRn&quot;"/>
+	<role name="postgres"/>
+	<position x="47.1429" y="525"/>
+	<column name="id" not-null="true">
+		<type name="int8"/>
+	</column>
+	<column name="simulation_id">
+		<type name="int8"/>
+	</column>
+	<column name="idA">
+		<type name="int8"/>
+	</column>
+	<column name="idB">
+		<type name="int8"/>
+	</column>
+	<constraint name="Edge_id" type="pk-constr" table="&quot;PCRn&quot;.&quot;Edge&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="param_sim_id" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Simulation&quot;" table="&quot;PCRn&quot;.&quot;Parameter&quot;">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Node_Simulation" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Simulation&quot;" table="&quot;PCRn&quot;.&quot;Node&quot;">
+	<columns names="simulation_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Result_Simulation" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Simulation&quot;" table="&quot;PCRn&quot;.&quot;Result&quot;">
+	<columns names="simulation_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Res_Node" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Node&quot;" table="&quot;PCRn&quot;.&quot;Result&quot;">
+	<columns names="node_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Edge_Simulation" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Simulation&quot;" table="&quot;PCRn&quot;.&quot;Edge&quot;">
+	<columns names="simulation_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Edge_NodeA" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Node&quot;" table="&quot;PCRn&quot;.&quot;Edge&quot;">
+	<columns names="idA" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_Edge_NodeB" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="&quot;PCRn&quot;.&quot;Node&quot;" table="&quot;PCRn&quot;.&quot;Edge&quot;">
+	<columns names="idB" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="&quot;rel_Parameter_Simulation&quot;" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Parameter&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Simulation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Edge_Simulation&quot;" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Edge&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Simulation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Node_Simulation&quot;" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Node&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Simulation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_Result_Simulation&quot;" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Result&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Simulation&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_Edge_Node" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Edge&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Node&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0.0583098" y="-6.70183"/>
+	</label>
+</relationship>
+
+<relationship name="&quot;rel_Result_Node&quot;" type="relfk"
+	 src-table="&quot;PCRn&quot;.&quot;Result&quot;"
+	 dst-table="&quot;PCRn&quot;.&quot;Node&quot;"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
