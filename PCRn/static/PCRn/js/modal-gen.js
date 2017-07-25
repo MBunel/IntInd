@@ -57,46 +57,65 @@ const bodycont = [
 ];
 
 function genFeatureModal (idw, idf) {
-    cleanModal (idw);
+    cleanModal(idw);
     var modal = $(idw);
+    var defIdfVal = markersGroup._layers[idf].options;
+    // Windows title
     modal.find('.modal-title').text('Noeud ' + idf);
-
+    // Windows content
     modal.find('.modal-body')
-
-	.append($('<div>')
-		.addClass('btn-group')
-		.attr('data-toogle', 'buttons')
-		.append($('<button>')
-			. addClass('btn btn-primary')
-		       )
-		.append($('<button>')
-			. addClass('btn btn-primary')
-		       )
-		.append($('<button>')
-			. addClass('btn btn-primary')
-		       )
-		.append($('<button>')
-			. addClass('btn btn-primary')
-		       )
-	       )
-
 	.append($('<from>')
-
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("Champ1"))
+	    			.text("Q"))
 	    		.append($('<input>')
 	    			.addClass('form-control')
-	    			.attr('type', 'email')
+	    			.attr({
+				    'id': 'Qinput',
+				    'type': 'email',
+				    'value': defIdfVal.Q
+				    })
+	    		       )
+	    	       )
+		.append($('<div>')
+	    		.addClass('form-group')
+	    		.append($('<label>')
+	    			.text("R"))
+	    		.append($('<input>')
+	    			.addClass('form-control')
+	    			.attr({
+				    'type': 'email',
+				    'value': 'RD'
+				})
+	    		       )
+	    	       )
+		.append($('<div>')
+	    		.addClass('form-group')
+	    		.append($('<label>')
+	    			.text("C"))
+	    		.append($('<input>')
+	    			.addClass('form-control')
+	    			.attr({
+				    'type': 'email',
+				    'value': 'Cq'
+				})
+	    		       )
+	    	       )
+		.append($('<div>')
+	    		.addClass('form-group')
+	    		.append($('<label>')
+	    			.text("P"))
+	    		.append($('<input>')
+	    			.addClass('form-control')
+	    			.attr({
+				    'type': 'email',
+				    'value': 'Pc'
+				})
 	    		       )
 	    	       )
 	       );
-
-
-
-
-
+    // Windows footer
     modal.find('.modal-footer')
 	.append($('<div>')
 		.append($('<button>')
@@ -124,8 +143,13 @@ function genFeatureModal (idw, idf) {
 			)
 			.on('click',
 			    function() {
+				var a = modal.find('#Qinput').val();
 				// mise à jour des données du marqueur
-				updateMarkerData(idf, {'hop': 'hep', 'non':'si'});
+				updateMarkerData(idf, {
+				    'Q': a,
+				    'hop': 'hep',
+				    'non':'si'
+				});
 				// supp fen
 				$("#GenericModal").modal("hide");
 			    }
