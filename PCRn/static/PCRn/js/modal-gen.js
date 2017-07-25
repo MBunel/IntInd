@@ -224,6 +224,89 @@ function genImportModal (id) {
 	       );
 }
 
+
+function genSimModal (id) {
+    cleanModal(id);
+    var modal = $(id);
+    // Set title
+    modal.find('.modal-title').text('Simulation');
+
+    var nbNoeuds = Object.keys(markersGroup._layers).length,
+	nbLiens = Object.keys(linesGroup._layers).length;
+
+
+    var TextGen = [nbNoeuds, nbLiens].map(
+	function (x) {
+	    var res;
+
+	    switch(x) {
+	    case 0:
+		res = ["Aucun", ""];
+		break;
+	    case 1:
+		res = [x, ""];
+		break;
+	    default:
+		res = [x, "s"];
+	    }
+	    return res;
+	}
+    );
+
+    var textN = `${TextGen[0][0]} noeud${TextGen[0][1]}`,
+	textE = `${TextGen[1][0]} lien${TextGen[1][1]}`;
+
+    modal.find('.modal-body')
+	.append($('<div>')
+		.append($('<ul>')
+			.append($('<li>')
+				.text(textN)
+			       )
+			.append($('<li>')
+				.text(textE)
+			       )
+		       ));
+
+
+
+    // Set footer content
+    modal.find('.modal-footer')
+	.append($('<div>')
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id:"featurefade-ann-btn",
+				class:"btn btn-sm btn-default"
+			    }
+			)
+			.on('click',
+			    function(){
+				$("#GenericModal").modal("hide");
+			    }
+			   )
+			.text("Annuler")
+		       )
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id: "featurefade-imp-btn",
+				class: "btn btn-sm btn-primary"
+			    }
+			)
+			.on('click',
+			    function(){
+				console.log("yep");
+			    }
+			   )
+			.text("Valider")
+		       )
+	       );
+
+}
+
+
 function cleanModal (id) {
     var modal = $(id);
     modal.find('.modal-title').text('Void');
