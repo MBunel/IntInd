@@ -85,8 +85,9 @@ function genFeatureModal (idw, idf) {
 	    		.append($('<input>')
 	    			.addClass('form-control')
 	    			.attr({
+				    'id': 'Rinput',
 				    'type': 'email',
-				    'value': 'RD'
+				    'value': defIdfVal.R
 				})
 	    		       )
 	    	       )
@@ -97,8 +98,9 @@ function genFeatureModal (idw, idf) {
 	    		.append($('<input>')
 	    			.addClass('form-control')
 	    			.attr({
+				    'id': 'Cinput',
 				    'type': 'email',
-				    'value': 'Cq'
+				    'value': defIdfVal.C
 				})
 	    		       )
 	    	       )
@@ -109,8 +111,9 @@ function genFeatureModal (idw, idf) {
 	    		.append($('<input>')
 	    			.addClass('form-control')
 	    			.attr({
+				    'id': 'Pinput',
 				    'type': 'email',
-				    'value': 'Pc'
+				    'value': defIdfVal.P
 				})
 	    		       )
 	    	       )
@@ -143,12 +146,12 @@ function genFeatureModal (idw, idf) {
 			)
 			.on('click',
 			    function() {
-				var a = modal.find('#Qinput').val();
 				// mise à jour des données du marqueur
 				updateMarkerData(idf, {
-				    'Q': a,
-				    'hop': 'hep',
-				    'non':'si'
+				    'Q': modal.find('#Qinput').val(),
+				    'R': modal.find('#Rinput').val(),
+				    'C': modal.find('#Cinput').val(),
+				    'P': modal.find('#Pinput').val()
 				});
 				// supp fen
 				$("#GenericModal").modal("hide");
