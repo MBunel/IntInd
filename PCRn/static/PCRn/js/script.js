@@ -273,6 +273,7 @@ function runSimulation() {
 		json['R'] = x.options.R;
 		json['C'] = x.options.C;
 		json['P'] = x.options.P;
+		json['B'] = x.options.B;
 
 		return json;
 	    }),

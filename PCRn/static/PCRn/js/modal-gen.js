@@ -117,6 +117,19 @@ function genFeatureModal (idw, idf) {
 				})
 	    		       )
 	    	       )
+		.append($('<div>')
+	    		.addClass('form-group')
+	    		.append($('<label>')
+	    			.text("B"))
+	    		.append($('<input>')
+	    			.addClass('form-control')
+	    			.attr({
+				    'id': 'Binput',
+				    'type': 'email',
+				    'value': defIdfVal.B
+				})
+	    		       )
+	    	       )
 	       );
     // Windows footer
     modal.find('.modal-footer')
@@ -151,7 +164,8 @@ function genFeatureModal (idw, idf) {
 				    'Q': modal.find('#Qinput').val(),
 				    'R': modal.find('#Rinput').val(),
 				    'C': modal.find('#Cinput').val(),
-				    'P': modal.find('#Pinput').val()
+				    'P': modal.find('#Pinput').val(),
+				    'B': modal.find('#Binput').val()
 				});
 				// supp fen
 				$("#GenericModal").modal("hide");

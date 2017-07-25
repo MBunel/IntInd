@@ -122,7 +122,7 @@ class Model(object):
         return dX
 
     def graphCreation(self, nodes, edges):
-        # Création du graph
+        # Création du graph (orienté)
         self.Graph = nx.DiGraph()
         # Ajout liste de liens et noeuds
         self.Graph.add_nodes_from(nodes)
