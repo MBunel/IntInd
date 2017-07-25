@@ -269,6 +269,10 @@ function runSimulation() {
 	    'nodes': markersGroup.getLayers().map(function(x){
 		var json = {};
 		json['_l_id'] = x._leaflet_id;
+		json['Q'] = x.options.Q;
+		json['R'] = x.options.R;
+		json['C'] = x.options.C;
+		json['P'] = x.options.P;
 
 		return json;
 	    }),
