@@ -219,6 +219,74 @@ function genFeatureModal (idw, idf) {
 
 
 function genEdgeModal(idw, idf) {
+    cleanModal(idw);
+    var modal = $(idw);
+    // var defIdfVal = LinesGroup._layers[idf].options;
+
+
+    modal.find('.modal-title').text('Importation');
+
+
+    // Gen table
+    // var table = $('<table>');
+
+    // $([[1,0,1], [1,1,1], [0,0,1]]).each(
+    // 	function(){
+    // 	    var line = $('<tr>')
+    // 	    $(this).each(
+    // 		function(i) {
+    // 		    line.append($('<td>').html(1));
+    // 		}
+    // 	    );
+    // 	    table.append(line);
+    // 	}
+    // );
+
+    modal.find('.modal-body')
+	.append($('<div>')
+		.append($table)
+	       );
+
+    // Set footer content
+    modal.find('.modal-footer')
+	.append($('<div>')
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id:"featurefade-ann-btn",
+				class:"btn btn-sm btn-default"
+			    }
+			)
+			.on('click',
+			    function(){
+				$("#GenericModal").modal("hide");
+			    }
+			   )
+			.text("Annuler")
+		       )
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id: "featurefade-imp-btn",
+				class: "btn btn-sm btn-primary"
+			    }
+			)
+			.on('click',
+			    function(){
+				console.log("yep");
+			    }
+			   )
+			.text("Valider")
+		       )
+	       );
+
+
+    function drawTable() {
+
+
+    }
 
 }
 
