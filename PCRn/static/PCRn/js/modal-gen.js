@@ -56,81 +56,122 @@ const bodycont = [
     }
 ];
 
+
 function genFeatureModal (idw, idf) {
     cleanModal(idw);
     var modal = $(idw);
     var defIdfVal = markersGroup._layers[idf].options;
     // Windows title
     modal.find('.modal-title').text('Noeud ' + idf);
+
     // Windows content
     modal.find('.modal-body')
 	.append($('<from>')
+		.addClass('form-horizontal')
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("Q"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Qinput',
-				    'type': 'email',
-				    'value': defIdfVal.Q
-				    })
-	    		       )
+				.attr('for', "Qinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des quotidiens")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Qinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de Q',
+					    'value': defIdfVal.Q
+					})
+	    			       )
+			       )
+
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("R"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Rinput',
-				    'type': 'email',
-				    'value': defIdfVal.R
-				})
-	    		       )
+				.attr('for', "Rinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des réflexes")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Rinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de R',
+					    'value': defIdfVal.R
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("C"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Cinput',
-				    'type': 'email',
-				    'value': defIdfVal.C
-				})
-	    		       )
+				.attr('for', "Cinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des contrôlés")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Cinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de C',
+					    'value': defIdfVal.C
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("P"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Pinput',
-				    'type': 'email',
-				    'value': defIdfVal.P
-				})
-	    		       )
+				.attr('for', "Pinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des paniqués")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Pinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de P',
+					    'value': defIdfVal.P
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("B"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Binput',
-				    'type': 'email',
-				    'value': defIdfVal.B
-				})
+				.attr('for', "Binput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des quotidiens 2")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Binput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de B',
+					    'value': defIdfVal.B
+					})
+	    			       )
 	    		       )
-	    	       )
+		       )
 	       );
+
+
     // Windows footer
     modal.find('.modal-footer')
 	.append($('<div>')
@@ -175,6 +216,12 @@ function genFeatureModal (idw, idf) {
 		       )
 	       );
 }
+
+
+function genEdgeModal(idw, idf) {
+
+}
+
 
 function genImportModal (id) {
     cleanModal (id);
