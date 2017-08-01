@@ -148,8 +148,17 @@ function onMapClick(e) {
 		    }
 		}
 	    }
-	   )
-		.addTo(markersGroup);
+	   );
+
+
+    // Ajout valeurs par défaut
+    // a remplacer par les valeurs par défaut
+    var options = {'C': 1, 'Merguez': 30};
+    for (var opt in options) {
+	newMarker.options[opt] = options[opt];
+    }
+
+    newMarker.addTo(markersGroup);
 }
 
 

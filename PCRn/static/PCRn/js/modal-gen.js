@@ -221,16 +221,19 @@ function genFeatureModal (idw, idf) {
 function genEdgeModal(idw, idf) {
     cleanModal(idw);
     var modal = $(idw);
-    // var defIdfVal = LinesGroup._layers[idf].options;
+    var defIdfVal = linesGroup._layers[idf].options;
 
 
     modal.find('.modal-title').text('Lien ' + idf);
 
 
-    //Gen table
+    // Gen table
+    // On définit une var par défault
+    // A remplacer par les paramètres globaux
+    var cpMat = defIdfVal.cpMat || [[0,1,0],[1,0,1],[0,1,0]];
     var table = $('<table>');
 
-    $([[1,0,1], [1,1,1], [0,0,1]]).each(
+    $(cpMat).each(
     	function(){
     	    var line = $('<tr>');
     	    $(this).each(
