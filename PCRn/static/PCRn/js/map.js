@@ -152,8 +152,8 @@ function onMapClick(e) {
 
 
     // Ajout valeurs par défaut
-    // a remplacer par les valeurs par défaut
-    var options = {'C': 1, 'Merguez': 30};
+    // objet avec les valeurs par défaut
+    var options = defaultModelValues.getParameter('nodes');
     for (var opt in options) {
 	newMarker.options[opt] = options[opt];
     }
