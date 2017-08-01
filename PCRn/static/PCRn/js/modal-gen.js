@@ -224,7 +224,7 @@ function genEdgeModal(idw, idf) {
     // var defIdfVal = LinesGroup._layers[idf].options;
 
 
-    modal.find('.modal-title').text('Importation');
+    modal.find('.modal-title').text('Lien ' + idf);
 
 
     //Gen table
@@ -275,7 +275,11 @@ function genEdgeModal(idw, idf) {
 			)
 			.on('click',
 			    function(){
-				extractTable("#GenericModal table");
+				updateEdgesData(idf, {
+				    'cpMat': extractTable("#GenericModal table")
+				});
+				// Fermeture
+				$("#GenericModal").modal("hide");
 			    }
 			   )
 			.text("Valider")
@@ -297,14 +301,13 @@ function genEdgeModal(idw, idf) {
 		    $(this).children()
 			.each(
 			    function(){
-				var modality = $(this).html();
+				var modality = parseFloat($(this).html());
 				row.push(modality);
 			    }
 			);
 		    list.push(row);
 		}
 	    );
-	console.log(list);
 	return list;
     }
 

@@ -186,6 +186,14 @@ function markerUpdateTableValues(id, a) {
 	);
 }
 
+function updateEdgesData(id, data) {
+    var edge = linesGroup.getLayer(id).options;
+
+    for (var prop in data) {
+	edge[prop] = data[prop];
+    }
+}
+
 function lineAddSidebar(id, a) {
     $("#lines-list tbody")
 	.append($('<tr>')
@@ -281,6 +289,8 @@ function runSimulation() {
 		var json = {};
 		json['_l_id'] = x._leaflet_id;
 		json['idP'] = x.options.idPoints;
+
+		json['cpMat'] = x.options.cpMat;
 
 		return json;
 	    })
