@@ -275,7 +275,7 @@ function genEdgeModal(idw, idf) {
 			)
 			.on('click',
 			    function(){
-				console.log("yep");
+				extractTable("#GenericModal table");
 			    }
 			   )
 			.text("Valider")
@@ -287,6 +287,29 @@ function genEdgeModal(idw, idf) {
 
 
     }
+
+    function extractTable(id) {
+	var list = [];
+	$(id).children()
+	    .each(
+		function(){
+		    var row=[];
+		    $(this).children()
+			.each(
+			    function(){
+				var modality = $(this).html();
+				row.push(modality);
+			    }
+			);
+		    list.push(row);
+		}
+	    );
+	console.log(list);
+	return list;
+    }
+
+
+
 
 }
 
