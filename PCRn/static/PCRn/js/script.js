@@ -208,7 +208,7 @@ function lineRemoveSidebar(id) {
 
 // Alerter la visibilité des tables
 function changePanelSidebar() {
-    const Title = ["Marqueurs", "Liens", "Paramètres"];
+    const Title = ["Marqueurs", "Liens", "Paramètres", "Historique"];
 
     // On sélectionne la table suivant la (première) table visible
     var a = $('.sidebar-table table:visible:first').next();
@@ -287,7 +287,20 @@ function runSimulation() {
 	}),
 	success: function(data){
 	    console.log(data);
-	    console.log("sucess callback");
+	    $("#history-list tbody")
+		.append($('<tr>')
+			.append($('<td>')
+				.text("Sucess")
+			       )
+		       );
+	},
+	error: function(xhr){
+	    $("#history-list tbody")
+		.append($('<tr>')
+			.append($('<td>')
+				.text("Error")
+			       )
+		       );
 	}
     });
 }
