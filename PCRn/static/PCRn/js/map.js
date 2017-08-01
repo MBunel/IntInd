@@ -282,7 +282,6 @@ function markerList() {
     var allMarkersGeoJsonArray = [];
 
     $.each(map._layers, function (ml) {
-        //console.log(map._layers)
         if (map._layers[ml]._layers) {
 
 	    $.each(this._layers, function () {
