@@ -1,4 +1,6 @@
-var DefaultParameters = function () {
+var DefaultParameters = function (tableid) {
+    this.tableid = tableid;
+
     this.defaultNodes = {};
     this.defaultEdges = {};
     this.defaultGlobal = {};
@@ -33,5 +35,31 @@ DefaultParameters.prototype.getParameter = function(type) {
     return this.parseType(type);
 };
 
+DefaultParameters.prototype.genTable = function(type) {
+    var obj = this.parseType(type);
+    var out = $(this.tableid);
+    out.append($('<tr>')
+	       .append($('<td>')
+		       .html(type)
+		      )
+	      );
+    $.each(obj, function(i,v){
+	out.append(
+	    $('<tr>')
+		.append($('<td>')
+			.html(i)
+		       )
+		.append($('<td>')
+			.html(v)
+		       )
+	);
+    });
+};
 
-var defaultModelValues = new DefaultParameters();
+
+
+var defaultModelValues = new DefaultParameters('#parameters-list > tbody');
+
+// ex
+// defaultModelValues.updateParameter('nodes', {'merguez':2, 'bière':2});
+// defaultModelValues.genTable('nodes')
