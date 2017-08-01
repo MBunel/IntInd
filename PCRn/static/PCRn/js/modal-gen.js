@@ -227,24 +227,24 @@ function genEdgeModal(idw, idf) {
     modal.find('.modal-title').text('Importation');
 
 
-    // Gen table
-    // var table = $('<table>');
+    //Gen table
+    var table = $('<table>');
 
-    // $([[1,0,1], [1,1,1], [0,0,1]]).each(
-    // 	function(){
-    // 	    var line = $('<tr>')
-    // 	    $(this).each(
-    // 		function(i) {
-    // 		    line.append($('<td>').html(1));
-    // 		}
-    // 	    );
-    // 	    table.append(line);
-    // 	}
-    // );
+    $([[1,0,1], [1,1,1], [0,0,1]]).each(
+    	function(){
+    	    var line = $('<tr>');
+    	    $(this).each(
+    		function() {
+    		    line.append($('<td>').html(this));
+    		}
+    	    );
+    	    table.append(line);
+    	}
+    );
 
     modal.find('.modal-body')
 	.append($('<div>')
-		.append($table)
+		.append(table)
 	       );
 
     // Set footer content
