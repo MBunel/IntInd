@@ -8,11 +8,11 @@ $(document)
 	var id = $(this).parent().attr('id');
 	markerClickSidebar(id);
     })
-    .on('mouseover', '.feature-row', function() {
+    .on('mouseover', '#markers-list tbody .feature-row', function() {
 	var id = $(this).attr('id');
 	markerMouseoverSidebar(id);
     })
-    .on('mouseout', '.feature-row', function() {
+    .on('mouseout', '#markers-list tbody .feature-row', function() {
 	var id = $(this).attr('id');
 	markerMouseoutSidebar(id);
     })
