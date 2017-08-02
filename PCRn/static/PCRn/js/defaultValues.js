@@ -6,7 +6,6 @@ var DefaultParameters = function (tableid) {
     this.defaultGlobal = {};
 };
 
-
 DefaultParameters.prototype.parseType = function(type) {
     var params;
     switch(type) {
@@ -29,7 +28,6 @@ DefaultParameters.prototype.updateParameter = function(type, parameters) {
 	obj[param] = parameters[param];
     }
 };
-
 
 DefaultParameters.prototype.getParameter = function(type) {
     return this.parseType(type);
@@ -60,6 +58,20 @@ DefaultParameters.prototype.genTable = function(type) {
 
 var defaultModelValues = new DefaultParameters('#parameters-list > tbody');
 
-// ex
-// defaultModelValues.updateParameter('nodes', {'merguez':2, 'bière':2});
+// Les variables par défaut sont fixées dans le code
+// Système à modifier
+
+// params def nodes
+defaultModelValues.updateParameter('nodes', {
+    'Q':2,
+    'R':2,
+    'C':2,
+    'P':2,
+    'B':2
+});
+
+// params def edges
+defaultModelValues.updateParameter('edges', {
+    'cpMat': [[0, 0, 1], [0, 1, 1], [1,1,1,]]
+});
 // defaultModelValues.genTable('nodes')

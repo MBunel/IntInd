@@ -182,23 +182,27 @@ function addLine(m1, m2) {
 	    }
 	   );
 
-    newLine.addTo(linesGroup);
-
     newLine['options']['idPoints'] = [];
     newLine['options']['idPoints'].push(idM1, idM2);
-
     if (m1['options']['idLines'] === undefined) {
 	m1['options']['idLines'] = [];
     }
     if (m2['options']['idLines'] === undefined) {
 	m2['options']['idLines'] = [];
     }
-
     m1['options']['idLines'].push(newLine._leaflet_id);
     m2['options']['idLines'].push(newLine._leaflet_id);
 
-    return newLine._leaflet_id;
+    // Ajout valeurs par défaut
+    // objet avec les valeurs par défaut
+    var options = defaultModelValues.getParameter('edges');
+    for (var opt in options) {
+	newLine.options[opt] = options[opt];
+    }
 
+    newLine.addTo(linesGroup);
+
+    return newLine._leaflet_id;
 }
 
 
