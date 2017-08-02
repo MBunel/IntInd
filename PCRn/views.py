@@ -9,7 +9,8 @@ from PCRn.PcrModel import Model
 def index(request):
     return render(request,
                   'PCRn/index.xhtml',
-                  {'projectName': 'Nom projet'})
+                  {'projectName': 'Nom projet'},
+                  content_type='application/xhtml+xml')
 
 
 def runSimulation(request):
