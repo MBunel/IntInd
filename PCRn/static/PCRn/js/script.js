@@ -4,7 +4,7 @@
 $(document)
 // Zoom on map on tr click
 // Ne zoome pas au click sur btn options
-    .on('click', '.feature-row > td:not(.btn-marker-col)', function () {
+    .on('click', '#markers-list tbody .feature-row > td:not(.btn-marker-col)', function () {
 	var id = $(this).parent().attr('id');
 	markerClickSidebar(id);
     })
