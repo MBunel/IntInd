@@ -41,7 +41,7 @@ DefaultParameters.prototype.genTable = function(type) {
 	    $('<tr>')
 		.addClass("feature-row")
 		.append($('<td>')
-			.text(i)
+			.text(i.capitalize())
 			.addClass("text-center")
 		       )
 		.append($('<td>')
