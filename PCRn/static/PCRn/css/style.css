@@ -68,7 +68,11 @@ body {
 .selectorDiv > .form-control {
     height: 22px;
     width: 50px;
-    margin-right: 5px
+    margin-right: 5px;
+}
+
+.globalOption-value {
+    text-decoration: underline;
 }
 
 /* Surcharge padding tabble-condensed*/
