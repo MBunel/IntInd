@@ -39,19 +39,46 @@ DefaultParameters.prototype.genTable = function(type) {
     $.each(obj, function(i,v){
 	out.append(
 	    $('<tr>')
-		.addClass("feature-row")
+		.addClass("feature-row globalOption-row")
 		.append($('<td>')
 			.text(i.capitalize())
 			.addClass("text-center")
 		       )
 		.append($('<td>')
+			.addClass("text-center globalOption-value")
 			.text(v)
-			.addClass("text-center")
 		       )
 	);
     });
 };
 
+$(document)
+    .on('click', '.globalOption-value', function () {
+	var def = $(this);
+	def.removeClass("globalOption-value");
+	var selector = $('<form>')
+	    .addClass("selectorDiv form-inline")
+	    .append($('<input>')
+		    .addClass('input-sm form-control')
+		    .val(def.text())
+		   )
+	    .append(
+		$('<button>')
+		    .addClass("btn btn-xs btn-primary btn-outline parameter-changer")
+		    .attr("type", "button")
+		    .append($('<i>').addClass("fa fa-check"))
+	    );
+	def.html("").append(selector);
+    })
+	.on('click', '.parameter-changer', function(){
+	    var $this = $(this);
+	    var $gop = $this.closest(".selectorDiv");
+	    var $gopp = $gop.parent();
+	    var val = $gop.children("input").val();
+	    $gopp.addClass("globalOption-value");
+	    $gopp.empty();
+	    $gopp.text(val);
+	});
 
 
 var defaultModelValues = new DefaultParameters('#parameters-list > tbody');

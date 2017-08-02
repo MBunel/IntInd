@@ -64,6 +64,13 @@ body {
     -o-user-select:none;
 }
 
+
+.selectorDiv > .form-control {
+    height: 22px;
+    width: 50px;
+    margin-right: 5px
+}
+
 /* Surcharge padding tabble-condensed*/
 #markers-list > tbody > tr > td {
     padding-left: 15px;
