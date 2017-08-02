@@ -36,19 +36,17 @@ DefaultParameters.prototype.getParameter = function(type) {
 DefaultParameters.prototype.genTable = function(type) {
     var obj = this.parseType(type);
     var out = $(this.tableid);
-    out.append($('<tr>')
-	       .append($('<td>')
-		       .html(type)
-		      )
-	      );
     $.each(obj, function(i,v){
 	out.append(
 	    $('<tr>')
+		.addClass("feature-row")
 		.append($('<td>')
-			.html(i)
+			.text(i)
+			.addClass("text-center")
 		       )
 		.append($('<td>')
-			.html(v)
+			.text(v)
+			.addClass("text-center")
 		       )
 	);
     });
@@ -74,4 +72,11 @@ defaultModelValues.updateParameter('nodes', {
 defaultModelValues.updateParameter('edges', {
     'cpMat': [[0, 0, 1], [0, 1, 1], [1,1,1,]]
 });
-// defaultModelValues.genTable('nodes')
+
+// global param
+defaultModelValues.updateParameter('global', {
+    'time': 60,
+    'step': 0.1
+});
+
+defaultModelValues.genTable('global');
