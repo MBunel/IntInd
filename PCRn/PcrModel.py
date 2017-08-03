@@ -1,14 +1,8 @@
-
 import numpy as np
-from django.db import transaction
 from scipy.integrate import odeint
 import networkx as nx
 
 from functools import partialmethod
-
-from itertools import chain
-
-from PCRn.models import Simulation, Node, Edge, Results
 
 
 class Model(object):
@@ -208,61 +202,5 @@ class Model(object):
             sR = sum(R)
             sC = sum(C)
 
-            # Test Db
-            self.dbWrite([i for i in range(9)], solution)
-
         else:
             print('conditions non valides')
-
-    @transaction.atomic
-    def dbWrite(self, nodeList, res):
-        sim = self.simWrite()
-        # self.parmsWrite(simId)
-        nodes = self.nodesWrite(sim, nodeList)
-        self.resWirte(sim, nodes, self.time, res)
-
-    def simWrite(self):
-        sim = Simulation(timestamp=1)
-        sim.save()
-        return sim
-
-    def parmsWrite(self, sim):
-        print('a')
-
-    def nodesWrite(self, sim, nodeList):
-        nodes = []
-        for i in nodeList:
-            node = Node(simulation=sim, m_id=i)
-            node.save()
-            nodes.append(node)
-        return nodes
-
-    def edgesWrite(self, sim, nodeList, edgeList):
-        edges = [Edge(idA=0, idB=1) for i in edgeList]
-        Edge.objects.bulk_create(edges)
-
-    def resWirte(self, sim, nodes, time, res):
-        # On transpose la matrice dans un format
-        # où les lignes sont les durées et les colones
-        # les couples noeuds/valeurs
-        resT = np.transpose(res)
-        temp = []
-        # Pour chaque ligne
-        for r in range(len(resT)):
-            # On récupère le temps associé
-            tvalue = time[r]
-            # TODO: Remplacer 4 par N valeurs
-            # On groupe les colones par noeuds
-            # toutes les 4 valeurs on a un nouveau noeud
-            resG = zip(*(iter(resT[r]),)*4)
-            # On crée une liste de Results pour chaque noeuds
-            resOb = (Results(simulation=sim,
-                             node=nodes[i],
-                             time=tvalue,
-                             dr=v[0], dc=v[1], dp=v[2],
-                             dq=v[3]) for i, v in enumerate(resG))
-            # On chaine les itérables pour créer une longue chaine de
-            # générateurs. Le calcul n'est pas effectué
-            temp = chain(temp, resOb)
-        # On entre les données massivement dans la base.
-        Results.objects.bulk_create(temp)
