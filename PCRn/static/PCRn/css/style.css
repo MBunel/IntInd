@@ -71,12 +71,15 @@ body {
     margin-right: 5px;
 }
 
-.globalOpiton-row:first-child {
+.globalOption-value {
+    text-decoration: underline;
+}
+
+.globalOption-row > td:first-child {
     width: 60%;
 }
 
-.globalOption-value {
-    text-decoration: underline;
+.globalOption-row > td:last-child {
     width: 40%;
 }
 
