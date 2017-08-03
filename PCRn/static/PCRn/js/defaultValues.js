@@ -46,6 +46,7 @@ DefaultParameters.prototype.genTable = function(type) {
 		       )
 		.append($('<td>')
 			.addClass("text-center globalOption-value")
+			.attr("paramkey", i)
 			.text(v)
 		       )
 	);
@@ -74,10 +75,15 @@ $(document)
 	    var $this = $(this);
 	    var $gop = $this.closest(".selectorDiv");
 	    var $gopp = $gop.parent();
+	    var key = $gopp.attr("paramkey");
 	    var val = $gop.children("input").val();
 	    $gopp.addClass("globalOption-value");
 	    $gopp.empty();
 	    $gopp.text(val);
+	    // On met à jour la valeur dans l'objet
+	    // le [] sert à ce que ce soit la valeur de key qui soit la
+	    // clé et non la chaine "key"
+	    defaultModelValues.updateParameter('global', {[key]: val});
 	});
 
 
