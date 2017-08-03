@@ -71,8 +71,13 @@ body {
     margin-right: 5px;
 }
 
+.globalOpiton-row:first-child {
+    width: 60%;
+}
+
 .globalOption-value {
     text-decoration: underline;
+    width: 40%;
 }
 
 /* Surcharge padding tabble-condensed*/
