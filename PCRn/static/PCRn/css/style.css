@@ -71,11 +71,16 @@ body {
     margin-right: 5px;
 }
 
+.globalOption-row {
+    height: 33px;
+}
+
 .globalOption-value {
     text-decoration: underline;
 }
 
 .globalOption-row > td:first-child {
+    padding-left: 30px;
     width: 60%;
 }
 

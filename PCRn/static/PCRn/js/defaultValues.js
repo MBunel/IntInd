@@ -42,7 +42,7 @@ DefaultParameters.prototype.genTable = function(type) {
 		.addClass("feature-row globalOption-row")
 		.append($('<td>')
 			.text(i.capitalize())
-			.addClass("text-center")
+			.addClass("text-left")
 		       )
 		.append($('<td>')
 			.addClass("text-center globalOption-value")
@@ -103,7 +103,10 @@ defaultModelValues.updateParameter('edges', {
 // global param
 defaultModelValues.updateParameter('global', {
     'time': 60,
-    'step': 0.1
+    'step': 0.1,
+    'saucisse' : 22,
+    'bière': 'oui',
+    'Effectif de A': 30
 });
 
 defaultModelValues.genTable('global');
