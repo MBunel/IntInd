@@ -10,19 +10,35 @@ class dbAcess:
         print(__name__)
         self.dbWrite("a", "b")
 
+    # Transaction principale
     @transaction.atomic
     def dbWrite(self, nodeList, res):
+
         # Si on crée un nv réseau
         if True:
             network = self.networkWrite("netname")
         # Sinon on renvoie l'id du précédent
         else:
-            network = "id"
+            network = Network.object.filter(id__exact=id)
 
+        # On crée une nouvelle simulation liée au réseau
         sim = self.simWrite(network)
-        # self.parmsWrite(simId)
+
+        # Ajout des nœuds
+        # TODO: Choisir comment procéder
+        # Possibilité: Ajouter les noeuds avec leurs paramètres
+        # Puis renvoyer une liste des id et créer la table des res
         nodes = self.nodesWrite(sim, nodeList)
+
+        # Ajout des résultats
         self.resWirte(sim, nodes, self.time, res)
+
+        # Ajout des liens
+        # Vérification de l'existance des fonctions de couplage
+        #orgs = Organisation.objects.filter(name__iexact = 'Fjuk inc')
+        #if True:
+        # Si non on la crée
+        # Création du lien
 
     def networkWrite(self, name):
         net = Network(title=name)
