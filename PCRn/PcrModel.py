@@ -183,7 +183,6 @@ class Model(object):
             X0 = [0 for k in range(4*N)]
             for k in range(N):
                 X0[3+4*k] = 1
-                # X0[3+4*k] = 1
 
             # Paramètres temporels
             self.time = np.arange(0, endT, stepT)
@@ -191,20 +190,15 @@ class Model(object):
             # NB self.network est la fonction de calcul
             orbit = odeint(self.network, X0, self.time, args=(N, Nbad))
 
-            solution = orbit.T
-            # 4 = nb eq diff
-            # valeur de p, r et c pour tous les noeuds à toutes les dates
-            # len = N + t
-            P = solution[2::4]
-            R = solution[::4]
-            C = solution[1::]
+            P = orbit[:, 2::4]
+            R = orbit[:, ::4]
+            C = orbit[:, 1::4]
 
+            sP = np.sum(P, axis=1)
+            sR = np.sum(R, axis=1)
+            sC = np.sum(C, axis=1)
 
-            sP = sum(P)
-            sR = sum(R)
-            sC = sum(C)
-
-            return solution
+            return orbit
 
         else:
             print('conditions non valides')

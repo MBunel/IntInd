@@ -86,19 +86,15 @@ class dbAcess:
         return sim
 
     def resWirte(self, sim, nodes, time, res):
-        # On transpose la matrice dans un format
-        # où les lignes sont les durées et les colones
-        # les couples noeuds/valeurs
-        resT = np.transpose(res)
         temp = []
         # Pour chaque ligne
-        for r in range(len(resT)):
+        for r in range(len(res)):
             # On récupère le temps associé
             tvalue = time[r]
             # TODO: Remplacer 4 par N valeurs
             # On groupe les colones par noeuds
             # toutes les 4 valeurs on a un nouveau noeud
-            resG = zip(*(iter(resT[r]),)*4)
+            resG = zip(*(iter(res[r]),)*4)
             # On crée une liste de Results pour chaque noeuds
             resOb = (Results(simulation=sim,
                              node=nodes[i],
