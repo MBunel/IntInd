@@ -8,7 +8,7 @@ class dbAcess:
 
     def __init__(self, data):
         print(__name__)
-        self.dbWrite("a", "b")
+        # self.dbWrite("a", "b")
 
     # Transaction principale
     @transaction.atomic
@@ -35,8 +35,10 @@ class dbAcess:
 
         # Ajout des liens
         # Vérification de l'existance des fonctions de couplage
-        #orgs = Organisation.objects.filter(name__iexact = 'Fjuk inc')
-        #if True:
+        # orgs = Organisation.objects.filter(name__iexact = 'Fjuk inc')
+        # if True:
+        # else:
+        #
         # Si non on la crée
         # Création du lien
 

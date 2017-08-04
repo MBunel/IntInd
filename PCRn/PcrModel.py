@@ -17,7 +17,7 @@ class Model(object):
         super(Model, self).__init__()
         self.args = args
 
-        # TODO: Factoriser
+        # TODO: Attribuer une valeur par noeuds
         self.alpha1 = 0.1
         self.alpha2 = 0.1
         self.delta1 = 0.1
@@ -179,6 +179,7 @@ class Model(object):
             # Model solving
             # Conditions initiales
             # Voir si factorisable
+            # TODO: à modifier
             X0 = [0 for k in range(4*N)]
             for k in range(N):
                 X0[3+4*k] = 1
@@ -187,6 +188,7 @@ class Model(object):
             # Paramètres temporels
             self.time = np.arange(0, endT, stepT)
 
+            # NB self.network est la fonction de calcul
             orbit = odeint(self.network, X0, self.time, args=(N, Nbad))
 
             solution = orbit.T
@@ -201,6 +203,8 @@ class Model(object):
             sP = sum(P)
             sR = sum(R)
             sC = sum(C)
+
+            return solution
 
         else:
             print('conditions non valides')
