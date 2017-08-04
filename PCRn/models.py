@@ -90,7 +90,7 @@ class Pcr(models.Model):
 
 class Node(models.Model):
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
-    pcr = models.ForeignKey(Pcr, on_delete=models.CASCADE)
+    # pcr = models.ForeignKey(Pcr, on_delete=models.CASCADE)
     m_id = models.IntegerField()
     # geom = models.PointField()
     comment = models.CharField(max_length=150, blank=True)

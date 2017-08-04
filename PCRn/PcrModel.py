@@ -5,7 +5,7 @@ import networkx as nx
 from functools import partialmethod
 
 
-class Model(object):
+class Model:
     """
     Documentation for ClassName
 
@@ -190,13 +190,15 @@ class Model(object):
             # NB self.network est la fonction de calcul
             orbit = odeint(self.network, X0, self.time, args=(N, Nbad))
 
-            P = orbit[:, 2::4]
-            R = orbit[:, ::4]
-            C = orbit[:, 1::4]
+            # Toutes les lignes, une colone toutes les 4
+            # à partir de la troisième
+            # P = orbit[:, 2::4]
+            # R = orbit[:, ::4]
+            # C = orbit[:, 1::4]
 
-            sP = np.sum(P, axis=1)
-            sR = np.sum(R, axis=1)
-            sC = np.sum(C, axis=1)
+            # sP = np.sum(P, axis=1)
+            # sR = np.sum(R, axis=1)
+            # sC = np.sum(C, axis=1)
 
             return orbit
 

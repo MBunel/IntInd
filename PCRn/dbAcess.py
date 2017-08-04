@@ -4,7 +4,7 @@ from itertools import chain
 from PCRn.models import Simulation, Node, Edge, Results, Network
 
 
-class dbAcess:
+class dbConnector:
 
     def __init__(self, data):
         print(__name__)
@@ -62,10 +62,10 @@ class dbAcess:
     def PcrWrite(self):
         print(__name__)
 
-    def nodesWrite(self, sim, nodeList):
+    def nodesWrite(self, nodeList, net, pcr):
         nodes = []
         for i in nodeList:
-            node = Node(simulation=sim, m_id=i)
+            node = Node(network=net, m_id=i, comment="NA")
             node.save()
             nodes.append(node)
         return nodes
@@ -86,7 +86,7 @@ class dbAcess:
         return sim
 
     def resWirte(self, sim, nodes, time, res):
-        temp = []
+        output = chain()
         # Pour chaque ligne
         for r in range(len(res)):
             # On récupère le temps associé
@@ -96,16 +96,16 @@ class dbAcess:
             # toutes les 4 valeurs on a un nouveau noeud
             resG = zip(*(iter(res[r]),)*4)
             # On crée une liste de Results pour chaque noeuds
-            resOb = (Results(simulation=sim,
+            resOb = [Results(simulation=sim,
                              node=nodes[i],
                              time=tvalue,
                              dr=v[0], dc=v[1], dp=v[2],
-                             dq=v[3]) for i, v in enumerate(resG))
+                             dq=v[3]) for i, v in enumerate(resG)]
             # On chaine les itérables pour créer une longue chaine de
             # générateurs. Le calcul n'est pas effectué
-            temp = chain(temp, resOb)
+            output = chain(output, resOb)
         # On entre les données massivement dans la base.
-        Results.objects.bulk_create(temp)
+        Results.objects.bulk_create(output)
 
     def DBRead(self):
         print(__name__)
