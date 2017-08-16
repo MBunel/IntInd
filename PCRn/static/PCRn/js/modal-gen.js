@@ -1,60 +1,5 @@
 "use strict";
 
-const bodycont = [
-    {
-	'type':'<div>',
-	'childs':[
-	    {
-		'type':'<label>',
-		'childs':[],
-		'attr': {}
-	    },
-	    {
-		'type':'<input>',
-		'childs':[],
-		'attr': {
-		    'type':'email',
-		    class: 'form-control'}
-	    }
-	],
-	attr:{'class': 'form-group'}},
-    {
-	'type':'<div>',
-	'childs':[
-	    {
-		'type':'<label>',
-		'childs':[],
-		'attr': {}
-	    },
-	    {
-		'type':'<input>',
-		'childs':[],
-		'attr': {
-		    'type':'email',
-		    class: 'form-control'
-		}
-	    }
-	],
-	attr:{'class': 'form-group'}},
-    {
-	'type':'<div>',
-	'childs':[
-	    {
-		'type':'<label>',
-		'childs':[],
-		'attr': {}
-	    },
-	    {		'type':'<input>',
-		'childs':[],
-		'attr': {
-		    'type':'email',
-		    class: 'form-control'
-		}
-	    }
-	],
-	attr:{'class': 'form-group'}
-    }
-];
 
 function genFeatureModal (idw, idf) {
     cleanModal(idw);
@@ -62,75 +7,115 @@ function genFeatureModal (idw, idf) {
     var defIdfVal = markersGroup._layers[idf].options;
     // Windows title
     modal.find('.modal-title').text('Noeud ' + idf);
+
     // Windows content
     modal.find('.modal-body')
 	.append($('<from>')
+		.addClass('form-horizontal')
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("Q"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Qinput',
-				    'type': 'email',
-				    'value': defIdfVal.Q
-				    })
-	    		       )
+				.attr('for', "Qinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des quotidiens")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Qinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de Q',
+					    'value': defIdfVal.Q
+					})
+	    			       )
+			       )
+
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("R"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Rinput',
-				    'type': 'email',
-				    'value': defIdfVal.R
-				})
-	    		       )
+				.attr('for', "Rinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des réflexes")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Rinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de R',
+					    'value': defIdfVal.R
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("C"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Cinput',
-				    'type': 'email',
-				    'value': defIdfVal.C
-				})
-	    		       )
+				.attr('for', "Cinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des contrôlés")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Cinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de C',
+					    'value': defIdfVal.C
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("P"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Pinput',
-				    'type': 'email',
-				    'value': defIdfVal.P
-				})
-	    		       )
+				.attr('for', "Pinput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des paniqués")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Pinput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de P',
+					    'value': defIdfVal.P
+					})
+	    			       )
+			       )
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
 	    		.append($('<label>')
-	    			.text("B"))
-	    		.append($('<input>')
-	    			.addClass('form-control')
-	    			.attr({
-				    'id': 'Binput',
-				    'type': 'email',
-				    'value': defIdfVal.B
-				})
+				.attr('for', "Binput")
+				.addClass('col-sm-4 control-label')
+	    			.text("Effectif des quotidiens 2")
+			       )
+			.append($('<div>')
+				.addClass('col-sm-8')
+	    			.append($('<input>')
+	    				.addClass('form-control')
+	    				.attr({
+					    'id': 'Binput',
+					    'type': 'email',
+					    'placeholder': 'Effectif de B',
+					    'value': defIdfVal.B
+					})
+	    			       )
 	    		       )
-	    	       )
+		       )
 	       );
+
+
     // Windows footer
     modal.find('.modal-footer')
 	.append($('<div>')
@@ -175,6 +160,109 @@ function genFeatureModal (idw, idf) {
 		       )
 	       );
 }
+
+
+function genEdgeModal(idw, idf) {
+    cleanModal(idw);
+    var modal = $(idw);
+    var defIdfVal = linesGroup._layers[idf].options;
+
+
+    modal.find('.modal-title').text('Lien ' + idf);
+
+
+    // Gen table
+    // On définit une var par défault
+    // A remplacer par les paramètres globaux
+    var cpMat = defIdfVal.cpMat || [[0,1,0],[1,0,1],[0,1,0]];
+    var table = $('<table>');
+
+    $(cpMat).each(
+    	function(){
+    	    var line = $('<tr>');
+    	    $(this).each(
+    		function() {
+    		    line.append($('<td>').html(this));
+    		}
+    	    );
+    	    table.append(line);
+    	}
+    );
+
+    modal.find('.modal-body')
+	.append($('<div>')
+		.append(table)
+	       );
+
+    // Set footer content
+    modal.find('.modal-footer')
+	.append($('<div>')
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id:"featurefade-ann-btn",
+				class:"btn btn-sm btn-default"
+			    }
+			)
+			.on('click',
+			    function(){
+				$("#GenericModal").modal("hide");
+			    }
+			   )
+			.text("Annuler")
+		       )
+		.append($('<button>')
+			.attr(
+			    {
+				type: "button",
+				id: "featurefade-imp-btn",
+				class: "btn btn-sm btn-primary"
+			    }
+			)
+			.on('click',
+			    function(){
+				updateEdgesData(idf, {
+				    'cpMat': extractTable("#GenericModal table")
+				});
+				// Fermeture
+				$("#GenericModal").modal("hide");
+			    }
+			   )
+			.text("Valider")
+		       )
+	       );
+
+
+    function drawTable() {
+
+
+    }
+
+    function extractTable(id) {
+	var list = [];
+	$(id).children()
+	    .each(
+		function(){
+		    var row=[];
+		    $(this).children()
+			.each(
+			    function(){
+				var modality = parseFloat($(this).html());
+				row.push(modality);
+			    }
+			);
+		    list.push(row);
+		}
+	    );
+	return list;
+    }
+
+
+
+
+}
+
 
 function genImportModal (id) {
     cleanModal (id);

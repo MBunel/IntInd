@@ -64,6 +64,30 @@ body {
     -o-user-select:none;
 }
 
+
+.selectorDiv > .form-control {
+    height: 22px;
+    width: 50px;
+    margin-right: 5px;
+}
+
+.globalOption-row {
+    height: 33px;
+}
+
+.globalOption-value {
+    text-decoration: underline;
+}
+
+.globalOption-row > td:first-child {
+    padding-left: 30px;
+    width: 60%;
+}
+
+.globalOption-row > td:last-child {
+    width: 40%;
+}
+
 /* Surcharge padding tabble-condensed*/
 #markers-list > tbody > tr > td {
     padding-left: 15px;

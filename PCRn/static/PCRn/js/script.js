@@ -4,15 +4,15 @@
 $(document)
 // Zoom on map on tr click
 // Ne zoome pas au click sur btn options
-    .on('click', '.feature-row > td:not(.btn-marker-col)', function () {
+    .on('click', '#markers-list tbody .feature-row > td:not(.btn-marker-col)', function () {
 	var id = $(this).parent().attr('id');
 	markerClickSidebar(id);
     })
-    .on('mouseover', '.feature-row', function() {
+    .on('mouseover', '#markers-list tbody .feature-row', function() {
 	var id = $(this).attr('id');
 	markerMouseoverSidebar(id);
     })
-    .on('mouseout', '.feature-row', function() {
+    .on('mouseout', '#markers-list tbody .feature-row', function() {
 	var id = $(this).attr('id');
 	markerMouseoutSidebar(id);
     })
@@ -186,6 +186,14 @@ function markerUpdateTableValues(id, a) {
 	);
 }
 
+function updateEdgesData(id, data) {
+    var edge = linesGroup.getLayer(id).options;
+
+    for (var prop in data) {
+	edge[prop] = data[prop];
+    }
+}
+
 function lineAddSidebar(id, a) {
     $("#lines-list tbody")
 	.append($('<tr>')
@@ -208,7 +216,7 @@ function lineRemoveSidebar(id) {
 
 // Alerter la visibilité des tables
 function changePanelSidebar() {
-    const Title = ["Marqueurs", "Liens", "Paramètres"];
+    const Title = ["Marqueurs", "Liens", "Paramètres", "Historique"];
 
     // On sélectionne la table suivant la (première) table visible
     var a = $('.sidebar-table table:visible:first').next();
@@ -282,12 +290,37 @@ function runSimulation() {
 		json['_l_id'] = x._leaflet_id;
 		json['idP'] = x.options.idPoints;
 
+		json['cpMat'] = x.options.cpMat;
+
 		return json;
 	    })
 	}),
 	success: function(data){
 	    console.log(data);
-	    console.log("sucess callback");
+	    $("#history-list tbody")
+		.append($('<tr>')
+			.append($('<td>')
+				.text("Sucess")
+			       )
+		       );
+	},
+	error: function(xhr){
+	    $("#history-list tbody")
+		.append($('<tr>')
+			.append($('<td>')
+				.text("Error")
+			       )
+		       );
 	}
     });
 }
+
+
+/*
+   Fonctions génériques
+*/
+
+// capitalize string
+String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};

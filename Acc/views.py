@@ -10,7 +10,8 @@ def index(request):
 
     return render(request,
                   'Acc/index.xhtml',
-                  {'projectName': 'projet', 'year': year})
+                  {'projectName': 'projet', 'year': year},
+                  content_type='application/xhtml+xml')
 
 
 def aprp(request):
