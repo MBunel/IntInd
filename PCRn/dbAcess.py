@@ -11,7 +11,7 @@ class dbConnector:
         # self.dbWrite("a", "b")
 
         # TODO: remplacer par import
-        self.time = np.arange(0, endT, stepT)
+        self.time = np.arange(0, 60, 0.1)
 
     # Transaction principale
     @transaction.atomic
