@@ -83,7 +83,7 @@ class Pcr(models.Model):
                               on_delete=models.CASCADE)
     F = models.ForeignKey(FunctionF,
                           on_delete=models.CASCADE)
-    H = models.ForeignKey(FunctionG,
+    G = models.ForeignKey(FunctionG,
                           on_delete=models.CASCADE)
     H = models.ForeignKey(FunctionH,
                           on_delete=models.CASCADE)
