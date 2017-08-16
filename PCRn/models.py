@@ -10,7 +10,8 @@ class Network(models.Model):
 class Simulation(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     catastrophe_type = models.CharField(max_length=5)
-    duration = models.FloatField(blank=False)
+    duration = models.FloatField(blank=False, default=60)
+    timestep = models.FloatField(blank=False, default=0.1)
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
 
 

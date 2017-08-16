@@ -14,6 +14,7 @@ class dbConnector:
     @transaction.atomic
     def dbWrite(self, nodeList, res):
 
+        # 1 Création du network
         # Si on crée un nv réseau
         if True:
             network = self.networkWrite("netname")
@@ -21,15 +22,15 @@ class dbConnector:
         else:
             network = Network.object.filter(id__exact=id)
 
+        # 2 Création de la simulation
         # On crée une nouvelle simulation liée au réseau
-        sim = self.simWrite(network)
+        sim = self.simWrite("cat", 60, 0.1, network)
 
+        # 3 Ajout des noeuds
         # Ajout des nœuds
-        # TODO: Choisir comment procéder
-        # Possibilité: Ajouter les noeuds avec leurs paramètres
-        # Puis renvoyer une liste des id et créer la table des res
-        nodes = self.nodesWrite(sim, nodeList)
+        nodes = self.nodesWrite(nodeList, network, "pcr")
 
+        # 4 Ajout des res
         # Ajout des résultats
         self.resWirte(sim, nodes, self.time, res)
 
@@ -42,8 +43,8 @@ class dbConnector:
         # Si non on la crée
         # Création du lien
 
-    def networkWrite(self, name):
-        net = Network(title=name)
+    def networkWrite(self, title):
+        net = Network(title=title)
         net.save()
         return net
 
@@ -62,10 +63,19 @@ class dbConnector:
     def PcrWrite(self):
         print(__name__)
 
-    def nodesWrite(self, nodeList, net, pcr):
+    def nodesWrite(self, nodeList, network, pcr):
+        """Ajoute une liste de noeuds dans la table nodes
+
+        :param nodeList: Noeuds à ajouter list
+        :param network: Un objet network
+        :param pcr: Un objet pcr
+        :returns:
+        :rtype: list
+
+        """
         nodes = []
         for i in nodeList:
-            node = Node(network=net, m_id=i, comment="NA")
+            node = Node(network=network, m_id=i, comment="NA")
             node.save()
             nodes.append(node)
         return nodes
@@ -80,8 +90,21 @@ class dbConnector:
         edges = [Edge(idA=0, idB=1) for i in edgeList]
         Edge.objects.bulk_create(edges)
 
-    def simWrite(self):
-        sim = Simulation()
+    def simWrite(self, type, duration, timestep, network):
+        """Écrit un nouveau tuple dans la table Simulation
+
+        :param type: Type de la simulation str
+        :param duration: Durée de la simulation float
+        :param timestep:Pas de la simulation
+        :param network: Object network (clé étrangère)
+        :returns: Object Simulation
+        :rtype:
+
+        """
+        sim = Simulation(catastrophe_type=type,
+                         duration=duration,
+                         timestep=timestep,
+                         network=network)
         sim.save()
         return sim
 
