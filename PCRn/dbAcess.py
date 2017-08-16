@@ -10,9 +10,12 @@ class dbConnector:
         print(__name__)
         # self.dbWrite("a", "b")
 
+        # TODO: remplacer par import
+        self.time = np.arange(0, endT, stepT)
+
     # Transaction principale
     @transaction.atomic
-    def dbWrite(self, nodeList, res):
+    def dbWrite(self, nodeList, edgeList, res):
 
         # 1 Création du network
         # Si on crée un nv réseau
@@ -29,6 +32,10 @@ class dbConnector:
         # 3 Ajout des noeuds
         # Ajout des nœuds
         nodes = self.nodesWrite(nodeList, network, "pcr")
+
+        # 4 Ajout des Liens
+        # Todo ajouter couplage
+        self.edgesWrite(nodes, edgeList)
 
         # 4 Ajout des res
         # Ajout des résultats
@@ -86,8 +93,9 @@ class dbConnector:
     def QuadComWrite(self):
         print(__name__)
 
-    def edgesWrite(self, sim, nodeList, edgeList):
-        edges = [Edge(idA=0, idB=1) for i in edgeList]
+    def edgesWrite(self, nodeList, edgeList):
+        edges = [Edge(idOrg=nodeList[i[0]],
+                      idDest=nodeList[i[1]]) for i in edgeList]
         Edge.objects.bulk_create(edges)
 
     def simWrite(self, type, duration, timestep, network):

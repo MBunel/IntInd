@@ -90,8 +90,8 @@ class Model:
         dp = self.B2*r - self.C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
         dq = -self.gamma(t)*q*(1-r)
-        # db = self.phi(t)*c(1-b)
         # Et db ?
+        # db = self.phi(t)*c(1-b)
         return [dr, dc, dp, dq]
 
     def network(self, y: list, t: float, N, Nbad) -> list:
@@ -117,14 +117,14 @@ class Model:
 
     def graphCreation(self, nodes, edges):
         # Création du graph (orienté)
-        self.Graph = nx.DiGraph()
+        Graph = nx.DiGraph()
         # Ajout liste de liens et noeuds
-        self.Graph.add_nodes_from(nodes)
-        self.Graph.add_edges_from(edges)
+        Graph.add_nodes_from(nodes)
+        Graph.add_edges_from(edges)
 
-        print(nx.info(self.Graph))
+        print(nx.info(Graph))
 
-        return self.Graph
+        return Graph
 
     def conectivityMatrix(self, N: int, edges: list) -> np.array:
         # connectivity matrix
@@ -171,7 +171,10 @@ class Model:
             Ngood = n2
             goodnodes = range(Nbad, Nbad+Ngood)
 
-            self.cMat = self.conectivityMatrix(N, [(1, 2), (2, 3)])
+            self.Graph = self.graphCreation(
+                [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                [(1, 2), (2, 3)])
+            self.cMat = self.conectivityMatrix(N, self.Graph.edges())
 
             # PCRn simulation
             # see network()

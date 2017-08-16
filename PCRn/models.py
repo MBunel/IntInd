@@ -98,11 +98,11 @@ class Node(models.Model):
 
 
 class Linear_Coupling(models.Model):
-    r = models.FloatField(blank=False)
-    c = models.FloatField(blank=False)
-    p = models.FloatField(blank=False)
-    q = models.FloatField(blank=False)
-    b = models.FloatField(blank=False)
+    eps_r = models.FloatField(blank=False)
+    eps_c = models.FloatField(blank=False)
+    eps_p = models.FloatField(blank=False)
+    eps_q = models.FloatField(blank=False)
+    eps_b = models.FloatField(blank=False)
 
 
 class Quadratic_Coupling(models.Model):
@@ -123,12 +123,12 @@ class Edge(models.Model):
     idDest = models.ForeignKey(Node,
                                related_name="idDest",
                                on_delete=models.CASCADE)
-    idLinearCp = models.ForeignKey(Linear_Coupling,
-                                   related_name="idLinearCp",
-                                   on_delete=models.CASCADE)
-    idQuadraCp = models.ForeignKey(Quadratic_Coupling,
-                                   related_name="idQuadraCp",
-                                   on_delete=models.CASCADE)
+    # idLinearCp = models.ForeignKey(Linear_Coupling,
+    #                              related_name="idLinearCp",
+    #                              on_delete=models.CASCADE)
+    # idQuadraCp = models.ForeignKey(Quadratic_Coupling,
+    #                              related_name="idQuadraCp",
+    #                               on_delete=models.CASCADE)
 
 
 class Results(models.Model):
