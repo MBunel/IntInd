@@ -81,29 +81,39 @@ class Model:
         """
         r, c, p, q = X
         # r, c, p, q, b = X
+
+        # Calcul de l'effectif des raisonnés
         dr = self.gamma(t) * q * (1-r) - \
             (self.B1+self.B2)*r + self.F(r, c)*r*c + \
             self.G(r, p)*r*p
+        # Effectif dse contrôlés
         dc = self.B1*r + self.C1*p - \
             self.C2*c - self.F(r, c)*r*c + \
             self.H(c, p)*c*p - self.phi(t)*c*(r+c+p+q)
+        # Effectif des paniqués
         dp = self.B2*r - self.C1*p + self.C2*c - \
             self.G(r, p)*r*p - self.H(c, p)*c*p
+        # Comportements du quotidien
         dq = -self.gamma(t)*q*(1-r)
         # Et db ?
         # db = self.phi(t)*c(1-b)
         return [dr, dc, dp, dq]
 
-    def network(self, y: list, t: float, N, Nbad) -> list:
-        # import params
-        # N, Nbad = 6, 3
+    def network(self, y: list, t: float, graph) -> list:
+
         dX = []
-        for i in range(N):
+        nodes = graph.nodes()
+        N = len(nodes)
+
+        nTypes = nx.get_node_attributes(self.Graph, 'type')
+        for i in nodes:
             i4 = i * 4
-            if i < Nbad:
+
+            if nTypes[i] == "good":
                 self.C1 = 0
             else:
                 self.C1 = 0.3
+
             Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
             a, b, c = 0, 0, 0
             for j in range(N):
@@ -113,6 +123,7 @@ class Model:
             l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
             temp = [x + y for x, y in zip(self.PCR(Xpcr, t), l)]
             dX = dX + temp
+
         return dX
 
     def graphCreation(self, nodes, edges):
@@ -152,7 +163,7 @@ class Model:
     def runSimulation(self, n1, n2, nedges, endT=60, stepT=0.1):
         # nb noeuds
         n1 = 3
-        n2 = 6
+        n2 = 2
 
         # ne sert qu'au test
         nedges = 30
@@ -172,8 +183,15 @@ class Model:
             goodnodes = range(Nbad, Nbad+Ngood)
 
             self.Graph = self.graphCreation(
-                [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                [(1, 2), (2, 3)])
+                [
+                    (0, {'type': 'good'}),
+                    (1, {'type': 'good'}),
+                    (2, {'type': 'good'}),
+                    (3, {'type': 'bad'}),
+                    (4, {'type': 'bad'})
+                ],
+                [(0, 3), (1, 3), (2, 4)])
+
             self.cMat = self.conectivityMatrix(N, self.Graph.edges())
 
             # PCRn simulation
@@ -191,7 +209,7 @@ class Model:
             self.time = np.arange(0, endT, stepT)
 
             # NB self.network est la fonction de calcul
-            orbit = odeint(self.network, X0, self.time, args=(N, Nbad))
+            orbit = odeint(self.network, X0, self.time, args=(self.Graph,))
 
             # Toutes les lignes, une colone toutes les 4
             # à partir de la troisième
