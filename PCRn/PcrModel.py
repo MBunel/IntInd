@@ -193,6 +193,10 @@ class Model:
 
         return Graph
 
+    def exportNodes(self, G):
+        nodes = [(i, G.node[i]) for i in G.nodes()]
+        return nodes
+
     def conectivityMatrix(self, N: int, edges: list) -> np.array:
         # connectivity matrix (couplage linéaire)
 
