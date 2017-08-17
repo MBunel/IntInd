@@ -142,6 +142,27 @@ class Model:
             temp = [x + y for x, y in zip(self.PCR(Xpcr, t), l)]
             dX = dX + temp
 
+            ###################################################################
+            # # quadratic coupling                                            #
+            # # needs a 3x3 matrix 'Quad' of coefficients for each pair [i,k] #
+            # for k in range(N):                                              #
+            #     quadc = self.qMat[i][k]                                     #
+            #     a += self.cMatQ[i][k] * y[4*k] * \                          #
+            #         (quadc[0][1]*Xpcr[1]+quadc[0][2]*Xpcr[2]) -\            #
+            #         self.cMatQ[i][k] * Xpcr[0] * \                          #
+            #         (quadc[1][0] * y[1+4*k] + quadc[2][0] * y[2+4*k])       #
+            #     b += self.cMatQ[i][k] * y[1+4*k] * \                        #
+            #         (quadc[1][0] * Xpcr[0] + quadc[1][2] * Xpcr[2]) -\      #
+            #         self.cMatQ[i][k] * Xpcr[1] * \                          #
+            #         (quadc[0][1] * y[4*k]+quadc[2][1] * y[2+4*k])           #
+            #     c += self.cMatQ[i][k] * y[2+4*k] * \                        #
+            #         (quadc[2][0] * Xpcr[0] + quadc[2][1] * Xpcr[1]) -\      #
+            #         self.cMatQ[i][k] * Xpcr[2] * \                          #
+            #         (quadc[1][2] * y[1+4*k] + quadc[0][2] * y[4*k])         #
+            # temp = [x + y for x, y in zip(self.PCR(Xpcr, t), [a, b, c, 0])] #
+            # dX = dX + temp                                                  #
+            ###################################################################
+
         return dX
 
     def graphCreation(self, nodes, edges):
