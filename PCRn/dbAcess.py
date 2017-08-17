@@ -1,7 +1,7 @@
 import numpy as np
 from django.db import transaction
-from itertools import chain
-from PCRn.models import Simulation, Node, Edge, Results, Network
+from itertools import chain, groupby
+from PCRn.models import Simulation, Node, Edge, Results, Network, Pcr
 
 
 class dbConnector:
@@ -31,7 +31,7 @@ class dbConnector:
 
         # 3 Ajout des noeuds
         # Ajout des nœuds
-        nodes = self.nodesWrite(nodeList, network, "pcr")
+        nodes = self.nodesWrite(nodeList, network)
 
         # 4 Ajout des Liens
         # Todo ajouter couplage
@@ -67,10 +67,41 @@ class dbConnector:
     def GWrite(self):
         print(__name__)
 
-    def PcrWrite(self):
-        print(__name__)
+    def PcrWrite(self, pcrList):
+        # Nettoyage de pcrList
+        # On supprime du dictionnaire les valeurs non utilisées
+        pcrList = [(x[0],
+                    {k: v for (k, v) in x[1].items() if k in ('B1', 'B2')})
+                   for x in pcrList]
+        # On trie la liste des noeuds par leurs paramètres (obligatoire pour
+        # groupby)
+        pcrList.sort(key=lambda x: (x[1]['B1'], x[1]['B2']))
+        # On regroupe les paramètres des noeuds (i.e. enléve les doublons)
+        pcrGroup = groupby(pcrList, key=lambda x: x[1])
+        # On extrait une liste de la forme [(id_noeuds), {dic fusioné}]
+        pcrGrouped = [(tuple(map(lambda y: y[0], b)), a) for a, b in pcrGroup]
 
-    def nodesWrite(self, nodeList, network, pcr):
+        pcrs = []
+        for i in pcrGrouped:
+            # On vérifie qu'il n'existe pas déjà une ligne correspondant
+            dbline = Pcr.objects.filter(b1__exact=i[1]['B1'],
+                                        b2__exact=i[1]['B2'])
+            # Si ce n'est pas le cas on en crée une nouvelle
+            if not dbline:
+                # On ajoute une ligne
+                pcr = Pcr(b1=i[1]['B1'], b2=i[1]['B2'])
+                pcr.save()
+            else:
+                # Si la ligne existe déjà
+                # on sélectione la première occurence
+                # on en supprime la structure en liste
+                pcr = dbline[:1][0]
+            # On exporte sous la forme [(id_noeuds, object_pcr_orm)]
+            pcrs.append((i[0], pcr))
+
+        return pcrs
+
+    def nodesWrite(self, nodeList, network):
         """Ajoute une liste de noeuds dans la table nodes
 
         :param nodeList: Noeuds à ajouter list
@@ -80,9 +111,22 @@ class dbConnector:
         :rtype: list
 
         """
+
+        # Ajout options pcr avant ajour noeuds
+        pcr = self.PcrWrite(nodeList)
+
         nodes = []
         for i in nodeList:
-            node = Node(network=network, m_id=i, comment="NA")
+            # on récupère l'objet pcr correspondant à l'id
+            # du noeud.
+            # pcr est de la forme [((id1, id2), pcr)]
+            # si i est dans la liste des ids [0] on renvoie
+            # le pcr correspondant
+            pcr_id = [p[1] for p in pcr if i[0] in p[0]]
+            # On crée un nouveau noeud
+            node = Node(network=network, m_id=i[0],
+                        pcr=pcr_id[0],
+                        comment="NA")
             node.save()
             nodes.append(node)
         return nodes

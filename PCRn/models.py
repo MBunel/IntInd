@@ -71,27 +71,27 @@ class FunctionF(models.Model):
 class Pcr(models.Model):
     b1 = models.FloatField(blank=False)
     b2 = models.FloatField(blank=False)
-    s1 = models.FloatField(blank=False)
-    s2 = models.FloatField(blank=False)
-    c1 = models.FloatField(blank=False)
-    c2 = models.FloatField(blank=False)
-    Phi = models.ForeignKey(Function_h,
-                            related_name="phi",
-                            on_delete=models.CASCADE)
-    Gamma = models.ForeignKey(Function_h,
-                              related_name="gamma",
-                              on_delete=models.CASCADE)
-    F = models.ForeignKey(FunctionF,
-                          on_delete=models.CASCADE)
-    G = models.ForeignKey(FunctionG,
-                          on_delete=models.CASCADE)
-    H = models.ForeignKey(FunctionH,
-                          on_delete=models.CASCADE)
+    # s1 = models.FloatField(blank=False)
+    # s2 = models.FloatField(blank=False)
+    # c1 = models.FloatField(blank=False)
+    # c2 = models.FloatField(blank=False)
+    # Phi = models.ForeignKey(Function_h,
+    #                         related_name="phi",
+    #                         on_delete=models.CASCADE)
+    # Gamma = models.ForeignKey(Function_h,
+    #                           related_name="gamma",
+    #                           on_delete=models.CASCADE)
+    # F = models.ForeignKey(FunctionF,
+    #                       on_delete=models.CASCADE)
+    # G = models.ForeignKey(FunctionG,
+    #                       on_delete=models.CASCADE)
+    # H = models.ForeignKey(FunctionH,
+    #                       on_delete=models.CASCADE)
 
 
 class Node(models.Model):
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
-    # pcr = models.ForeignKey(Pcr, on_delete=models.CASCADE)
+    pcr = models.ForeignKey(Pcr, on_delete=models.CASCADE)
     m_id = models.IntegerField()
     # geom = models.PointField()
     comment = models.CharField(max_length=150, blank=True)
