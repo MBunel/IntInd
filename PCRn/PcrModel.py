@@ -25,8 +25,8 @@ class Model:
         self.mu1 = 0.1
         self.mu2 = 0.1
 
-        self.B1 = 0.5
-        self.B2 = 0.5
+        # self.B1 = 0.5
+        # self.B2 = 0.5
 
         self.C1 = 0
         self.C2 = 0.2
@@ -87,7 +87,7 @@ class Model:
 
         # Calcul de l'effectif des raisonnés
         dr = self.gamma(t) * q * (1-r) - \
-            (node['B1'] + self.B2) * r + \
+            (node['B1'] + node['B2']) * r + \
             self.F(r, c) * r * c + \
             self.G(r, p) * r * p
 
@@ -100,7 +100,7 @@ class Model:
             self.phi(t) * c * (r + c + p + q)
 
         # Effectif des paniqués
-        dp = self.B2 * r - \
+        dp = node['B2'] * r - \
             self.C1 * p + \
             self.C2 * c - \
             self.G(r, p) * r * p - \
@@ -240,11 +240,11 @@ class Model:
 
             self.Graph = self.graphCreation(
                 [
-                    (0, {'type': 'good', 'B1': 0.5}),
-                    (1, {'type': 'good', 'B1': 0.5}),
-                    (2, {'type': 'good', 'B1': 0.5}),
-                    (3, {'type': 'bad', 'B1': 0.5}),
-                    (4, {'type': 'bad', 'B1': 0.5})
+                    (0, {'type': 'good', 'B1': 0.5, 'B2': 0.5}),
+                    (1, {'type': 'good', 'B1': 0.5, 'B2': 0.5}),
+                    (2, {'type': 'good', 'B1': 0.2, 'B2': 0.5}),
+                    (3, {'type': 'bad', 'B1': 0.5, 'B2': 0.4}),
+                    (4, {'type': 'bad', 'B1': 0.5, 'B2': 0.4})
                 ],
                 [(0, 3), (1, 3), (2, 4)])
 
