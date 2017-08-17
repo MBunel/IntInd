@@ -75,7 +75,7 @@ class Model:
         rvalue = self._f(self.mu1, -self.mu2, r, p)
         return rvalue
 
-    def PCR(self, X: list, t: int) -> list:
+    def PCR(self, X: list, t: int, node) -> list:
         """
         Formulation du modèle PCR
 
@@ -87,12 +87,12 @@ class Model:
 
         # Calcul de l'effectif des raisonnés
         dr = self.gamma(t) * q * (1-r) - \
-            (self.B1 + self.B2) * r + \
+            (node['B1'] + self.B2) * r + \
             self.F(r, c) * r * c + \
             self.G(r, p) * r * p
 
         # Effectif dse contrôlés
-        dc = self.B1 * r + \
+        dc = node['B1'] * r + \
             self.C1 * p - \
             self.C2 * c - \
             self.F(r, c) * r * c + \
@@ -129,15 +129,17 @@ class Model:
         nodes = graph.nodes()
         N = len(nodes)
 
-        nTypes = nx.get_node_attributes(self.Graph, 'type')
+        # On calcule les paramètres pour chaque noeud
         for i in nodes:
             i4 = i * 4
+
+            node = graph.node[i]
 
             # Si le noeud est un noeud de départ on
             # fixe C1 à 0.
             # Nécessité de changer se fonctionnement (appel
-            # aux params des noeuds
-            if nTypes[i] == "good":
+            # aux params des noeuds)
+            if node['type'] == "good":
                 self.C1 = 0
             else:
                 self.C1 = 0.3
@@ -146,12 +148,15 @@ class Model:
             # Variables pour le noeud i
             Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
             a, b, c = 0, 0, 0
+
             for j in range(N):
                 a += self.cMat[i][j]*y[4*j]
                 b += self.cMat[i][j]*y[1+4*j]
                 c += self.cMat[i][j]*y[2+4*j]
+
             l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
-            temp = [x + y for x, y in zip(self.PCR(Xpcr, t), l)]
+
+            temp = [x + y for x, y in zip(self.PCR(Xpcr, t, node), l)]
             dX = dX + temp
 
             ###################################################################
@@ -235,11 +240,11 @@ class Model:
 
             self.Graph = self.graphCreation(
                 [
-                    (0, {'type': 'good'}),
-                    (1, {'type': 'good'}),
-                    (2, {'type': 'good'}),
-                    (3, {'type': 'bad'}),
-                    (4, {'type': 'bad'})
+                    (0, {'type': 'good', 'B1': 0.5}),
+                    (1, {'type': 'good', 'B1': 0.5}),
+                    (2, {'type': 'good', 'B1': 0.5}),
+                    (3, {'type': 'bad', 'B1': 0.5}),
+                    (4, {'type': 'bad', 'B1': 0.5})
                 ],
                 [(0, 3), (1, 3), (2, 4)])
 
