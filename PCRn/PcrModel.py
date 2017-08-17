@@ -87,19 +87,31 @@ class Model:
 
         # Calcul de l'effectif des raisonnés
         dr = self.gamma(t) * q * (1-r) - \
-            (self.B1+self.B2)*r + self.F(r, c)*r*c + \
-            self.G(r, p)*r*p
+            (self.B1 + self.B2) * r + \
+            self.F(r, c) * r * c + \
+            self.G(r, p) * r * p
+
         # Effectif dse contrôlés
-        dc = self.B1*r + self.C1*p - \
-            self.C2*c - self.F(r, c)*r*c + \
-            self.H(c, p)*c*p - self.phi(t)*c*(r+c+p+q)
+        dc = self.B1 * r + \
+            self.C1 * p - \
+            self.C2 * c - \
+            self.F(r, c) * r * c + \
+            self.H(c, p) * c * p - \
+            self.phi(t) * c * (r + c + p + q)
+
         # Effectif des paniqués
-        dp = self.B2*r - self.C1*p + self.C2*c - \
-            self.G(r, p)*r*p - self.H(c, p)*c*p
+        dp = self.B2 * r - \
+            self.C1 * p + \
+            self.C2 * c - \
+            self.G(r, p) * r * p - \
+            self.H(c, p) * c * p
+
         # Comportements du quotidien
-        dq = -self.gamma(t)*q*(1-r)
+        dq = -self.gamma(t) * q * (1 - r)
+
         # Et db ?
         # db = self.phi(t)*c(1-b)
+
         return [dr, dc, dp, dq]
 
     def network(self, y: list, t: float, graph) -> list:
