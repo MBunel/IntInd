@@ -78,6 +78,9 @@ class Model:
     def PCR(self, X: list, t: int) -> list:
         """
         Formulation du modèle PCR
+
+        Renvoie une liste de valeurs en
+        fonction du noeud et du temps
         """
         r, c, p, q = X
         # r, c, p, q, b = X
@@ -100,6 +103,15 @@ class Model:
         return [dr, dc, dp, dq]
 
     def network(self, y: list, t: float, graph) -> list:
+        """FIXME! briefly describe function
+
+        :param y: liste variables (valeur précédente pour tous les noeuds)
+        :param t: pas de temps
+        :param graph: objet graph
+        :returns:
+        :rtype:
+
+        """
 
         dX = []
         nodes = graph.nodes()
@@ -109,11 +121,17 @@ class Model:
         for i in nodes:
             i4 = i * 4
 
+            # Si le noeud est un noeud de départ on
+            # fixe C1 à 0.
+            # Nécessité de changer se fonctionnement (appel
+            # aux params des noeuds
             if nTypes[i] == "good":
                 self.C1 = 0
             else:
                 self.C1 = 0.3
 
+            # Couplage linéaire
+            # Variables pour le noeud i
             Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
             a, b, c = 0, 0, 0
             for j in range(N):
@@ -138,7 +156,7 @@ class Model:
         return Graph
 
     def conectivityMatrix(self, N: int, edges: list) -> np.array:
-        # connectivity matrix
+        # connectivity matrix (couplage linéaire)
 
         # ⚠ np.empty ne définit pas de valeur d'initialisation
         # pour le contenu de l'array. Les valeurs initiales dépendent
