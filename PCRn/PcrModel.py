@@ -25,12 +25,6 @@ class Model:
         self.mu1 = 0.1
         self.mu2 = 0.1
 
-        # self.B1 = 0.5
-        # self.B2 = 0.5
-
-        self.C1 = 0
-        self.C2 = 0.2
-
         self.eps = 0.2
 
     # TODO: Factoriser ?
@@ -91,18 +85,18 @@ class Model:
             self.F(r, c) * r * c + \
             self.G(r, p) * r * p
 
-        # Effectif dse contrôlés
+        # Effectif des contrôlés
         dc = node['B1'] * r + \
-            self.C1 * p - \
-            self.C2 * c - \
+            node['C1'] * p - \
+            node['C2'] * c - \
             self.F(r, c) * r * c + \
             self.H(c, p) * c * p - \
             self.phi(t) * c * (r + c + p + q)
 
         # Effectif des paniqués
         dp = node['B2'] * r - \
-            self.C1 * p + \
-            self.C2 * c - \
+            node['C1'] * p + \
+            node['C2'] * c - \
             self.G(r, p) * r * p - \
             self.H(c, p) * c * p
 
@@ -134,15 +128,6 @@ class Model:
             i4 = i * 4
 
             node = graph.node[i]
-
-            # Si le noeud est un noeud de départ on
-            # fixe C1 à 0.
-            # Nécessité de changer se fonctionnement (appel
-            # aux params des noeuds)
-            if node['type'] == "good":
-                self.C1 = 0
-            else:
-                self.C1 = 0.3
 
             # Couplage linéaire
             # Variables pour le noeud i
@@ -244,11 +229,11 @@ class Model:
 
             self.Graph = self.graphCreation(
                 [
-                    (0, {'type': 'good', 'B1': 0.5, 'B2': 0.5}),
-                    (1, {'type': 'good', 'B1': 0.5, 'B2': 0.5}),
-                    (2, {'type': 'good', 'B1': 0.2, 'B2': 0.5}),
-                    (3, {'type': 'bad', 'B1': 0.5, 'B2': 0.4}),
-                    (4, {'type': 'bad', 'B1': 0.5, 'B2': 0.4})
+                    (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                    (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                    (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                    (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2}),
+                    (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2})
                 ],
                 [(0, 3), (1, 3), (2, 4)])
 

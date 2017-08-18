@@ -13,7 +13,10 @@ class dbConnector:
         # TODO: remplacer par import
         self.time = np.arange(0, 60, 0.1)
 
+        self.pcrCol = ('B1', 'B2', 'C1', 'C2')
+
     # Transaction principale
+    # Le décorateur rend la transaction atomique
     @transaction.atomic
     def dbWrite(self, nodeList, edgeList, res):
 
@@ -68,28 +71,38 @@ class dbConnector:
         print(__name__)
 
     def PcrWrite(self, pcrList):
+
         # Nettoyage de pcrList
         # On supprime du dictionnaire les valeurs non utilisées
         pcrList = [(x[0],
-                    {k: v for (k, v) in x[1].items() if k in ('B1', 'B2')})
+                    {k: v for (k, v) in x[1].items() if k in self.pcrCol})
                    for x in pcrList]
         # On trie la liste des noeuds par leurs paramètres (obligatoire pour
         # groupby)
-        pcrList.sort(key=lambda x: (x[1]['B1'], x[1]['B2']))
+        pcrList.sort(key=lambda x: tuple([x[1][i] for i in self.pcrCol]))
         # On regroupe les paramètres des noeuds (i.e. enléve les doublons)
         pcrGroup = groupby(pcrList, key=lambda x: x[1])
-        # On extrait une liste de la forme [(id_noeuds), {dic fusioné}]
+        # pcrGroup est de la forme [{dic}, grouper]
+        # grouper est de la même forme qu'un ind de pcrList (après filtrage)
+        # On extrait une liste de la forme [((id_noeuds), {dic fusioné})]
+        # la lambda regroupe les id (tj en première position,
+        # cf. structure pcrList) dans un tout petit et mignon tuple (🐰)
         pcrGrouped = [(tuple(map(lambda y: y[0], b)), a) for a, b in pcrGroup]
 
         pcrs = []
         for i in pcrGrouped:
             # On vérifie qu'il n'existe pas déjà une ligne correspondant
             dbline = Pcr.objects.filter(b1__exact=i[1]['B1'],
-                                        b2__exact=i[1]['B2'])
+                                        b2__exact=i[1]['B2'],
+                                        c1__exact=i[1]['C1'],
+                                        c2__exact=i[1]['C2'])
             # Si ce n'est pas le cas on en crée une nouvelle
             if not dbline:
                 # On ajoute une ligne
-                pcr = Pcr(b1=i[1]['B1'], b2=i[1]['B2'])
+                pcr = Pcr(b1=i[1]['B1'],
+                          b2=i[1]['B2'],
+                          c1=i[1]['C1'],
+                          c2=i[1]['C2'])
                 pcr.save()
             else:
                 # Si la ligne existe déjà

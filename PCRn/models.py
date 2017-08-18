@@ -73,8 +73,8 @@ class Pcr(models.Model):
     b2 = models.FloatField(blank=False)
     # s1 = models.FloatField(blank=False)
     # s2 = models.FloatField(blank=False)
-    # c1 = models.FloatField(blank=False)
-    # c2 = models.FloatField(blank=False)
+    c1 = models.FloatField(blank=False)
+    c2 = models.FloatField(blank=False)
     # Phi = models.ForeignKey(Function_h,
     #                         related_name="phi",
     #                         on_delete=models.CASCADE)
