@@ -205,68 +205,43 @@ class Model:
 
         return A
 
-    def runSimulation(self, n1, n2, nedges, endT=60, stepT=0.1):
-        # nb noeuds
-        n1 = 3
-        n2 = 2
+    def runSimulation(self, endT=60, stepT=0.1):
 
-        # ne sert qu'au test
-        nedges = 30
+        # Création du graphe
+        self.Graph = self.graphCreation(
+            [
+                (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
+                (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2}),
+                (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2})
+            ],
+            [(0, 3), (1, 3), (2, 4)])
 
+        # nb noeuds et nb liens
+        NbNodes = len(self.Graph.nodes())
+        NbEdges = len(self.Graph.edges())
+
+        # Tests
         __Tests = [
-            2 <= n1, n1 <= 10,
-            2 <= n2, n2 <= 10,
-            2 <= nedges, nedges <= 50
+            2 <= NbNodes, NbNodes <= 10,
+            2 <= NbEdges, NbEdges <= 50
         ]
 
         if all(__Tests):
-
-            N = n1 + n2
-            Nbad = n1
-            badnodes = range(Nbad)
-            Ngood = n2
-            goodnodes = range(Nbad, Nbad+Ngood)
-
-            self.Graph = self.graphCreation(
-                [
-                    (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
-                    (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
-                    (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0, 'C2': 0.2}),
-                    (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2}),
-                    (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3, 'C2': 0.2})
-                ],
-                [(0, 3), (1, 3), (2, 4)])
-
-            self.cMat = self.conectivityMatrix(N, self.Graph.edges())
-
-            # PCRn simulation
-            # see network()
-
+            self.cMat = self.conectivityMatrix(NbNodes, self.Graph.edges())
             # Model solving
             # Conditions initiales
             # Voir si factorisable
             # TODO: à modifier
-            X0 = [0 for k in range(4*N)]
-            for k in range(N):
+            X0 = [0 for k in range(4*NbNodes)]
+            for k in range(NbNodes):
                 X0[3+4*k] = 1
-
             # Paramètres temporels
             self.time = np.arange(0, endT, stepT)
-
             # NB self.network est la fonction de calcul
             orbit = odeint(self.network, X0, self.time, args=(self.Graph,))
 
-            # Toutes les lignes, une colone toutes les 4
-            # à partir de la troisième
-            # P = orbit[:, 2::4]
-            # R = orbit[:, ::4]
-            # C = orbit[:, 1::4]
-
-            # sP = np.sum(P, axis=1)
-            # sR = np.sum(R, axis=1)
-            # sC = np.sum(C, axis=1)
-
             return orbit
-
         else:
             print('conditions non valides')
