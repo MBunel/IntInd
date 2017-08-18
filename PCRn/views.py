@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from dbAcess import dbConnector
+from PCRn.dbAcess import dbConnector
 import json
 
 from PCRn.PcrModel import Model
@@ -29,8 +29,10 @@ def runSimulation(request):
         edges = [tuple(e['idP']) for e in data['edges']]
 
         model = Model()
-        model.graphCreation(nodes, edges)
-        # model.runSimulation(1,2,3)
+        graph = model.graphCreation(nodes, edges)
+        print(model.exportNodes(graph))
+
+        # model.runSimulation()
         return JsonResponse({'nodes': data['nodes'], 'links': data['edges']})
 
 
@@ -46,5 +48,12 @@ def getSimulations(request):
 def getSimulationData(request):
     """Récupère et renvoie les données d'une simulation"""
     if request.method == 'GET':
-        print(__name__)
+        simId = request.GET.get('simid')
+
+        ################################
+        # conn = dbConnector()         #
+        # sims = conn.SimulationList() #
+        ################################
+
+        print(simId)
         # on renvoie les résultats
