@@ -6,11 +6,10 @@ from PCRn.models import Simulation, Node, Edge, Results, Network, Pcr
 
 class dbConnector:
 
-    def __init__(self, data):
+    def __init__(self):
         print(__name__)
-        # self.dbWrite("a", "b")
 
-        # TODO: remplacer par import
+        # TODO: remplacer par un import
         self.time = np.arange(0, 60, 0.1)
 
         self.pcrCol = ('B1', 'B2', 'C1', 'C2')
@@ -43,15 +42,6 @@ class dbConnector:
         # 4 Ajout des res
         # Ajout des résultats
         self.resWirte(sim, nodes, self.time, res)
-
-        # Ajout des liens
-        # Vérification de l'existance des fonctions de couplage
-        # orgs = Organisation.objects.filter(name__iexact = 'Fjuk inc')
-        # if True:
-        # else:
-        #
-        # Si non on la crée
-        # Création du lien
 
     def networkWrite(self, title):
         net = Network(title=title)
