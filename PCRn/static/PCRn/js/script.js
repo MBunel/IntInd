@@ -315,7 +315,7 @@ function runSimulation() {
     });
 }
 
-function getSimulations() {
+function getSimulationsList() {
     $.ajax({
 	type: "GET",
 	url: "getSims",
