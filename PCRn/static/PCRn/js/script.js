@@ -329,7 +329,20 @@ function getSimulations() {
     });
 }
 
-
+function getSimulationData(simid) {
+    $.ajax({
+	type: "GET",
+	url: "getSimData",
+	dataType: "json",
+	data: {'simid': simid},
+	success: function(data) {
+	    console.log(data);
+	},
+	error: function() {
+	    console.log('error');
+	}
+    });
+}
 
 /*
    Fonctions génériques

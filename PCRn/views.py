@@ -51,10 +51,7 @@ def getSimulationData(request):
     if request.method == 'GET':
         simId = request.GET.get('simid')
 
-        ################################
-        # conn = dbConnector()         #
-        # sims = conn.SimulationList() #
-        ################################
-
-        print(simId)
+        conn = dbConnector()
+        res = conn.SimulationResults(simId)
         # on renvoie les résultats
+        return JsonResponse(res)

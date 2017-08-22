@@ -191,3 +191,59 @@ class dbConnector:
     def SimulationList(self):
         sl = Simulation.objects.all()
         return sl
+
+    def SimulationResults(self, simid: int) -> dict:
+        # Valeur de retour
+        sr = {}
+
+        # Récupération des données
+        # requêtes dans la base
+        simob = Simulation.objects.filter(pk=simid)
+        nodesobj = Node.objects.filter(network__simulation__id=simid)
+        edgesobj = Edge.objects.filter(idDest__network__simulation__id=simid,
+                                       idOrg__network__simulation__id=simid)
+        resobj = Results.objects.filter(simulation__id=simid).order_by('time')
+
+        # Mise en forme des résultats
+        # métadonnées
+        metadata = list(simob.values('id', 'duration', 'timestep',
+                                     'catastrophe_type', 'timestamp'))[0]
+        # Modification de la structure des métadonnées
+        for key in metadata:
+            sr[key] = metadata[key]
+
+        # Extraction des résultats
+        resobjVal = resobj.values('dc', 'dp', 'dq',
+                                  'dr', 'id', 'node_id', 'time')
+        # regrouppement des résultats par time
+        resGroup = groupby(resobjVal, key=lambda x: x['time'])
+        # Modification de la structure des résultats
+        # Définition de la liste qui contiendra les résultats
+        resGrouped = []
+        for a, b in resGroup:
+            # dictionnaire contenant les res pour une date
+            # et la val du temps
+            resDic = {}
+            # liste contenant les res pour une date
+            resList = []
+            for dic in b:
+                # On vire 'time', on a aggrégé avec
+                dic.pop('time', None)
+                resList.append(dic)
+            resDic['time'] = a
+            resDic['res'] = resList
+            # On ajout le tout à la list finale
+            resGrouped.append(resDic)
+
+        # Création du dictionnaire final
+        # Ajout des noeuds, avec les paramètres pcr Liés
+        # TODO: Ajouter les paramètres manquants
+        sr['nodes'] = list(nodesobj.values('id', 'pcr__b1', 'pcr__b2',
+                                           'pcr__c1', 'pcr__c2'))
+        # Ajout des liens
+        # TODO: Ajouter couplage
+        sr['edges'] = list(edgesobj.values('id', 'idDest', 'idOrg'))
+        # Ajout résultats
+        sr['results'] = resGrouped
+
+        return sr
