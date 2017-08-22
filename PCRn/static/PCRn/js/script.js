@@ -315,6 +315,21 @@ function runSimulation() {
     });
 }
 
+function getSimulations() {
+    $.ajax({
+	type: "GET",
+	url: "getSims",
+	dataType: "json",
+	success: function(data) {
+	    console.log(data);
+	},
+	error: function() {
+	    console.log('error');
+	}
+    });
+}
+
+
 
 /*
    Fonctions génériques

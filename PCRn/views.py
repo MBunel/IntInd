@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from PCRn.dbAcess import dbConnector
-import json
 
 from PCRn.PcrModel import Model
 
@@ -39,10 +38,12 @@ def runSimulation(request):
 def getSimulations(request):
     """"Renvoie une liste de simulations"""
     if request.method == 'GET':
+
         conn = dbConnector()
         sim = conn.SimulationList()
+        data = {'simulations': list(sim.values())}
 
-        return JsonResponse(sim)
+        return JsonResponse(data)
 
 
 def getSimulationData(request):
