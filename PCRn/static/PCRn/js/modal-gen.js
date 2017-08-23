@@ -31,7 +31,6 @@ function genFeatureModal (idw, idf) {
 					})
 	    			       )
 			       )
-
 	    	       )
 		.append($('<div>')
 	    		.addClass('form-group')
@@ -114,7 +113,6 @@ function genFeatureModal (idw, idf) {
 	    		       )
 		       )
 	       );
-
 
     // Windows footer
     modal.find('.modal-footer')
