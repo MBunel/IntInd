@@ -4,6 +4,8 @@ from PCRn.dbAcess import dbConnector
 
 from PCRn.PcrModel import Model
 
+import json
+
 
 # Create your views here.
 def index(request):
