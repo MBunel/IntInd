@@ -48,6 +48,17 @@ def getSimulations(request):
         return JsonResponse(data)
 
 
+def getSimulationParameters(request):
+    """Renvoie les paramètres d'une simulation"""
+    if request.method == 'GET':
+        simId = request.GET.get('simid')
+
+        conn = dbConnector()
+        res = conn.SimulationParameters(simId)
+        # on renvoie les résultats
+        return JsonResponse(res)
+
+
 def getSimulationData(request):
     """Récupère et renvoie les données d'une simulation"""
     if request.method == 'GET':

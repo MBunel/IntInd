@@ -192,16 +192,35 @@ class dbConnector:
         sl = Simulation.objects.all()
         return sl
 
+    def SimulationParameters(self, simid: int) -> dict:
+        sp = {}
+
+        nodesobj = Node.objects.filter(network__simulation__id=simid)\
+                               .values('id', 'pcr__b1', 'pcr__b2',
+                                       'pcr__c1', 'pcr__c2')
+
+        edgesobj = Edge.objects.filter(idDest__network__simulation__id=simid,
+                                       idOrg__network__simulation__id=simid)
+
+        # Création du dictionnaire final
+        # Ajout des noeuds, avec les paramètres pcr Liés
+        # TODO: Ajouter les paramètres manquants
+        sp['nodes'] = list(nodesobj.values('id', 'pcr__b1', 'pcr__b2',
+                                           'pcr__c1', 'pcr__c2'))
+        # Ajout des liens
+        # TODO: Ajouter couplage
+        sp['edges'] = list(edgesobj.values('id', 'idDest', 'idOrg'))
+
+        return sp
+
     def SimulationResults(self, simid: int) -> dict:
         # Valeur de retour
-        sr = {}
+        # Récupération des paramètres des noeuds et liens
+        sr = self.SimulationParameters(simid)
 
         # Récupération des données
         # requêtes dans la base
         simob = Simulation.objects.filter(pk=simid)
-        nodesobj = Node.objects.filter(network__simulation__id=simid)
-        edgesobj = Edge.objects.filter(idDest__network__simulation__id=simid,
-                                       idOrg__network__simulation__id=simid)
         resobj = Results.objects.filter(simulation__id=simid).order_by('time')
 
         # Mise en forme des résultats
@@ -235,14 +254,6 @@ class dbConnector:
             # On ajout le tout à la list finale
             resGrouped.append(resDic)
 
-        # Création du dictionnaire final
-        # Ajout des noeuds, avec les paramètres pcr Liés
-        # TODO: Ajouter les paramètres manquants
-        sr['nodes'] = list(nodesobj.values('id', 'pcr__b1', 'pcr__b2',
-                                           'pcr__c1', 'pcr__c2'))
-        # Ajout des liens
-        # TODO: Ajouter couplage
-        sr['edges'] = list(edgesobj.values('id', 'idDest', 'idOrg'))
         # Ajout résultats
         sr['results'] = resGrouped
 

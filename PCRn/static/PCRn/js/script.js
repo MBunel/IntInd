@@ -329,6 +329,21 @@ function getSimulationsList() {
     });
 }
 
+function getSimulationParameters(simid) {
+    $.ajax({
+	type: "GET",
+	url: "getSimParams",
+	dataType: "json",
+	data: {'simid': simid},
+	success: function(data) {
+	    console.log(data);
+	},
+	error: function() {
+	    console.log('error');
+	}
+    });
+}
+
 function getSimulationData(simid) {
     $.ajax({
 	type: "GET",
