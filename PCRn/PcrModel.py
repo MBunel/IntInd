@@ -43,14 +43,7 @@ class Model:
 
     gamma = partialmethod(h, smin=1, smax=3, hmin=0, hmax=1)
 
-    def f(self, s):
-        if s < 0:
-            rvalue = 1
-        elif s > 1:
-            rvalue = 0
-        else:
-            rvalue = 0.5 * np.cos(s * np.pi) + 0.5
-        return rvalue
+    f = partialmethod(h, smin=0, smax=1, hmin=1, hmax=0)
 
     def _f(self, cons1, cons2, var1, var2):
         rvalue = cons1 * self.f(var1/(var2+0.01)) \
@@ -132,12 +125,20 @@ class Model:
             # Couplage linéaire
             # Variables pour le noeud i
             Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
+            # Nouvelle écriture Xpcr, à tester
+            # Xpcr = y[i4:i4+3]
             a, b, c = 0, 0, 0
 
             for j in range(N):
                 a += self.cMat[i][j]*y[4*j]
                 b += self.cMat[i][j]*y[1+4*j]
                 c += self.cMat[i][j]*y[2+4*j]
+
+                ############################################
+                # a += self.cMat[i][j]*y[4*j] * self.eps   #
+                # b += self.cMat[i][j]*y[1+4*j] * self.eps #
+                # c += self.cMat[i][j]*y[2+4*j] * self.eps #
+                ############################################
 
             l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
 
