@@ -129,19 +129,17 @@ class Model:
 
             Xpcr = y[i4:i4+4]
 
-
-            # zipped = []
+            zipped = []
             # if True:
             l = self.linearCoupling(N, i, y)
-            #     zipped.append(l)
+            zipped.append(l)
             # if True:
             #     q = quadraticCoupling()
             #     zipped.append(q)
             pcrRes = self.PCR(Xpcr, t, node)
-            # zipped.append(pcr)
-            # temp = [sum(i) for i in zip(*zipped)]
+            zipped.append(pcrRes)
 
-            temp = [sum(x) for x in zip(pcrRes, l)]
+            temp = [sum(x) for x in zip(*zipped)]
             dX = dX + temp
 
         return dX
