@@ -85,14 +85,18 @@ class dbConnector:
             dbline = Pcr.objects.filter(b1__exact=i[1]['B1'],
                                         b2__exact=i[1]['B2'],
                                         c1__exact=i[1]['C1'],
-                                        c2__exact=i[1]['C2'])
+                                        c2__exact=i[1]['C2'],
+                                        s1__exact=i[1]['S1'],
+                                        s2__exact=i[1]['S2'])
             # Si ce n'est pas le cas on en crée une nouvelle
             if not dbline:
                 # On ajoute une ligne
                 pcr = Pcr(b1=i[1]['B1'],
                           b2=i[1]['B2'],
                           c1=i[1]['C1'],
-                          c2=i[1]['C2'])
+                          c2=i[1]['C2'],
+                          s1=i[1]['S1'],
+                          s2=i[1]['S2'])
                 pcr.save()
             else:
                 # Si la ligne existe déjà
