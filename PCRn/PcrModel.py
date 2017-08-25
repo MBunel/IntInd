@@ -17,6 +17,13 @@ class Model:
         super(Model, self).__init__()
         self.args = args
 
+        self.alpha1 = 0.1
+        self.alpha2 = 0.1
+        self.delta1 = 0.1
+        self.delta2 = 0.1
+        self.mu1 = 0.1
+        self.mu2 = 0.1
+
         self.eps = 0.2
 
     # TODO: Factoriser ?
@@ -122,19 +129,10 @@ class Model:
 
             Xpcr = y[i4:i4+4]
 
-            # À migrer dans une fonction
-            a, b, c = 0, 0, 0
-
-            for j in range(N):
-                a += self.cMat[i][j]*y[4*j]
-                b += self.cMat[i][j]*y[1+4*j]
-                c += self.cMat[i][j]*y[2+4*j]
-
-            l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
 
             # zipped = []
             # if True:
-            #     l = linearCoupling()
+            l = self.linearCoupling(N, i, y)
             #     zipped.append(l)
             # if True:
             #     q = quadraticCoupling()
@@ -143,7 +141,7 @@ class Model:
             # zipped.append(pcr)
             # temp = [sum(i) for i in zip(*zipped)]
 
-            temp = [x + y for x, y in zip(self.PCR(Xpcr, t, node), l)]
+            temp = [sum(x) for x in zip(self.PCR(Xpcr, t, node), l)]
             dX = dX + temp
 
         return dX
@@ -153,9 +151,9 @@ class Model:
 
         # Multiplier par edges params
         for j in range(N):
-            a += self.cMat[i][j]*y[4*j]
-            b += self.cMat[i][j]*y[1+4*j]
-            c += self.cMat[i][j]*y[2+4*j]
+            a += self.cMat[i][j]*y[4*j] * self.eps
+            b += self.cMat[i][j]*y[1+4*j] * self.eps
+            c += self.cMat[i][j]*y[2+4*j] * self.eps
 
         return [a, b, c, 0]
 
