@@ -131,15 +131,22 @@ class Model:
 
             zipped = []
             # if True:
+            # Calcul du couplage linéaire
             l = self.linearCoupling(N, i, y)
             zipped.append(l)
             # if True:
+            # Calcul couplage quadratique
             #     q = quadraticCoupling()
             #     zipped.append(q)
+            # calcul modèle pcr
             pcrRes = self.PCR(Xpcr, t, node)
             zipped.append(pcrRes)
 
+            # On ajoute les valeurs calculées avec les fonctions de
+            # couplage avec les valeurs calculées par le modèle pcr
             temp = [sum(x) for x in zip(*zipped)]
+            # Concaténation des résultats pour ce noeud, avec les
+            # résultats précédents
             dX = dX + temp
 
         return dX
