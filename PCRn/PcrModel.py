@@ -250,34 +250,28 @@ class Model:
 
     def runSimulation(self, endT=60, stepT=0.1):
 
+        paramsH = {'Mu1': 0.1, 'Mu2': 0.1},
+        paramsF = {'Al1': 0.1, 'Al2': 0.1}
+        paramsG = {'Del1': 0.1, 'Del2': 0.1}
+
         # Création du graphe
         self.Graph = self.graphCreation(
             [
                 (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'Mu1': 0.1, 'Mu2': 0.1,
-                     'Al1': 0.1, 'Al2': 0.1,
-                     'Del1': 0.1, 'Del2': 0.1}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
                 (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'Mu1': 0.1, 'Mu2': 0.1,
-                     'Al1': 0.1, 'Al2': 0.1,
-                     'Del1': 0.1, 'Del2': 0.1}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
                 (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'Mu1': 0.1, 'Mu2': 0.1,
-                     'Al1': 0.1, 'Al2': 0.1,
-                     'Del1': 0.1, 'Del2': 0.1}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
                 (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'Mu1': 0.1, 'Mu2': 0.1,
-                     'Al1': 0.1, 'Al2': 0.1,
-                     'Del1': 0.1, 'Del2': 0.1}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
                 (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'Mu1': 0.1, 'Mu2': 0.1,
-                     'Al1': 0.1, 'Al2': 0.1,
-                     'Del1': 0.1, 'Del2': 0.1})
+                     'H': paramsH, 'F': paramsF, 'G': paramsG})
             ],
             [(0, 3), (1, 3), (2, 4)])
 
