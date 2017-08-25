@@ -137,11 +137,11 @@ class Model:
             # if True:
             #     q = quadraticCoupling()
             #     zipped.append(q)
-            # pcr = self.PCR(Xpcr, t, node)
+            pcrRes = self.PCR(Xpcr, t, node)
             # zipped.append(pcr)
             # temp = [sum(i) for i in zip(*zipped)]
 
-            temp = [sum(x) for x in zip(self.PCR(Xpcr, t, node), l)]
+            temp = [sum(x) for x in zip(pcrRes, l)]
             dX = dX + temp
 
         return dX
