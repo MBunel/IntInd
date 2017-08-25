@@ -214,19 +214,32 @@ class Model:
 
         # Comptabilise le nombre de connections pour chaque
         # colone (et donc noeud)
+
+        # A = self.adjacencyMatrix(N, edges)
+
         for i in range(N):
             A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
 
         return A
 
-    def adjacencyMatrix(selfelf, N: int, edges: list) -> np.array:
+    def adjacencyMatrix(self, N: int, edges: list) -> np.array:
         # Adjacencyy matrix where diagonal terms are zeros
+
+        # ⚠ np.empty ne définit pas de valeur d'initialisation
+        # pour le contenu de l'array. Les valeurs initiales dépendent
+        # du contenut de la mémoire, toutes les valeurs doivent êtres
+        # réécrites. J'utilise donc np.zeros
         A = np.zeros(shape=(N, N), dtype=int)
 
+        # Remplit la matrice de contiguité en fonction de l'existance ou
+        # non d'un lien. Si un lien existe un 1 est ajouté, sinon la valeur
+        # reste à zéro
         for edge in edges:
             j, i = edge
             A[j][i] = 1
 
+        # Pas nécessaire
+        # A vérifier
         for i in range(N):
             A[i][i] = 0
 
