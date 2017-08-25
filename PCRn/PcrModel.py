@@ -119,7 +119,8 @@ class Model:
 
             # Couplage linéaire
             # Variables pour le noeud i
-            Xpcr = y[i4:i4+3]
+
+            Xpcr = y[i4:i4+4]
 
             # À migrer dans une fonction
             a, b, c = 0, 0, 0
