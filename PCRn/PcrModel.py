@@ -38,8 +38,11 @@ class Model:
     f = partialmethod(h, smin=0, smax=1, hmin=1, hmax=0)
 
     def _f(self, cons1, cons2, var1, var2):
-        rvalue = cons1 * self.f(var1/(var2+0.01)) \
-            + cons2 * self.f(var2/(var1+0.01))
+        h1 = var1 / (var2 + 0.01)
+        h2 = var2 / (var1 + 0.01)
+
+        rvalue = cons1 * self.f(h1) + \
+            cons2 * self.f(h2)
         return rvalue
 
     def F(self, r, p):
