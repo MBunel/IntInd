@@ -124,9 +124,9 @@ class Model:
 
             # Couplage linéaire
             # Variables pour le noeud i
-            Xpcr = [y[i4], y[1+i4], y[2+i4], y[3+i4]]
-            # Nouvelle écriture Xpcr, à tester
-            # Xpcr = y[i4:i4+3]
+            Xpcr = y[i4:i4+3]
+
+            # À migrer dans une fonction
             a, b, c = 0, 0, 0
 
             for j in range(N):
@@ -134,39 +134,57 @@ class Model:
                 b += self.cMat[i][j]*y[1+4*j]
                 c += self.cMat[i][j]*y[2+4*j]
 
-                ############################################
-                # a += self.cMat[i][j]*y[4*j] * self.eps   #
-                # b += self.cMat[i][j]*y[1+4*j] * self.eps #
-                # c += self.cMat[i][j]*y[2+4*j] * self.eps #
-                ############################################
-
             l = list(map(lambda x: x*self.eps, [a, b, c, 0]))
+
+            # zipped = []
+            # if True:
+            #     l = linearCoupling()
+            #     zipped.append(l)
+            # if True:
+            #     q = quadraticCoupling()
+            #     zipped.append(q)
+            # pcr = self.PCR(Xpcr, t, node)
+            # zipped.append(pcr)
+            # temp = [sum(i) for i in zip(*zipped)]
 
             temp = [x + y for x, y in zip(self.PCR(Xpcr, t, node), l)]
             dX = dX + temp
 
-            ###################################################################
-            # # quadratic coupling                                            #
-            # # needs a 3x3 matrix 'Quad' of coefficients for each pair [i,k] #
-            # for k in range(N):                                              #
-            #     quadc = self.qMat[i][k]                                     #
-            #     a += self.cMatQ[i][k] * y[4*k] * \                          #
-            #         (quadc[0][1]*Xpcr[1]+quadc[0][2]*Xpcr[2]) -\            #
-            #         self.cMatQ[i][k] * Xpcr[0] * \                          #
-            #         (quadc[1][0] * y[1+4*k] + quadc[2][0] * y[2+4*k])       #
-            #     b += self.cMatQ[i][k] * y[1+4*k] * \                        #
-            #         (quadc[1][0] * Xpcr[0] + quadc[1][2] * Xpcr[2]) -\      #
-            #         self.cMatQ[i][k] * Xpcr[1] * \                          #
-            #         (quadc[0][1] * y[4*k]+quadc[2][1] * y[2+4*k])           #
-            #     c += self.cMatQ[i][k] * y[2+4*k] * \                        #
-            #         (quadc[2][0] * Xpcr[0] + quadc[2][1] * Xpcr[1]) -\      #
-            #         self.cMatQ[i][k] * Xpcr[2] * \                          #
-            #         (quadc[1][2] * y[1+4*k] + quadc[0][2] * y[4*k])         #
-            # temp = [x + y for x, y in zip(self.PCR(Xpcr, t), [a, b, c, 0])] #
-            # dX = dX + temp                                                  #
-            ###################################################################
-
         return dX
+
+    def linearCoupling(self, N, i, y):
+        a, b, c = 0, 0, 0
+
+        # Multiplier par edges params
+        for j in range(N):
+            a += self.cMat[i][j]*y[4*j]
+            b += self.cMat[i][j]*y[1+4*j]
+            c += self.cMat[i][j]*y[2+4*j]
+
+        return [a, b, c, 0]
+
+    def quadraticCoupling(self, N, i, y, Xpcr):
+        print('aa')
+
+        # quadratic coupling
+        # needs a 3x3 matrix 'Quad' of coefficients for each pair [i,k]
+        a, b, c = 0, 0, 0
+        for k in range(N):
+            quadc = self.qMat[i][k]
+            a += self.cMatQ[i][k] * y[4*k] * \
+                (quadc[0][1] * Xpcr[1] + quadc[0][2] * Xpcr[2]) -\
+                self.cMatQ[i][k] * Xpcr[0] * \
+                (quadc[1][0] * y[1+4*k] + quadc[2][0] * y[2+4*k])
+            b += self.cMatQ[i][k] * y[1+4*k] * \
+                (quadc[1][0] * Xpcr[0] + quadc[1][2] * Xpcr[2]) -\
+                self.cMatQ[i][k] * Xpcr[1] * \
+                (quadc[0][1] * y[4*k]+quadc[2][1] * y[2+4*k])
+            c += self.cMatQ[i][k] * y[2+4*k] * \
+                (quadc[2][0] * Xpcr[0] + quadc[2][1] * Xpcr[1]) -\
+                self.cMatQ[i][k] * Xpcr[2] * \
+                (quadc[1][2] * y[1+4*k] + quadc[0][2] * y[4*k])
+
+        return[a, b, c, 0]
 
     def graphCreation(self, nodes, edges):
         # Création du graph (orienté)
@@ -203,6 +221,35 @@ class Model:
         # colone (et donc noeud)
         for i in range(N):
             A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
+
+        return A
+
+    def adjacencyMatrix(selfelf, N: int, edges: list) -> np.array:
+        # Adjacencyy matrix where diagonal terms are zeros
+        A = np.zeros(shape=(N, N), dtype=int)
+
+        for edge in edges:
+            j, i = edge
+            A[j][i] = 1
+
+        for i in range(N):
+            A[i][i] = 0
+
+        return A
+
+    def quadraticMatrix(self, N: int, edges: list) -> np.array:
+        # A matrix that contains the (3,3) matrix of quadratic
+        # coupling coefficients
+        A = np.zeros(shape=(N, N), dtype=np.array)
+
+        for edge in edges:
+            j, i = edge
+            # each element is a 3x3 matrix quad; to be linked
+            # with the edge in the future...
+            A[j][i] = self.quad
+            # A[j][i] = edge.quad
+        for i in range(N):
+            A[i][i] = np.zeros(3, 3)
 
         return A
 
