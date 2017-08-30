@@ -200,18 +200,6 @@ class Model:
         nodes = [(i, G.node[i]) for i in G.nodes()]
         return nodes
 
-    def conectivityMatrix(self, N: int, edges: list) -> np.array:
-        # connectivity matrix (couplage linéaire)
-
-        A = self.adjacencyMatrix(N, edges)
-
-        # Comptabilise le nombre de connections pour chaque
-        # colone (et donc noeud)
-        for i in range(N):
-            A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
-
-        return A
-
     def adjacencyMatrix(self, N: int, edges: list) -> np.array:
         # Adjacencyy matrix where diagonal terms are zeros
 
@@ -232,19 +220,39 @@ class Model:
                 raise ValueError("Lien %s non conforme, i = j" % edge)
         return A
 
-    def quadraticMatrix(self, N: int, edges: list) -> np.array:
-        # A matrix that contains the (3,3) matrix of quadratic
-        # coupling coefficients
-        A = np.zeros(shape=(N, N), dtype=np.array)
+    def conectivityMatrix(self, N: int, edges: list) -> np.array:
+        # connectivity matrix (couplage linéaire)
 
+        A = self.adjacencyMatrix(N, edges)
+
+        # Comptabilise le nombre de connections pour chaque
+        # colone (et donc noeud)
+        for i in range(N):
+            A[i][i] = -sum(A[j][i] for j in range(N) if j != i)
+
+        return A
+
+    def quadraticMatrix(self, N: int, edges: list) -> np.array:
+        """Génére une matrice quadratique
+
+        """
+        # On définit une matrice de dimension 4, dont les deux
+        # premières dimensions correspondent au noeuds. Les
+        # dimensions suivantes correspondent à la matrice de
+        # couplage (3x3) définie à 0 de base
+        A = np.full(shape=(N, N, 3, 3),
+                    fill_value=np.zeros((3, 3), dtype=int))
+        # Pour chaque lien
         for edge in edges:
             j, i = edge
-            # each element is a 3x3 matrix quad; to be linked
-            # with the edge in the future...
-            A[j][i] = self.quad
-            # A[j][i] = edge.quad
-        for i in range(N):
-            A[i][i] = np.zeros(3, 3)
+            # On vérifie qu'il ne s'agit pas d'un lien
+            # d'un noeud à lui même
+            if i != j:
+                # On ajoute la matrice renvoyée par l'ajax
+                A[j][i] = self.quad
+                # A[j][i] = edge.quad
+            else:
+                raise ValueError("Lien %s non conforme, i = j" % edge)
 
         return A
 
@@ -255,6 +263,8 @@ class Model:
         paramsG = {'Del1': 0.1, 'Del2': 0.1}
 
         # Création du graphe
+        # Valeurs fixées, a remplacer par un passage
+        # des params par l'ajax
         self.Graph = self.graphCreation(
             [
                 (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
