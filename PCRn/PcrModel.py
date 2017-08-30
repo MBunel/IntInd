@@ -315,8 +315,6 @@ class Model:
             print('conditions non valides')
 
 
-# Temp
-# Function perso par noeud
 class NodeFunction:
     def __init__(self, *args):
         """
@@ -325,10 +323,12 @@ class NodeFunction:
         super(NodeFunction, self).__init__()
         self.args = args
 
+        # Params par def des fonctions h
         self.pp = {'smin': 1, 'smax': 50, 'hmin': 0, 'hmax': 1}
         self.pg = {'smin': 1, 'smax': 3, 'hmin': 0, 'hmax': 1}
         self.hp = {'smin': 0, 'smax': 1, 'hmin': 1, 'hmax': 0}
 
+        # Définition phi et gamma
         self.phi = partial(self.h, **self.pp)
         self.gamma = partial(self.h, **self.pg)
 
@@ -347,12 +347,12 @@ class NodeFunction:
                 (hmin + hmax) / 2
         return rvalue
 
-    def _f(self, f, cons1, cons2, var1, var2):
+    def _f(self, fun, cons1, cons2, var1, var2):
         h1 = var1 / (var2 + 0.01)
         h2 = var2 / (var1 + 0.01)
 
-        rvalue = cons1 * f(h1) + \
-            cons2 * f(h2)
+        rvalue = cons1 * fun(h1) + \
+            cons2 * fun(h2)
         return rvalue
 
     def genFun(self, fType, fParams, hParams):
