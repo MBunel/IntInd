@@ -2,7 +2,7 @@ import numpy as np
 from scipy.integrate import odeint
 import networkx as nx
 
-from functools import partialmethod
+from functools import partialmethod, partial
 
 
 class Model:
@@ -163,7 +163,6 @@ class Model:
         return [a, b, c, 0]
 
     def quadraticCoupling(self, N, i, y, Xpcr):
-        print('aa')
 
         # quadratic coupling
         # needs a 3x3 matrix 'Quad' of coefficients for each pair [i,k]
@@ -258,6 +257,7 @@ class Model:
 
     def runSimulation(self, endT=60, stepT=0.1):
 
+        # centralisation params function, à enlever
         paramsH = {'Mu1': 0.1, 'Mu2': 0.1},
         paramsF = {'Al1': 0.1, 'Al2': 0.1}
         paramsG = {'Del1': 0.1, 'Del2': 0.1}
@@ -304,6 +304,7 @@ class Model:
             X0 = [0 for k in range(4*NbNodes)]
             for k in range(NbNodes):
                 X0[3+4*k] = 1
+
             # Paramètres temporels
             self.time = np.arange(0, endT, stepT)
             # NB self.network est la fonction de calcul
@@ -312,3 +313,74 @@ class Model:
             return orbit
         else:
             print('conditions non valides')
+
+
+# Temp
+# Function perso par noeud
+class NodeFunction:
+    def __init__(self, *args):
+        """
+        Fonction d'initialisation
+        """
+        super(NodeFunction, self).__init__()
+        self.args = args
+
+        self.pp = {'smin': 1, 'smax': 50, 'hmin': 0, 'hmax': 1}
+        self.pg = {'smin': 1, 'smax': 3, 'hmin': 0, 'hmax': 1}
+        self.hp = {'smin': 0, 'smax': 1, 'hmin': 1, 'hmax': 0}
+
+        self.phi = partial(self.h, **self.pp)
+        self.gamma = partial(self.h, **self.pg)
+
+        self.F = self.genFun('F', (0.1, 0.1), self.hp)
+        self.G = self.genFun('G', (0.1, 0.1), self.hp)
+        self.H = self.genFun('H', (0.1, 0.1), self.hp)
+
+    def h(self, s, smin, smax, hmin, hmax):
+        if s < smin:
+            rvalue = hmin
+        elif s > smax:
+            rvalue = hmax
+        else:
+            rvalue = ((hmin - hmax) / 2) * \
+                np.cos(((s - smin) * np.pi) / (smax - smin)) + \
+                (hmin + hmax) / 2
+        return rvalue
+
+    def _f(self, f, cons1, cons2, var1, var2):
+        h1 = var1 / (var2 + 0.01)
+        h2 = var2 / (var1 + 0.01)
+
+        rvalue = cons1 * f(h1) + \
+            cons2 * f(h2)
+        return rvalue
+
+    def genFun(self, fType, fParams, hParams):
+        # Création d'un swich
+        # test de la valeur de type + opposé
+        # des constantes en fonction de la fonction
+        _swich = {
+            'F': lambda x, y: (-x, y),
+            'G': lambda x, y: (-x, y),
+            'H': lambda x, y: (x, -y)
+        }
+
+        try:
+            cons1, cons2 = _swich[fType](*fParams)
+        except KeyError:
+            # Si la clé n'est pas dans le swich
+            print("%s non défint" % fType)
+
+        # Définition de la fonction h personalisée
+        hVal = partial(self.h, **hParams)
+        # Définition de la fonction f personalisée
+        _fVal = partial(self._f, hVal, cons1, cons2)
+
+        def fun(r, p):
+            rvalue = _fVal(r, p)
+            return rvalue
+
+        return fun
+
+    def getParams(self):
+        print('hey')
