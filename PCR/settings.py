@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'PCRn',
     'Acc',
+    'PCRg',
 
     # Todo, non nécessaire pour la prod
     'django_extensions'
