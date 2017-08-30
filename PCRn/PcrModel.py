@@ -86,7 +86,7 @@ class Model:
             node['C2'] * c - \
             self.F(r, c) * r * c + \
             self.H(c, p) * c * p - \
-            self.phi(t) * c * (r + c + p + q)
+            node['phi'](t) * c * (r + c + p + q)
 
         # Effectif des paniqués
         dp = node['B2'] * r - \
@@ -262,6 +262,8 @@ class Model:
         paramsF = {'Al1': 0.1, 'Al2': 0.1}
         paramsG = {'Del1': 0.1, 'Del2': 0.1}
 
+        nF = NodeFunction()
+
         # Création du graphe
         # Valeurs fixées, a remplacer par un passage
         # des params par l'ajax
@@ -269,19 +271,24 @@ class Model:
             [
                 (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG,
+                     'phi': nF.phi}),
                 (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG,
+                     'phi': nF.phi}),
                 (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG,
+                     'phi': nF.phi}),
                 (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG}),
+                     'H': paramsH, 'F': paramsF, 'G': paramsG,
+                     'phi': nF.phi}),
                 (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG})
+                     'H': paramsH, 'F': paramsF, 'G': paramsG,
+                     'phi': nF.phi})
             ],
             [(0, 3), (1, 3), (2, 4)])
 
@@ -316,6 +323,8 @@ class Model:
 
 
 class NodeFunction:
+    """Génére les fonctions du système pour chaque noeud
+    """
     def __init__(self, *args):
         """
         Fonction d'initialisation
