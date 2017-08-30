@@ -240,13 +240,10 @@ class Model:
         # reste à zéro
         for edge in edges:
             j, i = edge
-            A[j][i] = 1
-
-        # Pas nécessaire
-        # A vérifier
-        for i in range(N):
-            A[i][i] = 0
-
+            if i != j:
+                A[j][i] = 1
+            else:
+                raise ValueError("Lien %s non conforme, i = j" % edge)
         return A
 
     def quadraticMatrix(self, N: int, edges: list) -> np.array:
