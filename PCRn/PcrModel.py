@@ -14,7 +14,6 @@ class Model:
         """
         Fonction d'initialisation
         """
-        super(Model, self).__init__()
         self.args = args
 
         self.alpha1 = 0.1
@@ -329,21 +328,21 @@ class NodeFunction:
         """
         Fonction d'initialisation
         """
-        super(NodeFunction, self).__init__()
         self.args = args
 
         # Params par def des fonctions h
         self.pp = {'smin': 1, 'smax': 50, 'hmin': 0, 'hmax': 1}
         self.pg = {'smin': 1, 'smax': 3, 'hmin': 0, 'hmax': 1}
-        self.hp = {'smin': 0, 'smax': 1, 'hmin': 1, 'hmax': 0}
+        self.hp = {'smin': 0, 'smax': 1, 'hmin': 1, 'hmax': 0,
+                   'cons1': 0.1, 'cons2': 0.1}
 
         # Définition phi et gamma
-        self.phi = partial(self.h, **self.pp)
-        self.gamma = partial(self.h, **self.pg)
+        self.phi = self.genFun('phi', **self.pp)
+        self.gamma = self.genFun('gamma', **self.pg)
 
-        self.F = self.genFun('F', (0.1, 0.1), self.hp)
-        self.G = self.genFun('G', (0.1, 0.1), self.hp)
-        self.H = self.genFun('H', (0.1, 0.1), self.hp)
+        self.F = self.genFun('F', **self.hp)
+        self.G = self.genFun('G', **self.hp)
+        self.H = self.genFun('H', **self.hp)
 
     def h(self, s, smin, smax, hmin, hmax):
         if s < smin:
@@ -364,31 +363,33 @@ class NodeFunction:
             cons2 * fun(h2)
         return rvalue
 
-    def genFun(self, fType, fParams, hParams):
-        # Création d'un swich
-        # test de la valeur de type + opposé
-        # des constantes en fonction de la fonction
-        _swich = {
-            'F': lambda x, y: (-x, y),
-            'G': lambda x, y: (-x, y),
-            'H': lambda x, y: (x, -y)
-        }
+    def genFun(self, fType, **kwargs):
+        fTypes = ('phi', 'gamma', 'F', 'G', 'H')
 
-        try:
-            cons1, cons2 = _swich[fType](*fParams)
-        except KeyError:
-            # Si la clé n'est pas dans le swich
-            print("%s non défint" % fType)
+        if fType in fTypes[:2]:
+            fun = partial(self.h, **kwargs)
 
-        # Définition de la fonction h personalisée
-        hVal = partial(self.h, **hParams)
-        # Définition de la fonction f personalisée
-        _fVal = partial(self._f, hVal, cons1, cons2)
+        elif fType in fTypes[2:]:
+            # Création d'un swich
+                # test de la valeur de type + opposé
+                # des constantes en fonction de la fonction
+            _swich = {
+                'F': lambda x, y: (-x, y),
+                'G': lambda x, y: (-x, y),
+                'H': lambda x, y: (x, -y)
+            }
+            mc1, mc2 = _swich[fType](kwargs.pop('cons1'), kwargs.pop('cons2'))
+            # Définition de la fonction h personalisée
+            hVal = partial(self.h, **kwargs)
+            # Définition de la fonction f personalisée
+            _fVal = partial(self._f, hVal, mc1, mc2)
 
-        def fun(r, p):
-            rvalue = _fVal(r, p)
-            return rvalue
-
+            def fun(r, p):
+                rvalue = _fVal(r, p)
+                return rvalue
+        else:
+            raise KeyError("%s non défint" % fType)
+        # Renvoit de la fonction générée
         return fun
 
     def getParams(self):
