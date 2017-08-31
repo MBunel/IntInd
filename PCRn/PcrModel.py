@@ -330,6 +330,10 @@ class NodeFunction:
         """
         self.args = args
 
+        # Dictionnaire enregistrant les paramètres
+        # de chaque fonction crée
+        self.funParam = {}
+
         # Params par def des fonctions h
         self.pp = {'smin': 1, 'smax': 50, 'hmin': 0, 'hmax': 1}
         self.pg = {'smin': 1, 'smax': 3, 'hmin': 0, 'hmax': 1}
@@ -339,7 +343,7 @@ class NodeFunction:
         # Définition phi et gamma
         self.phi = self.genFun('phi', **self.pp)
         self.gamma = self.genFun('gamma', **self.pg)
-
+        # Définition de F, G, H
         self.F = self.genFun('F', **self.hp)
         self.G = self.genFun('G', **self.hp)
         self.H = self.genFun('H', **self.hp)
@@ -364,33 +368,44 @@ class NodeFunction:
         return rvalue
 
     def genFun(self, fType, **kwargs):
+        # Définit une liste de types acceptés
         fTypes = ('phi', 'gamma', 'F', 'G', 'H')
 
+        # Si on souhaite créer une fonction
+        # phi ou gamma
         if fType in fTypes[:2]:
             fun = partial(self.h, **kwargs)
-
+        # Si on crée F, G ou H
         elif fType in fTypes[2:]:
+            fP = kwargs.copy()
             # Création d'un swich
-                # test de la valeur de type + opposé
-                # des constantes en fonction de la fonction
+            # test de la valeur de type + opposé
+            # des # commentnstantes en fonction de la fonction
             _swich = {
                 'F': lambda x, y: (-x, y),
                 'G': lambda x, y: (-x, y),
                 'H': lambda x, y: (x, -y)
             }
-            mc1, mc2 = _swich[fType](kwargs.pop('cons1'), kwargs.pop('cons2'))
+            mc1, mc2 = _swich[fType](fP.pop('cons1'), fP.pop('cons2'))
             # Définition de la fonction h personalisée
-            hVal = partial(self.h, **kwargs)
+            hVal = partial(self.h, **fP)
             # Définition de la fonction f personalisée
             _fVal = partial(self._f, hVal, mc1, mc2)
 
+            # Définition de la fonction a retourner
             def fun(r, p):
                 rvalue = _fVal(r, p)
                 return rvalue
         else:
             raise KeyError("%s non défint" % fType)
+        # Ajout des params des fonctions
+        self.funParam[fType] = kwargs
         # Renvoit de la fonction générée
         return fun
 
-    def getParams(self):
-        print('hey')
+    def getParams(self, *args):
+        if args:
+            rvalue = {key: self.funParam[key] for key in args}
+        else:
+            rvalue = self.funParam
+        return rvalue
