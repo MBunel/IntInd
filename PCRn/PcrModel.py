@@ -198,7 +198,7 @@ class Model:
         nodes = []
         for i in G.nodes():
             node = G.node[i]
-            node['fun'] = node['fun'].getParams()
+            node['funParams'] = node['fun'].getParams()
             nodeParams = (i, node)
             nodes.append(nodeParams)
         return nodes
