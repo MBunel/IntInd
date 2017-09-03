@@ -12,7 +12,7 @@ class dbConnector:
         # TODO: remplacer par un import
         self.time = np.arange(0, 60, 0.1)
 
-        self.pcrCol = ('B1', 'B2', 'C1', 'C2')
+        self.pcrCol = ('B1', 'B2', 'C1', 'C2', 'S1', 'S2')
 
     # Transaction principale
     # Le décorateur rend la transaction atomique
@@ -61,6 +61,13 @@ class dbConnector:
         print(__name__)
 
     def PcrWrite(self, pcrList):
+        # ajout _h
+        # hdbline = _h.objects.filter(hmax__exact)
+        # ajout H
+        # ajout F
+        # ajout G
+
+        # Extraction params fun
 
         # Nettoyage de pcrList
         # On supprime du dictionnaire les valeurs non utilisées
@@ -85,18 +92,20 @@ class dbConnector:
             dbline = Pcr.objects.filter(b1__exact=i[1]['B1'],
                                         b2__exact=i[1]['B2'],
                                         c1__exact=i[1]['C1'],
-                                        c2__exact=i[1]['C2'],
-                                        s1__exact=i[1]['S1'],
-                                        s2__exact=i[1]['S2'])
+                                        c2__exact=i[1]['C2']
+                                        # s1__exact=i[1]['S1'],
+                                        # s2__exact=i[1]['S2']
+            )
             # Si ce n'est pas le cas on en crée une nouvelle
             if not dbline:
                 # On ajoute une ligne
                 pcr = Pcr(b1=i[1]['B1'],
                           b2=i[1]['B2'],
                           c1=i[1]['C1'],
-                          c2=i[1]['C2'],
-                          s1=i[1]['S1'],
-                          s2=i[1]['S2'])
+                          c2=i[1]['C2']
+                          # s1=i[1]['S1'],
+                          # s2=i[1]['S2']
+                )
                 pcr.save()
             else:
                 # Si la ligne existe déjà
