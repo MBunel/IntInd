@@ -74,28 +74,28 @@ class Model:
         # r, c, p, q, b = X
 
         # Calcul de l'effectif des raisonnés
-        dr = self.gamma(t) * q * (1-r) - \
+        dr = node['fun'].gamma(t) * q * (1-r) - \
             (node['B1'] + node['B2']) * r + \
-            self.F(r, c) * r * c + \
-            self.G(r, p) * r * p
+            node['fun'].F(r, c) * r * c + \
+            node['fun'].G(r, p) * r * p
 
         # Effectif des contrôlés
         dc = node['B1'] * r + \
             node['C1'] * p - \
             node['C2'] * c - \
-            self.F(r, c) * r * c + \
-            self.H(c, p) * c * p - \
-            node['phi'](t) * c * (r + c + p + q)
+            node['fun'].F(r, c) * r * c + \
+            node['fun'].H(c, p) * c * p - \
+            node['fun'].phi(t) * c * (r + c + p + q)
 
         # Effectif des paniqués
         dp = node['B2'] * r - \
             node['C1'] * p + \
             node['C2'] * c - \
-            self.G(r, p) * r * p - \
-            self.H(c, p) * c * p
+            node['fun'].G(r, p) * r * p - \
+            node['fun'].H(c, p) * c * p
 
         # Comportements du quotidien
-        dq = -self.gamma(t) * q * (1 - r)
+        dq = -node['fun'].gamma(t) * q * (1 - r)
 
         # Et db ?
         # db = self.phi(t)*c(1-b)
@@ -261,6 +261,9 @@ class Model:
         paramsF = {'Al1': 0.1, 'Al2': 0.1}
         paramsG = {'Del1': 0.1, 'Del2': 0.1}
 
+        # Création d'un objet NodeFunction
+        # À modifier pour qu'un nouvel objet
+        # soit crée pour chaque noeud
         nF = NodeFunction()
 
         # Création du graphe
@@ -270,24 +273,23 @@ class Model:
             [
                 (0, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG,
-                     'phi': nF.phi}),
+                     'fun': nF}),
                 (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
                      'H': paramsH, 'F': paramsF, 'G': paramsG,
-                     'phi': nF.phi}),
+                     'fun': nF}),
                 (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
                      'H': paramsH, 'F': paramsF, 'G': paramsG,
-                     'phi': nF.phi}),
+                     'fun': nF}),
                 (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
                      'H': paramsH, 'F': paramsF, 'G': paramsG,
-                     'phi': nF.phi}),
+                     'fun': nF}),
                 (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
                      'H': paramsH, 'F': paramsF, 'G': paramsG,
-                     'phi': nF.phi})
+                     'fun': nF})
             ],
             [(0, 3), (1, 3), (2, 4)])
 
