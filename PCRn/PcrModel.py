@@ -195,7 +195,12 @@ class Model:
         return Graph
 
     def exportNodes(self, G):
-        nodes = [(i, G.node[i]) for i in G.nodes()]
+        nodes = []
+        for i in G.nodes():
+            node = G.node[i]
+            node['fun'] = node['fun'].getParams()
+            nodeParams = (i, node)
+            nodes.append(nodeParams)
         return nodes
 
     def adjacencyMatrix(self, N: int, edges: list) -> np.array:
@@ -256,11 +261,6 @@ class Model:
 
     def runSimulation(self, endT=60, stepT=0.1):
 
-        # centralisation params function, à enlever
-        paramsH = {'Mu1': 0.1, 'Mu2': 0.1},
-        paramsF = {'Al1': 0.1, 'Al2': 0.1}
-        paramsG = {'Del1': 0.1, 'Del2': 0.1}
-
         # Création d'un objet NodeFunction
         # À modifier pour qu'un nouvel objet
         # soit crée pour chaque noeud
@@ -276,19 +276,15 @@ class Model:
                      'fun': nF}),
                 (1, {'B1': 0.5, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG,
                      'fun': nF}),
                 (2, {'B1': 0.2, 'B2': 0.5, 'C1': 0,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG,
                      'fun': nF}),
                 (3, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG,
                      'fun': nF}),
                 (4, {'B1': 0.5, 'B2': 0.4, 'C1': 0.3,
                      'C2': 0.2, 'S1': 0, 'S2': 0,
-                     'H': paramsH, 'F': paramsF, 'G': paramsG,
                      'fun': nF})
             ],
             [(0, 3), (1, 3), (2, 4)])
